@@ -1,6 +1,4 @@
-﻿
-
-namespace Data.Repository
+﻿namespace Data.Repository
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
     {
@@ -192,6 +190,12 @@ namespace Data.Repository
             }
             return result;
         }
+        public virtual IQueryable<T> GetByCondition(Expression<Func<T, bool>> whereCondition)
+        {
+            var result = _context.Set<T>().Where(whereCondition);
+            return result;
+        }
+
         public virtual T GetByID(long ID)
         {
             var result = _context.Set<T>().AsNoTracking().FirstOrDefault(model => model.ID == ID);
@@ -230,6 +234,60 @@ namespace Data.Repository
         public virtual async Task<List<T>> GetByPageAndPageSizeToListAsync(int page, int pageSize)
         {
             var result = await _context.Set<T>().Skip(page * pageSize).Take(pageSize).ToListAsync();
+            return result;
+        }
+        public virtual string ExecuteNonQueryByStoredProcedure(string storedProcedureName, params SqlParameter[] parameters)
+        {
+            var result = GlobalHelper.InitializationString;
+            try
+            {
+                result = SQLHelper.ExecuteNonQuery(_context.Database.GetConnectionString(), storedProcedureName, parameters);
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+            }
+            return result;
+        }
+        public virtual async Task<string> ExecuteNonQueryByStoredProcedureAsync(string storedProcedureName, params SqlParameter[] parameters)
+        {
+            var result = GlobalHelper.InitializationString;
+            try
+            {
+                result = await SQLHelper.ExecuteNonQueryAsync(_context.Database.GetConnectionString(), storedProcedureName, parameters);
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+            }
+            return result;
+        }
+        public virtual List<T> GetByStoredProcedureToList(string storedProcedureName, params SqlParameter[] parameters)
+        {
+            List<T> result = new List<T>();
+            try
+            {
+                DataTable dt = SQLHelper.FillDataTable(_context.Database.GetConnectionString(), storedProcedureName, parameters);
+                result = SQLHelper.ToList<T>(dt);
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+            }
+            return result;
+        }
+        public virtual async Task<List<T>> GetByStoredProcedureToListAsync(string storedProcedureName, params SqlParameter[] parameters)
+        {
+            List<T> result = new List<T>();
+            try
+            {
+                DataTable dt = await SQLHelper.FillDataTableAsync(_context.Database.GetConnectionString(), storedProcedureName, parameters);
+                result = SQLHelper.ToList<T>(dt);
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+            }
             return result;
         }
     }

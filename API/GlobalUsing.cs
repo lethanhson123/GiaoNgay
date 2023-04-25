@@ -19,3 +19,8 @@ global using Data.Repository.Interface;
 global using Swashbuckle.AspNetCore.SwaggerGen;
 
 global using API;
+
+global using Service.Interface;
+
+global using Helper;
+global using Newtonsoft.Json;

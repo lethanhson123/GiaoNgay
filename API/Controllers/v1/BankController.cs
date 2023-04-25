@@ -3,12 +3,12 @@
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
-    public class BankController : BaseController<Bank, IBankRepository>
+    public class BankController : BaseController<Bank, IBankBusiness>
     {
-        private readonly IBankRepository _bankRepository;
-        public BankController(IBankRepository bankRepository) : base(bankRepository)
+        private readonly IBankBusiness _bankBusiness;
+        public BankController(IBankBusiness bankBusiness) : base(bankBusiness)
         {
-            _bankRepository = bankRepository;
+            _bankBusiness = bankBusiness;
         }
     }
 }

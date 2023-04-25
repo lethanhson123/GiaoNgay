@@ -1,5 +1,7 @@
 
 
+using Service.Implement;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -29,6 +31,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
 builder.Services.AddDbContext<GiaoNgayContext>();
+builder.Services.AddTransient<IBankBusiness, BankBusiness>();
 builder.Services.AddTransient<IBankRepository, BankRepository>();
 
 var app = builder.Build();
