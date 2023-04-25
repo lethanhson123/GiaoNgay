@@ -13,41 +13,42 @@ namespace API.Controllers
             _baseBusiness = baseBusiness;
         }
 
-        [HttpGet]
-        public virtual async Task<ActionResult<List<T>>> GetAsync()
-        {
-            var result = await _baseBusiness.GetAllToListAsync();
-            return Ok(result);
-        }
-        [HttpGet]
-        [Route("{id}")]
-        public virtual async Task<ActionResult<T>> GetAsync(int id)
-        {
-            var result = await _baseBusiness.GetByIDAsync(id);
-            return Ok(result);
-        }
-        [HttpPost]
-        public virtual async Task<ActionResult<int>> CreateAsync(T t)
-        {
-            var result = await _baseBusiness.AddAsync(t);
-            return Ok(result);
-        }
-        [HttpPut]
-        [Route("{id}")]
-        public virtual async Task<ActionResult<int>> UpdateAsync(T t)
-        {
-            var result = await _baseBusiness.UpdateAsync(t);
-            return Ok(result);
-        }
-        [HttpDelete]
-        [Route("{id}")]
-        public virtual async Task<ActionResult<int>> DeleteAsync(int id)
-        {
-            var result = await _baseBusiness.RemoveAsync(id);
-            return Ok(result);
-        }
+        //[HttpGet]
+        //public virtual async Task<ActionResult<List<T>>> GetAsync()
+        //{
+        //    var result = await _baseBusiness.GetAllToListAsync();
+        //    return Ok(result);
+        //}
+        //[HttpGet]
+        //[Route("{id}")]
+        //public virtual async Task<ActionResult<T>> GetAsync(int id)
+        //{
+        //    var result = await _baseBusiness.GetByIDAsync(id);
+        //    return Ok(result);
+        //}
+        //[HttpPost]
+        //public virtual async Task<ActionResult<int>> CreateAsync(T t)
+        //{
+        //    var result = await _baseBusiness.AddAsync(t);
+        //    return Ok(result);
+        //}
+        //[HttpPut]
+        //[Route("{id}")]
+        //public virtual async Task<ActionResult<int>> UpdateAsync(T t)
+        //{
+        //    var result = await _baseBusiness.UpdateAsync(t);
+        //    return Ok(result);
+        //}
+        //[HttpDelete]
+        //[Route("{id}")]
+        //public virtual async Task<ActionResult<int>> DeleteAsync(int id)
+        //{
+        //    var result = await _baseBusiness.RemoveAsync(id);
+        //    return Ok(result);
+        //}
 
         [HttpPost]
+        [Route("Save")]
         public virtual T Save()
         {
             T result = JsonConvert.DeserializeObject<T>(Request.Form["data"]);
@@ -62,6 +63,7 @@ namespace API.Controllers
             return result;
         }
         [HttpPost]
+        [Route("SaveAsync")]
         public virtual async Task<T> SaveAsync()
         {
             T result = JsonConvert.DeserializeObject<T>(Request.Form["data"]);
@@ -76,6 +78,7 @@ namespace API.Controllers
             return result;
         }
         [HttpPost]
+        [Route("Remove")]
         public virtual int Remove()
         {
             long ID = JsonConvert.DeserializeObject<long>(Request.Form["data"]);
@@ -83,6 +86,7 @@ namespace API.Controllers
             return result;
         }
         [HttpPost]
+        [Route("RemoveAsync")]
         public virtual async Task<int> RemoveAsync()
         {
             long ID = JsonConvert.DeserializeObject<long>(Request.Form["data"]);
@@ -91,6 +95,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [Route("GetByID")]
         public virtual T GetByID()
         {
             long ID = JsonConvert.DeserializeObject<long>(Request.Form["data"]);
@@ -98,6 +103,7 @@ namespace API.Controllers
             return result;
         }
         [HttpPost]
+        [Route("GetByIDAsync")]
         public virtual async Task<T> GetByIDAsync()
         {
             long ID = JsonConvert.DeserializeObject<long>(Request.Form["data"]);
@@ -106,12 +112,14 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [Route("GetAllToList")]
         public virtual List<T> GetAllToList()
         {
             var result = _baseBusiness.GetAllToList();
             return result;
         }
         [HttpPost]
+        [Route("GetAllToListAsync")]
         public virtual async Task<List<T>> GetAllToListAsync()
         {
             var result = await _baseBusiness.GetAllToListAsync();

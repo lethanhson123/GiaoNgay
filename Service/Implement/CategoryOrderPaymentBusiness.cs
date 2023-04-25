@@ -1,4 +1,4 @@
-﻿namespace Service.Implement
+﻿namespace Business.Implement
 {
 	public class CategoryOrderPaymentBusiness : BaseBusiness<CategoryOrderPayment, ICategoryOrderPaymentRepository>, ICategoryOrderPaymentBusiness
     {

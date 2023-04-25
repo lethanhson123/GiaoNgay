@@ -20,7 +20,8 @@ global using Swashbuckle.AspNetCore.SwaggerGen;
 
 global using API;
 
-global using Service.Interface;
+global using Business.Interface;
+global using Business.Implement;
 
 global using Helper;
 global using Newtonsoft.Json;

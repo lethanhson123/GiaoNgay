@@ -1,4 +1,4 @@
-﻿namespace Service.Interface
+﻿namespace Business.Interface
 {
 	public interface ICompanyProfileBusiness : IBaseBusiness<CompanyProfile>
 	{		

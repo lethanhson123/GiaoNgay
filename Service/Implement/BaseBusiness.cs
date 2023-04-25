@@ -1,4 +1,4 @@
-﻿namespace Service.Implement
+﻿namespace Business.Implement
 {
     public class BaseBusiness<T, TRepository> : IBaseBusiness<T>
         where T : BaseModel
