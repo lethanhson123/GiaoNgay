@@ -16,4 +16,10 @@
     <ProjectReference Include="..\Business\Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Image\" />
+    <Folder Include="wwwroot\Membership\" />
+    <Folder Include="wwwroot\OrderDelivery\" />
+  </ItemGroup>
+
 </Project>

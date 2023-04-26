@@ -12,11 +12,15 @@ import { ChartsModule } from 'ng2-charts';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { AppComponent } from './app.component';
+import { BankComponent } from './bank/bank.component';
+import { BankDetailComponent } from './Bank/bank-detail/bank-detail.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent    
+    AppComponent,
+    BankComponent,
+    BankDetailComponent    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

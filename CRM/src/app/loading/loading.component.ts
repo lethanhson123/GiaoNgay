@@ -9,7 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class LoadingComponent implements OnInit {
 
-  loadingURL: string = environment.APIURL + "images/loading.gif";
+  loadingURL: string = environment.APIURL + "Image/loading.gif";
   cssBackGround: any;
   cssDim: any;
   constructor(private sanitizer: DomSanitizer) {
