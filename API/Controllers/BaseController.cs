@@ -110,7 +110,13 @@ namespace API.Controllers
             T result = await _baseBusiness.GetByIDAsync(ID);
             return result;
         }
-
+        [HttpGet]
+        [Route("GetByIDAsync2023")]
+        public virtual async Task<T> GetByIDAsync2023(long ID)
+        {            
+            T result = await _baseBusiness.GetByIDAsync(ID);
+            return result;
+        }
         [HttpPost]
         [Route("GetAllToList")]
         public virtual List<T> GetAllToList()
@@ -124,6 +130,6 @@ namespace API.Controllers
         {
             var result = await _baseBusiness.GetAllToListAsync();
             return result;
-        }
+        }        
     }
 }

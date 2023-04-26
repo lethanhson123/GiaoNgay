@@ -17,7 +17,7 @@ import { BankDetailComponent } from './bank-detail/bank-detail.component';
 export class BankComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'Name', 'Code', 'Active', 'actions'];
+  displayColumns: string[] = ['ID', 'Name', 'Display', 'Code', 'Active', 'actions'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
@@ -37,6 +37,11 @@ export class BankComponent implements OnInit {
       res => {
         this.isShowLoading = false;
         this.BankService.list = res as Bank[];
+        console.log(this.BankService.list);
+        this.dataSource = new MatTableDataSource(this.BankService.list.sort((a, b) => (a.Name > b.Name ? 1 : -1)));
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.isShowLoading = false;
       },
       err => {
         this.isShowLoading = false;
@@ -55,6 +60,7 @@ export class BankComponent implements OnInit {
     this.BankService.GetByIDAsync(ID).subscribe(
       res => {
         this.BankService.formData = res as Bank;
+        console.log(this.BankService.formData);
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;

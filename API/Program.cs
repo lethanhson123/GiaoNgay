@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null); ;
 
 
 builder.Services.AddApiVersioning(opt =>
@@ -88,10 +88,22 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseCors(options =>
+             options.AllowAnyOrigin()
+             .AllowAnyMethod()
+             .AllowAnyHeader());
+
 app.UseHttpsRedirection();
+
+app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseStaticFiles();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.Run();

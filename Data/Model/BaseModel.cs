@@ -17,7 +17,7 @@ namespace Data.Model
         public string? Note { get; set; }
         public bool? Active { get; set; }        
         public BaseModel()
-		{
-		}
+		{            
+        }
 	}
 }

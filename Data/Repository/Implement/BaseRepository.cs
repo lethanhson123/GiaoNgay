@@ -1,4 +1,6 @@
-﻿namespace Data.Repository
+﻿using System;
+
+namespace Data.Repository
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
     {
@@ -202,6 +204,7 @@
             if (result == null)
             {
                 result = (T)Activator.CreateInstance(typeof(T));
+                result.Active = GlobalHelper.InitializationBool;
             }
             return result;
         }
@@ -211,6 +214,7 @@
             if (result == null)
             {
                 result = (T)Activator.CreateInstance(typeof(T));
+                result.Active = GlobalHelper.InitializationBool;
             }
             return result;
         }

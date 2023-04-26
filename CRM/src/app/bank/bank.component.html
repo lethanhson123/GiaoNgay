@@ -52,26 +52,23 @@
                                 <ng-container matColumnDef="Name">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Ngân hàng
                                     </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"><b>{{element.Name}}</b></mat-cell>
-                                </ng-container>                                                                                                                    
+                                    <mat-cell *matCellDef="let element">{{element.Name}}</mat-cell>
+                                </ng-container>         
+                                <ng-container matColumnDef="Display">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Hiển thị
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"><b>{{element.Display}}</b></mat-cell>
+                                </ng-container>   
                                 <ng-container matColumnDef="Code">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Code
                                     </mat-header-cell>
-                                    <mat-cell *matCellDef="let element">
-                                        <div>
-                                            {{element.Code}}
-                                        </div>
-                                    </mat-cell>
-                                </ng-container>   
+                                    <mat-cell *matCellDef="let element">{{element.Code}}</mat-cell>
+                                </ng-container>           
                                 <ng-container matColumnDef="Active">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Kích hoạt
                                     </mat-header-cell>
-                                    <mat-cell *matCellDef="let element">
-                                        <div>
-                                            {{element.Active}}
-                                        </div>
-                                    </mat-cell>
-                                </ng-container>                                   
+                                    <mat-cell *matCellDef="let element">{{element.Active}}</mat-cell>
+                                </ng-container>                                                                                                                                                                     
                                 <ng-container matColumnDef="actions">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>
                                     </mat-header-cell>
