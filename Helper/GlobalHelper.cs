@@ -3,6 +3,13 @@
     public class GlobalHelper
     {
         #region Initialization
+        public static bool InitializationBool
+        {
+            get
+            {
+                return true;
+            }
+        }
         public static string InitializationString
         {
             get

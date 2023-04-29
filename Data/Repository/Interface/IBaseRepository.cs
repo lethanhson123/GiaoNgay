@@ -1,25 +1,32 @@
-﻿namespace Data.Repository
+﻿
+
+namespace Data.Repository
 {
     public interface IBaseRepository<T> where T : BaseModel
     {
-        public DbSet<T> DbSet();
-        public int Add(T model);
-        public Task<int> AddAsync(T model);
-        public int Update(T model);
-        public Task<int> UpdateAsync(T model);
-        public int Remove(long ID);
-        public Task<int> RemoveAsync(long ID);
-        public int AddRange(List<T> list);
-        public Task<int> AddRangeAsync(List<T> list);
-        public int UpdateRange(List<T> list);
-        public Task<int> UpdateRangeAsync(List<T> list);
-        public int RemoveRange(List<T> list);
-        public Task<int> RemoveRangeAsync(List<T> list);
-        public T GetByID(long ID);
-        public Task<T> GetByIDAsync(long ID);
-        public List<T> GetAllToList();
-        public Task<List<T>> GetAllToListAsync();
-        public List<T> GetByPageAndPageSizeToList(int page, int pageSize);
-        public Task<List<T>> GetByPageAndPageSizeToListAsync(int page, int pageSize);
+        DbSet<T> DbSet();
+        int Add(T model);
+        Task<int> AddAsync(T model);
+        int Update(T model);
+        Task<int> UpdateAsync(T model);
+        int Remove(long ID);
+        Task<int> RemoveAsync(long ID);
+        int AddRange(List<T> list);
+        Task<int> AddRangeAsync(List<T> list);
+        int UpdateRange(List<T> list);
+        Task<int> UpdateRangeAsync(List<T> list);
+        int RemoveRange(List<T> list);
+        Task<int> RemoveRangeAsync(List<T> list);
+        IQueryable<T> GetByCondition(Expression<Func<T, bool>> whereCondition);
+        T GetByID(long ID);
+        Task<T> GetByIDAsync(long ID);
+        List<T> GetAllToList();
+        Task<List<T>> GetAllToListAsync();
+        List<T> GetByPageAndPageSizeToList(int page, int pageSize);
+        Task<List<T>> GetByPageAndPageSizeToListAsync(int page, int pageSize);
+        string ExecuteNonQueryByStoredProcedure(string storedProcedureName, params SqlParameter[] parameters);
+        Task<string> ExecuteNonQueryByStoredProcedureAsync(string storedProcedureName, params SqlParameter[] parameters);
+        List<T> GetByStoredProcedureToList(string storedProcedureName, params SqlParameter[] parameters);
+        Task<List<T>> GetByStoredProcedureToListAsync(string storedProcedureName, params SqlParameter[] parameters);
     }
 }
