@@ -1,0 +1,195 @@
+<div class="row">
+    <div id="breadcrumbs-wrapper"
+        data-image="https://crm.thontrang.com/app-assets/images/gallery/breadcrumb-bg.jpg"
+        style="color: #ffffff; background: rgb(40,70,99); background: linear-gradient(90deg, rgba(40,70,99,1) 0%, rgba(62,110,159,1) 35%, rgba(106,179,245,1) 100%);">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m6 l6">
+                    <h5 class="breadcrumbs-title mt-0 mb-0" style="color: #ffffff;">Upload</h5>
+                </div>
+                <div class="col s12 m6 l6 right-align-md" style="color: #ffffff;">
+                    <ol class="breadcrumbs mb-0">
+                        <li class="breadcrumb-item"><a href="#" style="color: #ffffff;">CRM</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="#" style="color: #ffffff;">Upload</a>
+                        </li>
+                        <li class="breadcrumb-item active" style="color: #ffffff;">Upload
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s12">
+        <div class="container">
+            <div class="section section-data-tables">
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="card card card-default scrollspy">
+                            <div class="card-content">
+                                <div class="col s12 m12 l12">
+                                    <h3 class="card-title"><b>Ngân hàng:</b></h3>
+                                </div>                               
+                                <div class="row">
+                                    <div class="col s12 m12 l4">                                        
+                                        <div class="input-field col s12">
+                                            Bước 01: <a target="_blank" href="{{excelTemplateBankURL}}">Tải về</a> file
+                                            excel mẫu
+                                        </div>
+                                        <div class="input-field col s12">
+                                            Bước 02: Chọn file excel có dữ liệu:
+                                            <input type="file" #uploadBank (change)="changeBank($event.target.files)">
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <button [disabled]="!isBank" class="btn btn-primary" (click)="onSubmitBank()">Upload</button>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m12 l8">
+                                        <div class="KhungOverflow">
+                                            <mat-table [dataSource]="dataSourceBank" matSort>                                                                                                                                                                                                                                                                                                                                                                  
+                                                <ng-container matColumnDef="Display">
+                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Ngân hàng
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let element">{{element.Display}}</mat-cell>
+                                                </ng-container>                                                                                                               
+                                                <ng-container matColumnDef="loading">
+                                                    <mat-footer-cell *matFooterCellDef colspan="4">
+                                                        Đang tải dữ liệu...
+                                                    </mat-footer-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="noData">
+                                                    <mat-footer-cell *matFooterCellDef colspan="4">
+                                                        Chưa có dữ liệu.
+                                                    </mat-footer-cell>
+                                                </ng-container>
+                                                <mat-header-row *matHeaderRowDef="displayColumnsBank"></mat-header-row>
+                                                <mat-row *matRowDef="let row; columns: displayColumnsBank;"></mat-row>
+                                                <mat-footer-row *matFooterRowDef="['loading']"
+                                                    [ngClass]="{'hide':dataSourceBank!=null}"></mat-footer-row>
+                                                <mat-footer-row *matFooterRowDef="['noData']"
+                                                    [ngClass]="{'hide':!(dataSourceBank!=null && dataSourceBank.data.length==0)}">
+                                                </mat-footer-row>
+                                            </mat-table>
+                                            <mat-paginator [pageSizeOptions]="[10,20,50,100]" [pageSize]="10"
+                                                [showFirstLastButtons]></mat-paginator>                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="col s12 m12 l6">
+                        <div class="card card card-default scrollspy">
+                            <div class="card-content">
+                                <div class="col s12 m12 l12">
+                                    <h3 class="card-title"><b>Quận huyện:</b></h3>
+                                </div>                               
+                                <div class="row">
+                                    <div class="col s12 m12 l4">                                        
+                                        <div class="input-field col s12">
+                                            Bước 01: <a target="_blank" href="{{excelTemplateDistrictURL}}">Tải về</a> file
+                                            excel mẫu
+                                        </div>
+                                        <div class="input-field col s12">
+                                            Bước 02: Chọn file excel có dữ liệu:
+                                            <input type="file" #uploadDistrict (change)="changeDistrict($event.target.files)">
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <button [disabled]="!isDistrict" class="btn btn-primary" (click)="onSubmitDistrict()">Upload</button>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m12 l8">
+                                        <div class="KhungOverflow">
+                                            <mat-table [dataSource]="dataSourceDistrict" matSort>                                                                                                                                                                                                                                                                                                                                                                  
+                                                <ng-container matColumnDef="Display">
+                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Quận huyện
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let element">{{element.Display}}</mat-cell>
+                                                </ng-container>                                                                                                            
+                                                <ng-container matColumnDef="loading">
+                                                    <mat-footer-cell *matFooterCellDef colspan="4">
+                                                        Đang tải dữ liệu...
+                                                    </mat-footer-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="noData">
+                                                    <mat-footer-cell *matFooterCellDef colspan="4">
+                                                        Chưa có dữ liệu.
+                                                    </mat-footer-cell>
+                                                </ng-container>
+                                                <mat-header-row *matHeaderRowDef="displayColumnsDistrict"></mat-header-row>
+                                                <mat-row *matRowDef="let row; columns: displayColumnsDistrict;"></mat-row>
+                                                <mat-footer-row *matFooterRowDef="['loading']"
+                                                    [ngClass]="{'hide':dataSourceDistrict!=null}"></mat-footer-row>
+                                                <mat-footer-row *matFooterRowDef="['noData']"
+                                                    [ngClass]="{'hide':!(dataSourceDistrict!=null && dataSourceDistrict.data.length==0)}">
+                                                </mat-footer-row>
+                                            </mat-table>
+                                            <mat-paginator [pageSizeOptions]="[10,20,50,100]" [pageSize]="10"
+                                                [showFirstLastButtons]></mat-paginator>                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="col s12 m12 l6">
+                        <div class="card card card-default scrollspy">
+                            <div class="card-content">
+                                <div class="col s12 m12 l12">
+                                    <h3 class="card-title"><b>Xã phường:</b></h3>
+                                </div>                               
+                                <div class="row">
+                                    <div class="col s12 m12 l4">                                        
+                                        <div class="input-field col s12">
+                                            Bước 01: <a target="_blank" href="{{excelTemplateWardURL}}">Tải về</a> file
+                                            excel mẫu
+                                        </div>
+                                        <div class="input-field col s12">
+                                            Bước 02: Chọn file excel có dữ liệu:
+                                            <input type="file" #uploadWard (change)="changeWard($event.target.files)">
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <button [disabled]="!isWard" class="btn btn-primary" (click)="onSubmitWard()">Upload</button>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m12 l8">
+                                        <div class="KhungOverflow">
+                                            <mat-table [dataSource]="dataSourceWard" matSort>                                                                                                                                                                                                                                                                                                                                                                  
+                                                <ng-container matColumnDef="Display">
+                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Xã phường
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let element">{{element.Display}}</mat-cell>
+                                                </ng-container>                                                                                                            
+                                                <ng-container matColumnDef="loading">
+                                                    <mat-footer-cell *matFooterCellDef colspan="4">
+                                                        Đang tải dữ liệu...
+                                                    </mat-footer-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="noData">
+                                                    <mat-footer-cell *matFooterCellDef colspan="4">
+                                                        Chưa có dữ liệu.
+                                                    </mat-footer-cell>
+                                                </ng-container>
+                                                <mat-header-row *matHeaderRowDef="displayColumnsWard"></mat-header-row>
+                                                <mat-row *matRowDef="let row; columns: displayColumnsWard;"></mat-row>
+                                                <mat-footer-row *matFooterRowDef="['loading']"
+                                                    [ngClass]="{'hide':dataSourceWard!=null}"></mat-footer-row>
+                                                <mat-footer-row *matFooterRowDef="['noData']"
+                                                    [ngClass]="{'hide':!(dataSourceWard!=null && dataSourceWard.data.length==0)}">
+                                                </mat-footer-row>
+                                            </mat-table>
+                                            <mat-paginator [pageSizeOptions]="[10,20,50,100]" [pageSize]="10"
+                                                [showFirstLastButtons]></mat-paginator>                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-loading *ngIf="isShowLoading"></app-loading>

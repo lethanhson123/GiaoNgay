@@ -7,19 +7,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Membership\**" />
+    <Compile Remove="wwwroot\OrderDelivery\**" />
+    <Content Remove="wwwroot\Membership\**" />
+    <Content Remove="wwwroot\OrderDelivery\**" />
+    <EmbeddedResource Remove="wwwroot\Membership\**" />
+    <EmbeddedResource Remove="wwwroot\OrderDelivery\**" />
+    <None Remove="wwwroot\Membership\**" />
+    <None Remove="wwwroot\OrderDelivery\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus.Core" Version="1.5.4" />
+    <PackageReference Include="Microsoft.OpenApi" Version="1.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Business\Business.csproj" />
+    <Folder Include="wwwroot\Image\" />
+    <Folder Include="wwwroot\Download\" />
+    <Folder Include="wwwroot\Upload\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Image\" />
-    <Folder Include="wwwroot\Membership\" />
-    <Folder Include="wwwroot\OrderDelivery\" />
+    <ProjectReference Include="..\Business\Business.csproj" />
   </ItemGroup>
 
 </Project>

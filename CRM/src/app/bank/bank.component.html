@@ -1,7 +1,6 @@
 <div class="row">
     <div id="breadcrumbs-wrapper" data-image="https://crm.thontrang.com/app-assets/images/gallery/breadcrumb-bg.jpg"
-        style="color: #ffffff; background: rgb(40,70,99); background: linear-gradient(90deg, rgba(40,70,99,1) 0%, rgba(62,110,159,1) 35%, rgba(106,179,245,1) 100%);">
-        <!-- Search for small screen-->
+        style="color: #ffffff; background: rgb(40,70,99); background: linear-gradient(90deg, rgba(40,70,99,1) 0%, rgba(62,110,159,1) 35%, rgba(106,179,245,1) 100%);">        
         <div class="container">
             <div class="row">
                 <div class="col s12 m6 l6">
@@ -39,47 +38,22 @@
                                     class="material-icons">add</i></a>&nbsp;&nbsp;&nbsp;
                         </div>
                         <div class="KhungOverflow">
-                            <mat-table [dataSource]="dataSource" matSort>                                                                                                                      
+                            <mat-table [dataSource]="dataSource" matSort> 
                                 <ng-container matColumnDef="ID">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>ID
                                     </mat-header-cell>
-                                    <mat-cell *matCellDef="let element">
-                                        <div>
-                                            {{element.ID}}
-                                        </div>                                                    
-                                    </mat-cell>
-                                </ng-container>                                                                                                    
-                                <ng-container matColumnDef="Name">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Ngân hàng
-                                    </mat-header-cell>
-                                    <mat-cell *matCellDef="let element">{{element.Name}}</mat-cell>
-                                </ng-container>         
+                                    <mat-cell *matCellDef="let element">{{element.ID}}</mat-cell>
+                                </ng-container>                                   
                                 <ng-container matColumnDef="Display">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Hiển thị
                                     </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"><b>{{element.Display}}</b></mat-cell>
-                                </ng-container>   
-                                <ng-container matColumnDef="Code">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Code
-                                    </mat-header-cell>
-                                    <mat-cell *matCellDef="let element">{{element.Code}}</mat-cell>
-                                </ng-container>           
+                                    <mat-cell *matCellDef="let element"><a style="cursor: pointer;" (click)="onAdd(element.ID)"><b>{{element.Display}}</b></a></mat-cell>
+                                </ng-container>                                   
                                 <ng-container matColumnDef="Active">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Kích hoạt
                                     </mat-header-cell>
                                     <mat-cell *matCellDef="let element">{{element.Active}}</mat-cell>
-                                </ng-container>                                                                                                                                                                     
-                                <ng-container matColumnDef="actions">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>
-                                    </mat-header-cell>
-                                    <mat-cell *matCellDef="let element">
-                                        <div style="padding-top: 5px; width: 100%; text-align: center;">
-                                            <a title="Chi tiết" (click)="onAdd(element.ID)"
-                                            class="mb-6 btn-floating waves-effect waves-light green darken-1"><i
-                                                class="material-icons">info</i></a>                                             
-                                        </div>
-                                    </mat-cell>
-                                </ng-container>
+                                </ng-container>                                                                          
                                 <ng-container matColumnDef="loading">
                                     <mat-footer-cell *matFooterCellDef colspan="4">
                                         Đang tải dữ liệu...

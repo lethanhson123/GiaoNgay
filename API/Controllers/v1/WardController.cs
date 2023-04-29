@@ -10,5 +10,14 @@
         {
             _wardBusiness = wardBusiness;
         }
+        [HttpPost]
+        [Route("GetByParentIDToListAsync")]
+        public virtual async Task<List<Ward>> GetByParentIDToListAsync()
+        {
+            List<Ward> list = new List<Ward>();
+            long parentID = JsonConvert.DeserializeObject<long>(Request.Form["data"]);
+            list = await _wardBusiness.GetByParentIDToListAsync(parentID);
+            return list;
+        }
     }
 }

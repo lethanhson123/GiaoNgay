@@ -13,14 +13,28 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { AppComponent } from './app.component';
 import { BankComponent } from './bank/bank.component';
-import { BankDetailComponent } from './Bank/bank-detail/bank-detail.component';
+import { BankDetailComponent } from './bank/bank-detail/bank-detail.component';
+import { UploadComponent } from './upload/upload.component';
+import { ProvinceComponent } from './province/province.component';
+import { DistrictComponent } from './district/district.component';
+import { WardComponent } from './ward/ward.component';
+import { ProvinceDetailComponent } from './province/province-detail/province-detail.component';
+import { DistrictDetailComponent } from './district/district-detail/district-detail.component';
+import { WardDetailComponent } from './ward/ward-detail/ward-detail.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     BankComponent,
-    BankDetailComponent    
+    BankDetailComponent,
+    UploadComponent,
+    ProvinceComponent,
+    DistrictComponent,
+    WardComponent,
+    ProvinceDetailComponent,
+    DistrictDetailComponent,
+    WardDetailComponent    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

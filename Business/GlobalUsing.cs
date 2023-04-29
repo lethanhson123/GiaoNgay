@@ -5,3 +5,5 @@ global using System.Data.SqlClient;
 global using Business.Interface;
 global using Data.Model;
 global using Data.Repository.Interface;
+global using Helper;
+global using Microsoft.EntityFrameworkCore;

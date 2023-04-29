@@ -3,6 +3,7 @@ export const environment = {
   DomainURL: "http://localhost:4200/",  
   DomainDestination: "http://localhost:4200/#/",  
   APIURL: "https://localhost:7080/api/v1/",    
+  APIRootURL: "https://localhost:7080/",    
   LoginURL: "http://login.giaongay.com.vn/",
   Website: "http://giaongay.com.vn/",
   Images: "images",  

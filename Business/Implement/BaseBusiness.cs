@@ -9,12 +9,17 @@
         {
             _repository = repository;
         }
+        public virtual void Initialization(T model)
+        {            
+        }
         public virtual int Add(T model)
         {
+            Initialization(model);
             return _repository.Add(model);
         }
         public virtual async Task<int> AddAsync(T model)
         {
+            Initialization(model);
             return await _repository.AddAsync(model);
         }
         public virtual int AddRange(List<T> list)
@@ -27,10 +32,12 @@
         }
         public virtual int Update(T model)
         {
+            Initialization(model);
             return _repository.Update(model);
         }
         public virtual async Task<int> UpdateAsync(T model)
         {
+            Initialization(model);
             return await _repository.UpdateAsync(model);
         }
         public virtual int Remove(long ID)

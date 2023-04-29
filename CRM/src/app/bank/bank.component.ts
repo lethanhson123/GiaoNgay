@@ -17,7 +17,7 @@ import { BankDetailComponent } from './bank-detail/bank-detail.component';
 export class BankComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'Name', 'Display', 'Code', 'Active', 'actions'];
+  displayColumns: string[] = ['ID', 'Display', 'Active'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
@@ -36,9 +36,8 @@ export class BankComponent implements OnInit {
     this.BankService.GetAllToListAsync().subscribe(
       res => {
         this.isShowLoading = false;
-        this.BankService.list = res as Bank[];
-        console.log(this.BankService.list);
-        this.dataSource = new MatTableDataSource(this.BankService.list.sort((a, b) => (a.Name > b.Name ? 1 : -1)));
+        this.BankService.list = res as Bank[];        
+        this.dataSource = new MatTableDataSource(this.BankService.list.sort((a, b) => (a.Code > b.Code ? 1 : -1)));
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.isShowLoading = false;
