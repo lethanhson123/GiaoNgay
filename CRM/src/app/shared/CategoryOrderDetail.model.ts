@@ -12,5 +12,7 @@ export class CategoryOrderDetail {
     Description?: string;    
     Note?: string;    
     Active?: boolean;     
+    Price?: number;    
+    Quatity?: number;    
 }
 

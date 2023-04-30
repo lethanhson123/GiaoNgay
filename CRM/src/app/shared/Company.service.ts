@@ -17,6 +17,20 @@ export class CompanyService {
         this.formData = {
         }
     }
+    SaveAndUploadFile(formData: Company, fileToUpload: FileList) {
+        let url = this.aPIURL + this.controller + '/SaveAndUploadFile';
+        const uploadData = JSON.stringify(formData);        
+        const formUpload: FormData = new FormData();
+        formUpload.append('data', uploadData);        
+        if (fileToUpload) {
+          if (fileToUpload.length > 0) {
+            for (var i = 0; i < fileToUpload.length; i++) {
+              formUpload.append('file[]', fileToUpload[i]);
+            }
+          }
+        }
+        return this.httpClient.post(url, formUpload);
+      }
     Save(formData: Company) {        
         let url = this.aPIURL + this.controller + '/Save';
         const uploadData = JSON.stringify(formData);

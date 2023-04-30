@@ -7,5 +7,6 @@
 		{
             _companyRepository = companyRepository;
 		}		
+
 	}
 }

@@ -2,8 +2,10 @@
 {
 	public interface IBaseBusiness<T>
 		where T : class		
-	{		
-		int Add(T model);
+	{
+		T Save(T model);
+		Task<T> SaveAsync(T model);
+        int Add(T model);
 		Task<int> AddAsync(T model);
 		Task<int> AddRangeAsync(List<T> list);
 		int AddRange(List<T> list);			

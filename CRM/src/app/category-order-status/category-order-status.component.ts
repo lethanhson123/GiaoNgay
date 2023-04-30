@@ -5,16 +5,17 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { Bank } from 'src/app/shared/Bank.model';
-import { BankService } from 'src/app/shared/Bank.service';
-import { BankDetailComponent } from './bank-detail/bank-detail.component';
+import { CategoryOrderStatus } from 'src/app/shared/CategoryOrderStatus.model';
+import { CategoryOrderStatusService } from 'src/app/shared/CategoryOrderStatus.service';
+import { CategoryOrderStatusDetailComponent } from './category-order-status-detail/category-order-status-detail.component';
+
 
 @Component({
-  selector: 'app-bank',
-  templateUrl: './bank.component.html',
-  styleUrls: ['./bank.component.css']
+  selector: 'app-category-order-status',
+  templateUrl: './category-order-status.component.html',
+  styleUrls: ['./category-order-status.component.css']
 })
-export class BankComponent implements OnInit {
+export class CategoryOrderStatusComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
   displayColumns: string[] = ['ID', 'Display', 'Active'];
@@ -23,7 +24,7 @@ export class BankComponent implements OnInit {
   isShowLoading: boolean = false;
   searchString: string = environment.InitializationString;
   constructor(
-    public BankService: BankService,
+    public CategoryOrderStatusService: CategoryOrderStatusService,
     public NotificationService: NotificationService,
     private dialog: MatDialog
   ) { }
@@ -33,11 +34,11 @@ export class BankComponent implements OnInit {
   }
   getToList() {
     this.isShowLoading = true;
-    this.BankService.GetAllToListAsync().subscribe(
+    this.CategoryOrderStatusService.GetAllToListAsync().subscribe(
       res => {
         this.isShowLoading = false;
-        this.BankService.list = res as Bank[];        
-        this.dataSource = new MatTableDataSource(this.BankService.list.sort((a, b) => (a.Code > b.Code ? 1 : -1)));
+        this.CategoryOrderStatusService.list = res as CategoryOrderStatus[];        
+        this.dataSource = new MatTableDataSource(this.CategoryOrderStatusService.list.sort((a, b) => (a.Code > b.Code ? 1 : -1)));
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.isShowLoading = false;
@@ -56,16 +57,16 @@ export class BankComponent implements OnInit {
     }
   }
   onAdd(ID: any) {
-    this.BankService.GetByIDAsync(ID).subscribe(
+    this.CategoryOrderStatusService.GetByIDAsync(ID).subscribe(
       res => {
-        this.BankService.formData = res as Bank;
-        console.log(this.BankService.formData);
+        this.CategoryOrderStatusService.formData = res as CategoryOrderStatus;
+        console.log(this.CategoryOrderStatusService.formData);
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         dialogConfig.width = environment.DialogConfigWidth;
         dialogConfig.data = { ID: ID };
-        const dialog = this.dialog.open(BankDetailComponent, dialogConfig);
+        const dialog = this.dialog.open(CategoryOrderStatusDetailComponent, dialogConfig);
         dialog.afterClosed().subscribe(() => {
           this.getToList();
         });

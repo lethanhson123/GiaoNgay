@@ -21,6 +21,16 @@ import { WardComponent } from './ward/ward.component';
 import { ProvinceDetailComponent } from './province/province-detail/province-detail.component';
 import { DistrictDetailComponent } from './district/district-detail/district-detail.component';
 import { WardDetailComponent } from './ward/ward-detail/ward-detail.component';
+import { CategoryMembershipComponent } from './category-membership/category-membership.component';
+import { CategoryMembershipDetailComponent } from './category-membership/category-membership-detail/category-membership-detail.component';
+import { CategoryOrderDetailComponent } from './category-order-detail/category-order-detail.component';
+import { CategoryOrderDetailDetailComponent } from './Category-Order-Detail/category-order-detail-detail/category-order-detail-detail.component';
+import { CategoryOrderPaymentComponent } from './category-order-payment/category-order-payment.component';
+import { CategoryOrderPaymentDetailComponent } from './Category-Order-Payment/category-order-payment-detail/category-order-payment-detail.component';
+import { CategoryOrderStatusComponent } from './category-order-status/category-order-status.component';
+import { CategoryOrderStatusDetailComponent } from './Category-Order-Status/category-order-status-detail/category-order-status-detail.component';
+import { CompanyComponent } from './company/company.component';
+import { CompanyDetailComponent } from './Company/company-detail/company-detail.component';
 
 
 @NgModule({
@@ -34,7 +44,17 @@ import { WardDetailComponent } from './ward/ward-detail/ward-detail.component';
     WardComponent,
     ProvinceDetailComponent,
     DistrictDetailComponent,
-    WardDetailComponent    
+    WardDetailComponent,
+    CategoryMembershipComponent,
+    CategoryMembershipDetailComponent,
+    CategoryOrderDetailComponent,
+    CategoryOrderDetailDetailComponent,
+    CategoryOrderPaymentComponent,
+    CategoryOrderPaymentDetailComponent,
+    CategoryOrderStatusComponent,
+    CategoryOrderStatusDetailComponent,
+    CompanyComponent,
+    CompanyDetailComponent    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

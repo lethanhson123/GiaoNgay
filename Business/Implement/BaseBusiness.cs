@@ -10,7 +10,33 @@
             _repository = repository;
         }
         public virtual void Initialization(T model)
+        {
+        }
+        public virtual T Save(T model)
         {            
+            Initialization(model);
+            if (model.ID > 0)
+            {
+                _repository.Update(model);
+            }
+            else
+            {
+                _repository.Add(model);
+            }
+            return model;
+        }
+        public virtual async Task<T> SaveAsync(T model)
+        {         
+            Initialization(model);
+            if (model.ID > 0)
+            {
+                await _repository.UpdateAsync(model);
+            }
+            else
+            {
+                await _repository.AddAsync(model);
+            }
+            return model;
         }
         public virtual int Add(T model)
         {
@@ -93,6 +119,6 @@
         public virtual async Task<List<T>> GetByStoredProcedureToListAsync(string storedProcedureName, params SqlParameter[] parameters)
         {
             return await _repository.GetByStoredProcedureToListAsync(storedProcedureName, parameters);
-        }        
+        }
     }
 }

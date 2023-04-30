@@ -6,7 +6,7 @@ export const environment = {
   APIRootURL: "https://localhost:7080/",    
   LoginURL: "http://login.giaongay.com.vn/",
   Website: "http://giaongay.com.vn/",
-  Images: "images",  
+  Image: "Image",  
   Download: "Download",  
   LoadingFile: "loading.gif",
   DialogConfigWidth: "80%",
