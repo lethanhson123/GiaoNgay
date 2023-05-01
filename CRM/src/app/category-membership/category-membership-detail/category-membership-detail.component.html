@@ -3,7 +3,7 @@
         <h5 class="card-title"><b>Thành viên: {{CategoryMembershipService.formData.Display}}</b></h5>
     </div>
     <div class="col s6 m6 l3">
-        <button title="Lưu thay đổi" type="submit" class="mb-6 btn-floating waves-effect waves-light cyan"><i
+        <button [disabled]="!CategoryMembershipService.formData.Display" title="Lưu thay đổi" type="submit" class="mb-6 btn-floating waves-effect waves-light cyan"><i
                 class="material-icons">save</i></button>&nbsp;&nbsp;&nbsp;
         <a title="Đóng" class="mb-6 btn-floating waves-effect waves-light purple lightrn-1" (click)="onClose()">
             <i class="material-icons">close</i>

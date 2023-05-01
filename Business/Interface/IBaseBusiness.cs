@@ -17,7 +17,9 @@
 		Task<int> RemoveRangeAsync(List<T> list);		
 		List<T> GetAllToList();
 		Task<List<T>> GetAllToListAsync();
-		IQueryable<T> GetByCondition(Expression<Func<T, bool>> whereCondition);
+        List<T> GetByParentIDToList(long parentID);
+        Task<List<T>> GetByParentIDToListAsync(long parentID);
+        IQueryable<T> GetByCondition(Expression<Func<T, bool>> whereCondition);
         T GetByID(long ID);
         Task<T> GetByIDAsync(long ID);
         string ExecuteNonQueryByStoredProcedure(string storedProcedureName, params SqlParameter[] parameters);

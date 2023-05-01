@@ -19,69 +19,69 @@ export class CompanyService {
     }
     SaveAndUploadFile(formData: Company, fileToUpload: FileList) {
         let url = this.aPIURL + this.controller + '/SaveAndUploadFile';
-        const uploadData = JSON.stringify(formData);        
+        const uploadData = JSON.stringify(formData);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         if (fileToUpload) {
-          if (fileToUpload.length > 0) {
-            for (var i = 0; i < fileToUpload.length; i++) {
-              formUpload.append('file[]', fileToUpload[i]);
+            if (fileToUpload.length > 0) {
+                for (var i = 0; i < fileToUpload.length; i++) {
+                    formUpload.append('file[]', fileToUpload[i]);
+                }
             }
-          }
         }
         return this.httpClient.post(url, formUpload);
-      }
-    Save(formData: Company) {        
+    }
+    Save(formData: Company) {
         let url = this.aPIURL + this.controller + '/Save';
         const uploadData = JSON.stringify(formData);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    }  
-    SaveAsync(formData: Company) {        
+    }
+    SaveAsync(formData: Company) {
         let url = this.aPIURL + this.controller + '/SaveAsync';
         const uploadData = JSON.stringify(formData);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    }  
-    Remove(ID: number) {        
+    }
+    Remove(ID: number) {
         let url = this.aPIURL + this.controller + '/Remove';
         const uploadData = JSON.stringify(ID);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    }  
-    RemoveAsync(ID: number) {        
+    }
+    RemoveAsync(ID: number) {
         let url = this.aPIURL + this.controller + '/RemoveAsync';
         const uploadData = JSON.stringify(ID);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    }  
-    GetByID(ID: number) {        
+    }
+    GetByID(ID: number) {
         let url = this.aPIURL + this.controller + '/GetByID';
         const uploadData = JSON.stringify(ID);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    }  
-    GetByIDAsync(ID: number) {        
+    }
+    GetByIDAsync(ID: number) {
         let url = this.aPIURL + this.controller + '/GetByIDAsync';
         const uploadData = JSON.stringify(ID);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    } 
-    GetAllToList() {        
-        let url = this.aPIURL + this.controller + '/GetAllToList';     
-        const formUpload: FormData = new FormData();   
+    }
+    GetAllToList() {
+        let url = this.aPIURL + this.controller + '/GetAllToList';
+        const formUpload: FormData = new FormData();
         return this.httpClient.post(url, formUpload);
-    }  
-    GetAllToListAsync() {        
-        let url = this.aPIURL + this.controller + '/GetAllToListAsync';        
-        const formUpload: FormData = new FormData();        
+    }
+    GetAllToListAsync() {
+        let url = this.aPIURL + this.controller + '/GetAllToListAsync';
+        const formUpload: FormData = new FormData();
         return this.httpClient.post(url, formUpload);
-    } 
+    }
 }
 

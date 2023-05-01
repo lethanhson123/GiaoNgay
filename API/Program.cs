@@ -42,6 +42,7 @@ builder.Services.AddTransient<ICompanyProfileBusiness, CompanyProfileBusiness>()
 builder.Services.AddTransient<IDistrictBusiness, DistrictBusiness>();
 builder.Services.AddTransient<IMembershipBusiness, MembershipBusiness>();
 builder.Services.AddTransient<IMembershipProfileBusiness, MembershipProfileBusiness>();
+builder.Services.AddTransient<IMembershipFileBusiness, MembershipFileBusiness>();
 builder.Services.AddTransient<IOrderDeliveryBusiness, OrderDeliveryBusiness>();
 builder.Services.AddTransient<IOrderDeliveryDetailBusiness, OrderDeliveryDetailBusiness>();
 builder.Services.AddTransient<IOrderDeliveryPaymentHistoryBusiness, OrderDeliveryPaymentHistoryBusiness>();
@@ -59,8 +60,9 @@ builder.Services.AddTransient<ICategoryOrderStatusRepository, CategoryOrderStatu
 builder.Services.AddTransient<ICompanyProfileRepository, CompanyProfileRepository>();
 builder.Services.AddTransient<ICompanyRepository, CompanyRepository>();
 builder.Services.AddTransient<IDistrictRepository, DistrictRepository>();
-builder.Services.AddTransient<IMembershipProfileRepository, MembershipProfileRepository>();
 builder.Services.AddTransient<IMembershipRepository, MembershipRepository>();
+builder.Services.AddTransient<IMembershipProfileRepository, MembershipProfileRepository>();
+builder.Services.AddTransient<IMembershipFileRepository, MembershipFileRepository>();
 builder.Services.AddTransient<IOrderDeliveryDetailRepository, OrderDeliveryDetailRepository>();
 builder.Services.AddTransient<IOrderDeliveryPaymentHistoryRepository, OrderDeliveryPaymentHistoryRepository>();
 builder.Services.AddTransient<IOrderDeliveryRepository, OrderDeliveryRepository>();

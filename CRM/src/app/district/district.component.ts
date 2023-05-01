@@ -17,7 +17,7 @@ import { DistrictDetailComponent } from './district-detail/district-detail.compo
 export class DistrictComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'Display', 'Active'];
+  displayColumns: string[] = ['ID', 'Display', 'SortOrder', 'Active'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
@@ -37,7 +37,7 @@ export class DistrictComponent implements OnInit {
       res => {
         this.isShowLoading = false;
         this.DistrictService.list = res as District[];        
-        this.dataSource = new MatTableDataSource(this.DistrictService.list.sort((a, b) => (a.Display > b.Display ? 1 : -1)));
+        this.dataSource = new MatTableDataSource(this.DistrictService.list.sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1)));
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.isShowLoading = false;

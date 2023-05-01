@@ -26,5 +26,11 @@ export class Membership {
     FullName?: string; 
     Birthday?: string; 
     LicenseBusinessNumber?: string; 
+    MotorbicycleNumber?: string; 
+    ProvinceID?: number;    
+    DistrictID?: number;    
+    WardID?: number;    
+    AccountNumber?: string;  
+    BankID?: number;      
 }
 

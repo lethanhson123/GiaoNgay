@@ -3,7 +3,7 @@
         <h5 class="card-title"><b>Công ty: {{CompanyService.formData.FullName}}</b></h5>
     </div>
     <div class="col s6 m6 l3">
-        <button title="Lưu thay đổi" type="submit" class="mb-6 btn-floating waves-effect waves-light cyan"><i
+        <button [disabled]="!CompanyService.formData.FullName" title="Lưu thay đổi" type="submit" class="mb-6 btn-floating waves-effect waves-light cyan"><i
                 class="material-icons">save</i></button>&nbsp;&nbsp;&nbsp;
         <a title="Đóng" class="mb-6 btn-floating waves-effect waves-light purple lightrn-1" (click)="onClose()">
             <i class="material-icons">close</i>
@@ -81,10 +81,10 @@
             </div>
         </div>
         <div class="input-field col s12 m12 l12">
-            <a target="_blank" href="{{imageURL}}/{{CompanyService.formData.QRcodeFile}}"
+            <a target="_blank" href="{{CompanyService.formData.QRcodeFile}}"
                 *ngIf="CompanyService.formData.QRcodeFile" title="{{CompanyService.formData.QRcodeFile}}">
                 <img class="responsive-img" width="40%"                    
-                    src="{{imageURL}}/{{CompanyService.formData.QRcodeFile}}"></a>
+                    src="{{CompanyService.formData.QRcodeFile}}"></a>
         </div>
     </div>
 </form>

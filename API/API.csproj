@@ -26,8 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Image\" />
     <Folder Include="wwwroot\Download\" />
+    <Folder Include="wwwroot\Image\Membership\" />
+    <Folder Include="wwwroot\Image\OrderDelivery\" />
     <Folder Include="wwwroot\Upload\" />
   </ItemGroup>
 

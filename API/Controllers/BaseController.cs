@@ -52,14 +52,7 @@ namespace API.Controllers
         public virtual T Save()
         {
             T result = JsonConvert.DeserializeObject<T>(Request.Form["data"]);
-            if (result.ID > 0)
-            {
-                _baseBusiness.Update(result);
-            }
-            else
-            {
-                _baseBusiness.Add(result);
-            }
+            _baseBusiness.Save(result);
             return result;
         }
         [HttpPost]
@@ -67,14 +60,7 @@ namespace API.Controllers
         public virtual async Task<T> SaveAsync()
         {
             T result = JsonConvert.DeserializeObject<T>(Request.Form["data"]);
-            if (result.ID > 0)
-            {
-                await _baseBusiness.UpdateAsync(result);
-            }
-            else
-            {
-                await _baseBusiness.AddAsync(result);
-            }
+            await _baseBusiness.SaveAsync(result);
             return result;
         }
         [HttpPost]
@@ -109,14 +95,7 @@ namespace API.Controllers
             long ID = JsonConvert.DeserializeObject<long>(Request.Form["data"]);
             T result = await _baseBusiness.GetByIDAsync(ID);
             return result;
-        }
-        [HttpGet]
-        [Route("GetByIDAsync2023")]
-        public virtual async Task<T> GetByIDAsync2023(long ID)
-        {            
-            T result = await _baseBusiness.GetByIDAsync(ID);
-            return result;
-        }
+        }       
         [HttpPost]
         [Route("GetAllToList")]
         public virtual List<T> GetAllToList()
@@ -130,6 +109,22 @@ namespace API.Controllers
         {
             var result = await _baseBusiness.GetAllToListAsync();
             return result;
-        }        
+        }
+        [HttpPost]
+        [Route("GetByParentIDToList")]
+        public virtual List<T> GetByParentIDToList()
+        {
+            long parentID = JsonConvert.DeserializeObject<long>(Request.Form["data"]);
+            var result = _baseBusiness.GetByParentIDToList(parentID);
+            return result;
+        }
+        [HttpPost]
+        [Route("GetByParentIDToListAsync")]
+        public virtual async Task<List<T>> GetByParentIDToListAsync()
+        {
+            long parentID = JsonConvert.DeserializeObject<long>(Request.Form["data"]);
+            var result = await _baseBusiness.GetByParentIDToListAsync(parentID);
+            return result;
+        }
     }
 }

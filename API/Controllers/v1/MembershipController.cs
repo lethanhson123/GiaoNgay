@@ -9,6 +9,6 @@
         public MembershipController(IMembershipBusiness membershipBusiness) : base(membershipBusiness)
         {
             _membershipBusiness = membershipBusiness;
-        }
+        }       
     }
 }

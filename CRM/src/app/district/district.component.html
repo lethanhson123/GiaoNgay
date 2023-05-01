@@ -49,6 +49,11 @@
                                     </mat-header-cell>
                                     <mat-cell *matCellDef="let element"><a style="cursor: pointer;" (click)="onAdd(element.ID)"><b>{{element.Display}}</b></a></mat-cell>
                                 </ng-container>                                   
+                                <ng-container matColumnDef="SortOrder">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Sắp xếp
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">{{element.SortOrder}}</mat-cell>
+                                </ng-container>  
                                 <ng-container matColumnDef="Active">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Kích hoạt
                                     </mat-header-cell>

@@ -24,13 +24,21 @@ import { WardDetailComponent } from './ward/ward-detail/ward-detail.component';
 import { CategoryMembershipComponent } from './category-membership/category-membership.component';
 import { CategoryMembershipDetailComponent } from './category-membership/category-membership-detail/category-membership-detail.component';
 import { CategoryOrderDetailComponent } from './category-order-detail/category-order-detail.component';
-import { CategoryOrderDetailDetailComponent } from './Category-Order-Detail/category-order-detail-detail/category-order-detail-detail.component';
+import { CategoryOrderDetailDetailComponent } from './category-order-detail/category-order-detail-detail/category-order-detail-detail.component';
 import { CategoryOrderPaymentComponent } from './category-order-payment/category-order-payment.component';
-import { CategoryOrderPaymentDetailComponent } from './Category-Order-Payment/category-order-payment-detail/category-order-payment-detail.component';
+import { CategoryOrderPaymentDetailComponent } from './category-order-payment/category-order-payment-detail/category-order-payment-detail.component';
 import { CategoryOrderStatusComponent } from './category-order-status/category-order-status.component';
-import { CategoryOrderStatusDetailComponent } from './Category-Order-Status/category-order-status-detail/category-order-status-detail.component';
+import { CategoryOrderStatusDetailComponent } from './category-order-status/category-order-status-detail/category-order-status-detail.component';
 import { CompanyComponent } from './company/company.component';
-import { CompanyDetailComponent } from './Company/company-detail/company-detail.component';
+import { CompanyDetailComponent } from './company/company-detail/company-detail.component';
+import { MembershipComponent } from './membership/membership.component';
+import { MembershipDetailComponent } from './membership/membership-detail/membership-detail.component';
+import { ShopComponent } from './shop/shop.component';
+import { ShopDetailComponent } from './shop/shop-detail/shop-detail.component';
+import { ShipperComponent } from './shipper/shipper.component';
+import { ShipperDetailComponent } from './shipper/shipper-detail/shipper-detail.component';
+import { MembershipFileComponent } from './membership-file/membership-file.component';
+import { MembershipFileDetailComponent } from './membership-file/membership-file-detail/membership-file-detail.component';
 
 
 @NgModule({
@@ -54,7 +62,15 @@ import { CompanyDetailComponent } from './Company/company-detail/company-detail.
     CategoryOrderStatusComponent,
     CategoryOrderStatusDetailComponent,
     CompanyComponent,
-    CompanyDetailComponent    
+    CompanyDetailComponent,
+    MembershipComponent,
+    MembershipDetailComponent,
+    ShopComponent,
+    ShopDetailComponent,
+    ShipperComponent,
+    ShipperDetailComponent,
+    MembershipFileComponent,
+    MembershipFileDetailComponent    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

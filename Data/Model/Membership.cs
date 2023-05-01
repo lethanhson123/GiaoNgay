@@ -13,11 +13,18 @@
         public string? AddressLegal { get; set; }
         public string? Address { get; set; }
         public string? LicenseMotorbicycleNumber { get; set; }
+        public string? MotorbicycleNumber { get; set; }
         public string? FullName { get; set; }
         public DateTime? Birthday { get; set; }
         public string? LicenseBusinessNumber { get; set; }
+        public long? ProvinceID { get; set; }
+        public long? DistrictID { get; set; }
+        public long? WardID { get; set; }
+        public string? AccountNumber { get; set; }
+        public long? BankID { get; set; }
         public Membership()
         {
         }
     }
 }
+

@@ -19,7 +19,7 @@ import { DistrictService } from 'src/app/shared/District.service';
 export class WardComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'Display', 'Active'];
+  displayColumns: string[] = ['ID', 'Display', 'SortOrder', 'Active'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
@@ -40,7 +40,7 @@ export class WardComponent implements OnInit {
     this.DistrictService.GetByParentIDToListAsync(1).subscribe(
       res => {
         this.isShowLoading = false;
-        this.DistrictService.list = (res as District[]).sort((a, b) => (a.Display > b.Display ? 1 : -1));
+        this.DistrictService.list = (res as District[]).sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1));
         if (this.DistrictService.list) {
           if (this.DistrictService.list.length) {
             this.parentID = this.DistrictService.list[0].ID;

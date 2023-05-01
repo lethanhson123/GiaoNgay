@@ -13,8 +13,7 @@ import { BankService } from 'src/app/shared/Bank.service';
   styleUrls: ['./company-detail.component.css']
 })
 export class CompanyDetailComponent implements OnInit {
-
-  imageURL: string = environment.APIRootURL + environment.Image;
+  
   ID: number = environment.InitializationNumber;
   fileToUpload: any;
   fileToUpload0: File = null;
@@ -28,12 +27,13 @@ export class CompanyDetailComponent implements OnInit {
     this.ID = data["ID"] as number;    
   }  
   ngOnInit(): void {
-    this.getDistrictToList();
+    this.getBankToList();
   }
-  getDistrictToList() {    
+  getBankToList() {    
     this.BankService.GetAllToListAsync().subscribe(
       res => {        
         this.BankService.list = (res as Bank[]).sort((a, b) => (a.Display > b.Display ? 1 : -1));        
+        
       },
       err => {        
       }

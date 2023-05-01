@@ -12,5 +12,6 @@ export class District {
     Description?: string;    
     Note?: string;    
     Active?: boolean;     
+    SortOrder?: number;    
 }
 

@@ -35,7 +35,7 @@
         {
             get
             {
-                return DateTime.Now.ToString("yyyyMMddHHmmss") + DateTime.Now.Ticks.ToString();
+                return DateTime.Now.ToString("yyyyMMddHHmmss") + "_" + DateTime.Now.Ticks.ToString();
             }
         }
         public static string InitializationDateTimeCode0001
@@ -68,6 +68,30 @@
             {
                 var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
                 return builder.Build().GetSection("AppSettings").GetSection("Upload").Value;
+            }
+        }
+        public static string Company
+        {
+            get
+            {
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                return builder.Build().GetSection("AppSettings").GetSection("Company").Value;
+            }
+        }
+        public static string Membership
+        {
+            get
+            {
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                return builder.Build().GetSection("AppSettings").GetSection("Membership").Value;
+            }
+        }
+        public static string OrderDelivery
+        {
+            get
+            {
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                return builder.Build().GetSection("AppSettings").GetSection("OrderDelivery").Value;
             }
         }
         public static string Image

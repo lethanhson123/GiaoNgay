@@ -90,6 +90,14 @@
         {
             return await _repository.GetAllToListAsync();
         }
+        public virtual List<T> GetByParentIDToList(long parentID)
+        {
+            return _repository.GetByParentIDToList(parentID);
+        }
+        public virtual async Task<List<T>> GetByParentIDToListAsync(long parentID)
+        {
+            return await _repository.GetByParentIDToListAsync(parentID);
+        }
         public virtual IQueryable<T> GetByCondition(Expression<Func<T, bool>> whereCondition)
         {
             return _repository.GetByCondition(whereCondition);

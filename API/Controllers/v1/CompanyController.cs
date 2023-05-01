@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-
+﻿
 namespace API.Controllers.v1
 {
     [ApiController]
@@ -34,8 +33,8 @@ namespace API.Controllers.v1
                     {
                         string fileExtension = Path.GetExtension(file.FileName);
                         string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                        fileName = GlobalHelper.InitializationDateTimeCode + fileExtension;                        
-                        string pathSub = GlobalHelper.Image;
+                        fileName = GlobalHelper.InitializationDateTimeCode + fileExtension;
+                        string pathSub = GlobalHelper.Image + @"\" + GlobalHelper.Company;
                         var physicalPath = Path.Combine(_webHostEnvironment.WebRootPath, pathSub, fileName);
                         using (var stream = new FileStream(physicalPath, FileMode.Create))
                         {

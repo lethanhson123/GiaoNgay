@@ -6,6 +6,6 @@
         public MembershipRepository(GiaoNgayContext context) : base(context)
         {
             _context = context;            
-        }
+        }        
     }
 }

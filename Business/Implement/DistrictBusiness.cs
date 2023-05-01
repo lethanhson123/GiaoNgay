@@ -34,12 +34,6 @@ namespace Business.Implement
                 }
             }
             return result;
-        }
-        public virtual async Task<List<District>> GetByParentIDToListAsync(long parentID)
-        {
-            List<District> list = new List<District>();            
-            list = await _districtRepository.GetByCondition(item => item.ParentID == parentID).ToListAsync();
-            return list;
-        }
+        }       
     }
 }

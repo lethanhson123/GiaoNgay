@@ -33,13 +33,7 @@
                 }
             }
             return result;
-        }
-        public virtual async Task<List<Ward>> GetByParentIDToListAsync(long parentID)
-        {
-            List<Ward> list = new List<Ward>();
-            list = await _wardRepository.GetByCondition(item => item.ParentID == parentID).ToListAsync();
-            return list;
-        }
+        }       
         public virtual async Task<List<Ward>> GetBySearchStringToListAsync(string searchString)
         {
             List<Ward> list = new List<Ward>();

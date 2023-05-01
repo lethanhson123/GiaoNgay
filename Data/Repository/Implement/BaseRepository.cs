@@ -194,7 +194,7 @@ namespace Data.Repository
         }
         public virtual IQueryable<T> GetByCondition(Expression<Func<T, bool>> whereCondition)
         {
-            var result = _context.Set<T>().Where(whereCondition);
+            var result = _context.Set<T>().AsNoTracking().Where(whereCondition);
             return result;
         }
 
@@ -221,23 +221,32 @@ namespace Data.Repository
 
         public virtual List<T> GetAllToList()
         {
-            var result = _context.Set<T>().ToList();
+            var result = _context.Set<T>().AsNoTracking().ToList();
             return result ?? new List<T>();
         }
         public virtual async Task<List<T>> GetAllToListAsync()
         {
-            var result = await _context.Set<T>().ToListAsync();
+            var result = await _context.Set<T>().AsNoTracking().ToListAsync();
             return result ?? new List<T>();
         }
-
+        public virtual List<T> GetByParentIDToList(long parentID)
+        {
+            var result = _context.Set<T>().AsNoTracking().Where(item => item.ParentID == parentID).ToList();
+            return result ?? new List<T>();
+        }
+        public virtual async Task<List<T>> GetByParentIDToListAsync(long parentID)
+        {
+            var result = await _context.Set<T>().AsNoTracking().Where(item => item.ParentID == parentID).ToListAsync();
+            return result ?? new List<T>();
+        }
         public virtual List<T> GetByPageAndPageSizeToList(int page, int pageSize)
         {
-            var result = _context.Set<T>().Skip(page * pageSize).Take(pageSize).ToList();
+            var result = _context.Set<T>().AsNoTracking().Skip(page * pageSize).Take(pageSize).ToList();
             return result;
         }
         public virtual async Task<List<T>> GetByPageAndPageSizeToListAsync(int page, int pageSize)
         {
-            var result = await _context.Set<T>().Skip(page * pageSize).Take(pageSize).ToListAsync();
+            var result = await _context.Set<T>().AsNoTracking().Skip(page * pageSize).Take(pageSize).ToListAsync();
             return result;
         }
         public virtual string ExecuteNonQueryByStoredProcedure(string storedProcedureName, params SqlParameter[] parameters)
