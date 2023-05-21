@@ -34,8 +34,7 @@ export class CategoryMembershipComponent implements OnInit {
   getToList() {
     this.isShowLoading = true;
     this.CategoryMembershipService.GetAllToListAsync().subscribe(
-      res => {
-        this.isShowLoading = false;
+      res => {        
         this.CategoryMembershipService.list = res as CategoryMembership[];        
         this.dataSource = new MatTableDataSource(this.CategoryMembershipService.list.sort((a, b) => (a.Code > b.Code ? 1 : -1)));
         this.dataSource.sort = this.sort;

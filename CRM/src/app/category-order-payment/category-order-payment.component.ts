@@ -35,8 +35,7 @@ export class CategoryOrderPaymentComponent implements OnInit {
   getToList() {
     this.isShowLoading = true;
     this.CategoryOrderPaymentService.GetAllToListAsync().subscribe(
-      res => {
-        this.isShowLoading = false;
+      res => {        
         this.CategoryOrderPaymentService.list = res as CategoryOrderPayment[];        
         this.dataSource = new MatTableDataSource(this.CategoryOrderPaymentService.list.sort((a, b) => (a.Code > b.Code ? 1 : -1)));
         this.dataSource.sort = this.sort;

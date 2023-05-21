@@ -229,6 +229,16 @@ namespace Data.Repository
             var result = await _context.Set<T>().AsNoTracking().ToListAsync();
             return result ?? new List<T>();
         }
+        public virtual List<T> GetByActiveToList(bool active)
+        {
+            var result = _context.Set<T>().AsNoTracking().Where(item => item.Active == active).ToList();
+            return result ?? new List<T>();
+        }
+        public virtual async Task<List<T>> GetByActiveToListAsync(bool active)
+        {
+            var result = await _context.Set<T>().AsNoTracking().Where(item => item.Active == active).ToListAsync();
+            return result ?? new List<T>();
+        }
         public virtual List<T> GetByParentIDToList(long parentID)
         {
             var result = _context.Set<T>().AsNoTracking().Where(item => item.ParentID == parentID).ToList();
@@ -237,6 +247,16 @@ namespace Data.Repository
         public virtual async Task<List<T>> GetByParentIDToListAsync(long parentID)
         {
             var result = await _context.Set<T>().AsNoTracking().Where(item => item.ParentID == parentID).ToListAsync();
+            return result ?? new List<T>();
+        }
+        public virtual List<T> GetByParentIDAndActiveToList(long parentID, bool active)
+        {
+            var result = _context.Set<T>().AsNoTracking().Where(item => item.ParentID == parentID && item.Active == active).ToList();
+            return result ?? new List<T>();
+        }
+        public virtual async Task<List<T>> GetByParentIDAndActiveToListAsync(long parentID, bool active)
+        {
+            var result = await _context.Set<T>().AsNoTracking().Where(item => item.ParentID == parentID && item.Active == active).ToListAsync();
             return result ?? new List<T>();
         }
         public virtual List<T> GetByPageAndPageSizeToList(int page, int pageSize)

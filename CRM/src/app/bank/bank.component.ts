@@ -34,8 +34,7 @@ export class BankComponent implements OnInit {
   getToList() {
     this.isShowLoading = true;
     this.BankService.GetAllToListAsync().subscribe(
-      res => {
-        this.isShowLoading = false;
+      res => {        
         this.BankService.list = res as Bank[];        
         this.dataSource = new MatTableDataSource(this.BankService.list.sort((a, b) => (a.Code > b.Code ? 1 : -1)));
         this.dataSource.sort = this.sort;
@@ -46,6 +45,8 @@ export class BankComponent implements OnInit {
         this.isShowLoading = false;
       }
     );
+
+    
   }
   onSearch() {
     if (this.searchString.length > 0) {

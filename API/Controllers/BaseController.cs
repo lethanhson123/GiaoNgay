@@ -110,6 +110,29 @@ namespace API.Controllers
             var result = await _baseBusiness.GetAllToListAsync();
             return result;
         }
+        [HttpGet]
+        [Route("GetAllToListAsync2023")]
+        public virtual async Task<List<T>> GetAllToListAsync2023()
+        {
+            var result = await _baseBusiness.GetAllToListAsync();
+            return result;
+        }
+        [HttpPost]
+        [Route("GetByActiveToList")]
+        public virtual List<T> GetByActiveToList()
+        {
+            bool active = JsonConvert.DeserializeObject<bool>(Request.Form["data"]);
+            var result = _baseBusiness.GetByActiveToList(active);
+            return result;
+        }
+        [HttpPost]
+        [Route("GetByActiveToListAsync")]
+        public virtual async Task<List<T>> GetByActiveToListAsync()
+        {
+            bool active = JsonConvert.DeserializeObject<bool>(Request.Form["data"]);
+            var result = await _baseBusiness.GetByActiveToListAsync(active);
+            return result;
+        }
         [HttpPost]
         [Route("GetByParentIDToList")]
         public virtual List<T> GetByParentIDToList()
@@ -124,6 +147,24 @@ namespace API.Controllers
         {
             long parentID = JsonConvert.DeserializeObject<long>(Request.Form["data"]);
             var result = await _baseBusiness.GetByParentIDToListAsync(parentID);
+            return result;
+        }
+        [HttpPost]
+        [Route("GetByParentIDAndActiveToList")]
+        public virtual List<T> GetByParentIDAndActiveToList()
+        {
+            long parentID = JsonConvert.DeserializeObject<long>(Request.Form["parentID"]);
+            bool active = JsonConvert.DeserializeObject<bool>(Request.Form["active"]);
+            var result = _baseBusiness.GetByParentIDAndActiveToList(parentID, active);
+            return result;
+        }
+        [HttpPost]
+        [Route("GetByParentIDAndActiveToListAsync")]
+        public virtual async Task<List<T>> GetByParentIDAndActiveToListAsync()
+        {
+            long parentID = JsonConvert.DeserializeObject<long>(Request.Form["parentID"]);
+            bool active = JsonConvert.DeserializeObject<bool>(Request.Form["active"]);
+            var result = await _baseBusiness.GetByParentIDAndActiveToListAsync(parentID, active);
             return result;
         }
     }

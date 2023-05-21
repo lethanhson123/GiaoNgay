@@ -35,8 +35,7 @@ export class ShopComponent implements OnInit {
   getToList() {
     this.isShowLoading = true;
     this.MembershipService.GetByParentIDToListAsync(environment.ShopID).subscribe(
-      res => {
-        this.isShowLoading = false;
+      res => {        
         this.MembershipService.list = res as Membership[];
         this.dataSource = new MatTableDataSource(this.MembershipService.list.sort((a, b) => (a.FullName > b.FullName ? 1 : -1)));
         this.dataSource.sort = this.sort;

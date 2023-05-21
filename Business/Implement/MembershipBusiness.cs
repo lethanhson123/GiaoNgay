@@ -25,6 +25,7 @@
             {
                 model.Code = GlobalHelper.InitializationGUICode;
             }
+            model.Display = model.FullName + "-" + model.Phone;
             EncryptPassword(model);
         }
         private static void EncryptPassword(Membership model)
@@ -68,6 +69,6 @@
                 }
             }
             return model;
-        }       
+        }
     }
 }

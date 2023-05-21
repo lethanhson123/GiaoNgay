@@ -22,8 +22,12 @@ namespace Data.Repository
         Task<T> GetByIDAsync(long ID);
         List<T> GetAllToList();
         Task<List<T>> GetAllToListAsync();
+        List<T> GetByActiveToList(bool active);
+        Task<List<T>> GetByActiveToListAsync(bool active);
         List<T> GetByParentIDToList(long parentID);
         Task<List<T>> GetByParentIDToListAsync(long parentID);
+        List<T> GetByParentIDAndActiveToList(long parentID, bool active);
+        Task<List<T>> GetByParentIDAndActiveToListAsync(long parentID, bool active);
         List<T> GetByPageAndPageSizeToList(int page, int pageSize);
         Task<List<T>> GetByPageAndPageSizeToListAsync(int page, int pageSize);
         string ExecuteNonQueryByStoredProcedure(string storedProcedureName, params SqlParameter[] parameters);

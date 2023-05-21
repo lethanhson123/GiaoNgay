@@ -9,6 +9,8 @@ export const environment = {
   Image: "Image",  
   Company: "Company", 
   Membership: "Membership", 
+  Barcode: "Barcode",
+  QRcode: "QRcode",
   OrderDelivery: "OrderDelivery", 
   Download: "Download",  
   LoadingFile: "loading.gif",

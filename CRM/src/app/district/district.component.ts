@@ -34,8 +34,7 @@ export class DistrictComponent implements OnInit {
   getToList() {
     this.isShowLoading = true;
     this.DistrictService.GetByParentIDToListAsync(1).subscribe(
-      res => {
-        this.isShowLoading = false;
+      res => {        
         this.DistrictService.list = res as District[];        
         this.dataSource = new MatTableDataSource(this.DistrictService.list.sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1)));
         this.dataSource.sort = this.sort;

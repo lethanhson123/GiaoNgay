@@ -74,5 +74,6 @@ export class OrderDelivery {
     DeliveryWardID?: number;  
     DeliveryDistrictID?: number;  
     DeliveryProvinceID?: number;     
+    IsExpress?: boolean;     
 }
 

@@ -13,7 +13,7 @@
         public string? ShopZalo { get; set; }
         public string? ShopEmail { get; set; }
         public string? ShopFacebook { get; set; }
-        public string? ShopFacebookMessenger { get; set; }        
+        public string? ShopFacebookMessenger { get; set; }
         public string? ShopLicenseBusinessNumber { get; set; }
         public long? ShipperID { get; set; }
         public string? ShipperFullName { get; set; }
@@ -64,8 +64,15 @@
         public long? DeliveryWardID { get; set; }
         public long? DeliveryDistrictID { get; set; }
         public long? DeliveryProvinceID { get; set; }
+        public bool? IsExpress { get; set; }
         public OrderDelivery()
         {
+            Active = true;
+            IsExpress = false;
+            CategoryOrderStatusID = 1;
+            DeliveryProvinceID = 1;
+            TotalBeforeTax = 0;
+            DateCreated = GlobalHelper.InitializationDateTime;
         }
     }
 }

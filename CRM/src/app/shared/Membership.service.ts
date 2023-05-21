@@ -7,6 +7,9 @@ import { Membership } from 'src/app/shared/Membership.model';
 })
 export class MembershipService {
     list: Membership[] | undefined;
+    listDieuHanh: Membership[] | undefined;
+    listShop: Membership[] | undefined;
+    listShipper: Membership[] | undefined;
     formData!: Membership;
     aPIURL: string = environment.APIURL;
     controller: string = "Membership";

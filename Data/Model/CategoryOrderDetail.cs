@@ -6,6 +6,8 @@
         public decimal? Quantity { get; set; }
         public CategoryOrderDetail()
         {
+            Price = GlobalHelper.InitializationNumber;
+            Quantity = GlobalHelper.InitializationNumber;
         }
     }
 }

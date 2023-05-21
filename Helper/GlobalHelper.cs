@@ -1,4 +1,6 @@
-﻿namespace Helper
+﻿using System.Text.RegularExpressions;
+
+namespace Helper
 {
     public class GlobalHelper
     {
@@ -54,6 +56,22 @@
         }
         #endregion
         #region AppSettings 
+        public static int YearBegin
+        {
+            get
+            {
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                return int.Parse(builder.Build().GetSection("AppSettings").GetSection("YearBegin").Value);
+            }
+        }
+        public static int YearEnd
+        {
+            get
+            {
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                return int.Parse(builder.Build().GetSection("AppSettings").GetSection("YearEnd").Value);
+            }
+        }
         public static string Download
         {
             get
@@ -127,5 +145,44 @@
             }
         }
         #endregion
+
+        public static List<DateHelper> Year()
+        {
+            List<DateHelper> result = new List<DateHelper>();
+            for (int i = GlobalHelper.YearBegin; i < GlobalHelper.YearEnd; i++)
+            {
+                DateHelper item = new DateHelper();
+                item.Value = i;
+                result.Add(item);
+            }
+            return result;
+        }
+        public static List<DateHelper> Month()
+        {
+            List<DateHelper> result = new List<DateHelper>();
+            for (int i = 1; i < 12; i++)
+            {
+                DateHelper item = new DateHelper();
+                item.Value = i;
+                result.Add(item);
+            }
+            return result;
+        }
+        public static List<DateHelper> Day()
+        {
+            List<DateHelper> result = new List<DateHelper>();
+            for (int i = 1; i < 32; i++)
+            {
+                DateHelper item = new DateHelper();
+                item.Value = i;
+                result.Add(item);
+            }
+            return result;
+        }
+    }
+
+    public class DateHelper
+    {
+        public int Value { get; set; }
     }
 }

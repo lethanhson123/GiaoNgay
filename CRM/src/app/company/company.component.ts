@@ -35,8 +35,7 @@ export class CompanyComponent implements OnInit {
   getToList() {
     this.isShowLoading = true;
     this.CompanyService.GetAllToListAsync().subscribe(
-      res => {
-        this.isShowLoading = false;
+      res => {        
         this.CompanyService.list = res as Company[];        
         this.dataSource = new MatTableDataSource(this.CompanyService.list.sort((a, b) => (a.Code > b.Code ? 1 : -1)));
         this.dataSource.sort = this.sort;

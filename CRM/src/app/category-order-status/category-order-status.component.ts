@@ -35,8 +35,7 @@ export class CategoryOrderStatusComponent implements OnInit {
   getToList() {
     this.isShowLoading = true;
     this.CategoryOrderStatusService.GetAllToListAsync().subscribe(
-      res => {
-        this.isShowLoading = false;
+      res => {        
         this.CategoryOrderStatusService.list = res as CategoryOrderStatus[];        
         this.dataSource = new MatTableDataSource(this.CategoryOrderStatusService.list.sort((a, b) => (a.Code > b.Code ? 1 : -1)));
         this.dataSource.sort = this.sort;

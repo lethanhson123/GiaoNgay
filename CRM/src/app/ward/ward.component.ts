@@ -38,8 +38,7 @@ export class WardComponent implements OnInit {
   getDistrictToList() {
     this.isShowLoading = true;
     this.DistrictService.GetByParentIDToListAsync(1).subscribe(
-      res => {
-        this.isShowLoading = false;
+      res => {        
         this.DistrictService.list = (res as District[]).sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1));
         if (this.DistrictService.list) {
           if (this.DistrictService.list.length) {

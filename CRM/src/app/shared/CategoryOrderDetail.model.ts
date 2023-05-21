@@ -13,6 +13,6 @@ export class CategoryOrderDetail {
     Note?: string;    
     Active?: boolean;     
     Price?: number;    
-    Quatity?: number;    
+    Quantity?: number;    
 }
 

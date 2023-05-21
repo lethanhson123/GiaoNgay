@@ -69,5 +69,9 @@ export class CategoryOrderDetailService {
         const formUpload: FormData = new FormData();        
         return this.httpClient.post(url, formUpload);
     } 
+    GetAllToListAsync2023() {
+        let url = this.aPIURL + this.controller + '/GetAllToListAsync2023';
+        return this.httpClient.get(url).toPromise();
+    }
 }
 

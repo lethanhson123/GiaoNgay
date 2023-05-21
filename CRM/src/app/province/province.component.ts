@@ -34,8 +34,7 @@ export class ProvinceComponent implements OnInit {
   getToList() {
     this.isShowLoading = true;
     this.ProvinceService.GetAllToListAsync().subscribe(
-      res => {
-        this.isShowLoading = false;
+      res => {        
         this.ProvinceService.list = res as Province[];        
         this.dataSource = new MatTableDataSource(this.ProvinceService.list.sort((a, b) => (a.Display > b.Display ? 1 : -1)));
         this.dataSource.sort = this.sort;

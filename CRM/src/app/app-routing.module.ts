@@ -13,8 +13,12 @@ import { CompanyComponent } from './company/company.component';
 import { MembershipComponent } from './membership/membership.component';
 import { ShopComponent } from './shop/shop.component';
 import { ShipperComponent } from './shipper/shipper.component';
+import { OrderDeliveryComponent } from './order-delivery/order-delivery.component';
 
 const routes: Routes = [  
+  {
+    path: 'OrderDelivery', component: OrderDeliveryComponent,
+  },
   {
     path: 'Membership', component: MembershipComponent,
   },

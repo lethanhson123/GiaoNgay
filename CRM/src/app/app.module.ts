@@ -39,6 +39,8 @@ import { ShipperComponent } from './shipper/shipper.component';
 import { ShipperDetailComponent } from './shipper/shipper-detail/shipper-detail.component';
 import { MembershipFileComponent } from './membership-file/membership-file.component';
 import { MembershipFileDetailComponent } from './membership-file/membership-file-detail/membership-file-detail.component';
+import { OrderDeliveryComponent } from './order-delivery/order-delivery.component';
+import { OrderDeliveryDetailComponent } from './Order-Delivery/order-delivery-detail/order-delivery-detail.component';
 
 
 @NgModule({
@@ -70,7 +72,9 @@ import { MembershipFileDetailComponent } from './membership-file/membership-file
     ShipperComponent,
     ShipperDetailComponent,
     MembershipFileComponent,
-    MembershipFileDetailComponent    
+    MembershipFileDetailComponent,
+    OrderDeliveryComponent,
+    OrderDeliveryDetailComponent    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

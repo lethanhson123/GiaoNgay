@@ -13,7 +13,7 @@
         {
         }
         public virtual T Save(T model)
-        {            
+        {
             Initialization(model);
             if (model.ID > 0)
             {
@@ -26,7 +26,7 @@
             return model;
         }
         public virtual async Task<T> SaveAsync(T model)
-        {         
+        {
             Initialization(model);
             if (model.ID > 0)
             {
@@ -90,6 +90,14 @@
         {
             return await _repository.GetAllToListAsync();
         }
+        public virtual List<T> GetByActiveToList(bool active)
+        {
+            return _repository.GetByActiveToList(active);
+        }
+        public virtual async Task<List<T>> GetByActiveToListAsync(bool active)
+        {
+            return await _repository.GetByActiveToListAsync(active);
+        }
         public virtual List<T> GetByParentIDToList(long parentID)
         {
             return _repository.GetByParentIDToList(parentID);
@@ -97,6 +105,14 @@
         public virtual async Task<List<T>> GetByParentIDToListAsync(long parentID)
         {
             return await _repository.GetByParentIDToListAsync(parentID);
+        }
+        public virtual List<T> GetByParentIDAndActiveToList(long parentID, bool active)
+        {
+            return _repository.GetByParentIDAndActiveToList(parentID, active);
+        }
+        public virtual async Task<List<T>> GetByParentIDAndActiveToListAsync(long parentID, bool active)
+        {
+            return await _repository.GetByParentIDAndActiveToListAsync(parentID, active);
         }
         public virtual IQueryable<T> GetByCondition(Expression<Func<T, bool>> whereCondition)
         {
