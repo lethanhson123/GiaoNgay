@@ -48,17 +48,6 @@
             {
                 model.DeliveryProvinceID = 1;
             }
-            if (model.CategoryOrderStatusID == null)
-            {
-                if (model.ShipperID != null)
-                {
-                    model.CategoryOrderStatusID = 7;
-                }
-                else
-                {
-                    model.CategoryOrderStatusID = 1;
-                }
-            }
 
             if (string.IsNullOrEmpty(model.Barcode))
             {
@@ -156,7 +145,7 @@
             {
                 try
                 {
-                    result = await _orderDeliveryRepository.GetByCondition(item => item.CategoryOrderStatusID == 1 && item.IsComplete != true && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.IsComplete != true && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
                 }
                 catch (Exception ex)
                 {
@@ -178,7 +167,7 @@
                 {
 
                     List<long> listCategoryOrderStatusID = new List<long> { 2, 3, 4, 5, 7 };
-                    result = await _orderDeliveryRepository.GetByCondition(item => item.CategoryOrderStatusID != 1 && item.IsComplete != true && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.ShipperID != null && item.IsComplete != true && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
                 }
                 catch (Exception ex)
                 {
@@ -188,6 +177,28 @@
             return result;
         }
         public async Task<List<OrderDelivery>> Get03ByYearAndMonthAndDayAndSearchStringToLisAsync(int year, int month, int day, string searchString)
+        {
+            List<OrderDelivery> result = new List<OrderDelivery>();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                result = await GetBySearchStringToLisAsync(searchString);
+            }
+            else
+            {
+                try
+                {
+
+                    List<long> listCategoryOrderStatusID = new List<long> { 2, 3, 4, 5, 7 };
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.ReceiveID != null && item.IsComplete != true && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                }
+            }
+            return result;
+        }
+        public async Task<List<OrderDelivery>> Get04ByYearAndMonthAndDayAndSearchStringToLisAsync(int year, int month, int day, string searchString)
         {
             List<OrderDelivery> result = new List<OrderDelivery>();
             if (!string.IsNullOrEmpty(searchString))

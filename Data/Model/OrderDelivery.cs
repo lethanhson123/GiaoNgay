@@ -18,6 +18,8 @@ namespace Data.Model
         public string? ShopAddress { get; set; }
         public string? ShopFacebookMessenger { get; set; }
         public string? ShopLicenseBusinessNumber { get; set; }
+        public long? ReceiveID { get; set; }
+        public string? ReceiveFullName { get; set; }
         public long? ShipperID { get; set; }
         public string? ShipperFullName { get; set; }
         public string? ShipperPhone { get; set; }

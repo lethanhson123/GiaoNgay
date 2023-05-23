@@ -49,6 +49,16 @@ namespace API.Controllers.v1
             return result;
         }
         [HttpPost]
+        [Route("Get04ByYearAndMonthAndDayAndSearchStringToLisAsync")]
+        public virtual async Task<List<OrderDelivery>> Get04ByYearAndMonthAndDayAndSearchStringToLisAsync()        {
+            int year = JsonConvert.DeserializeObject<int>(Request.Form["year"]);
+            int month = JsonConvert.DeserializeObject<int>(Request.Form["month"]);
+            int day = JsonConvert.DeserializeObject<int>(Request.Form["day"]);
+            string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
+            var result = await _orderDeliveryBusiness.Get04ByYearAndMonthAndDayAndSearchStringToLisAsync(year, month, day, searchString);
+            return result;
+        }
+        [HttpPost]
         [Route("Save01Async")]
         public virtual async Task<OrderDelivery> Save01Async()
         {

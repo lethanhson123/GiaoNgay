@@ -28,6 +28,10 @@ namespace Data.Model
         public virtual DbSet<Data.Model.OrderDeliveryPaymentHistory> OrderDeliveryPaymentHistory { get; set; }
         public virtual DbSet<Data.Model.OrderDeliveryFile> OrderDeliveryFile { get; set; }
         public virtual DbSet<Data.Model.OrderDeliveryStatus> OrderDeliveryStatus { get; set; }
+        public virtual DbSet<Data.Model.OrderReceive> OrderReceive { get; set; }
+        public virtual DbSet<Data.Model.OrderReceiveDetail> OrderReceiveDetail { get; set; }
+        public virtual DbSet<Data.Model.OrderShipper> OrderShipper { get; set; }
+        public virtual DbSet<Data.Model.OrderShipperDetail> OrderShipperDetail { get; set; }
         public virtual DbSet<Data.Model.Province> Province { get; set; }
         public virtual DbSet<Data.Model.Street> Street { get; set; }
         public virtual DbSet<Data.Model.StreetWard> StreetWard { get; set; }

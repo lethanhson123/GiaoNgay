@@ -22,6 +22,7 @@ export class OrderDeliveryComponent implements OnInit {
   dataSource01: MatTableDataSource<any>;
   dataSource02: MatTableDataSource<any>;
   dataSource03: MatTableDataSource<any>;
+  dataSource04: MatTableDataSource<any>;
   displayColumns: string[] = ['ID', 'DateCreated', 'Barcode','ShopFullName', 'TotalBeforeTax', 'TotalPayment', 'TotalDebt', 'Save'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -138,10 +139,24 @@ export class OrderDeliveryComponent implements OnInit {
       }
     );
   }
+  get04ToList() {
+    this.isShowLoading = true;
+    this.OrderDeliveryService.Get04ByYearAndMonthAndDayAndSearchStringToLisAsync(this.year, this.month, this.day, this.searchString).subscribe(
+      res => {        
+        this.OrderDeliveryService.list04 = res as OrderDelivery[];        
+        this.dataSource04 = new MatTableDataSource(this.OrderDeliveryService.list04.sort((a, b) => (a.DateCreated < b.DateCreated ? 1 : -1)));
+        this.dataSource04.sort = this.sort;
+        this.dataSource04.paginator = this.paginator;
+        this.isShowLoading = false;
+      },
+      err => {
+        this.isShowLoading = false;
+      }
+    );
+  }
   onSearch() {
     this.get01ToList();
-    this.get02ToList();
-    this.get03ToList();
+    this.get04ToList();    
   }
   onAdd(ID: any) {
     this.OrderDeliveryService.GetByIDAsync(ID).subscribe(

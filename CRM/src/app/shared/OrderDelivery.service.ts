@@ -9,6 +9,7 @@ export class OrderDeliveryService {
     list01: OrderDelivery[] | undefined;
     list02: OrderDelivery[] | undefined;
     list03: OrderDelivery[] | undefined;
+    list04: OrderDelivery[] | undefined;
     formData!: OrderDelivery;
     aPIURL: string = environment.APIURL;
     controller: string = "OrderDelivery";
@@ -110,6 +111,18 @@ export class OrderDeliveryService {
     }
     Get03ByYearAndMonthAndDayAndSearchStringToLisAsync(year: number, month: number, day: number, searchString: string) {
         let url = this.aPIURL + this.controller + '/Get03ByYearAndMonthAndDayAndSearchStringToLisAsync';
+        const yearData = JSON.stringify(year);
+        const monthData = JSON.stringify(month);
+        const dayData = JSON.stringify(day);
+        const formUpload: FormData = new FormData();
+        formUpload.append('year', yearData);
+        formUpload.append('month', monthData);
+        formUpload.append('day', dayData);
+        formUpload.append('searchString', searchString);
+        return this.httpClient.post(url, formUpload);
+    }
+    Get04ByYearAndMonthAndDayAndSearchStringToLisAsync(year: number, month: number, day: number, searchString: string) {
+        let url = this.aPIURL + this.controller + '/Get04ByYearAndMonthAndDayAndSearchStringToLisAsync';
         const yearData = JSON.stringify(year);
         const monthData = JSON.stringify(month);
         const dayData = JSON.stringify(day);

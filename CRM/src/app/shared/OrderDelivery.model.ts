@@ -27,6 +27,8 @@ export class OrderDelivery {
     ShopLicenseBusinessNumber?: string;  
     ShipperID?: number;  
     ShipperFullName?: string;  
+    ReceiveID?: number;  
+    ReceiveFullName?: string;  
     ShipperPhone?: string;  
     ShipperZalo?: string;  
     ShipperEmail?: string;  
