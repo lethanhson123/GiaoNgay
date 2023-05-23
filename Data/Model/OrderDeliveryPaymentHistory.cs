@@ -17,6 +17,8 @@
         public int? Coefficient { get; set; }
         public OrderDeliveryPaymentHistory()
         {
+            PaymentAmount = GlobalHelper.InitializationNumber;
+            PaymentDate = GlobalHelper.InitializationDateTime;
         }
     }
 }

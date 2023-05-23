@@ -22,7 +22,7 @@ export class OrderDeliveryComponent implements OnInit {
   dataSource01: MatTableDataSource<any>;
   dataSource02: MatTableDataSource<any>;
   dataSource03: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'DateCreated', 'Barcode', 'ShopFullName', 'ShipperFullName', 'CustomerFullName', 'TotalBeforeTax', 'Save'];
+  displayColumns: string[] = ['ID', 'DateCreated', 'Barcode','ShopFullName', 'TotalBeforeTax', 'TotalPayment', 'TotalDebt', 'Save'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
@@ -43,10 +43,9 @@ export class OrderDeliveryComponent implements OnInit {
     this.GetYear();
     this.GetMonth();
     this.GetDay();
+    this.onSearch();
     this.id = setInterval(() => {
-      this.get01ToList();
-      this.get02ToList();
-      this.get03ToList();
+      this.onSearch();
     }, 60000);
   }
   ngOnDestroy() {
@@ -96,6 +95,7 @@ export class OrderDeliveryComponent implements OnInit {
     this.OrderDeliveryService.Get01ByYearAndMonthAndDayAndSearchStringToLisAsync(this.year, this.month, this.day, this.searchString).subscribe(
       res => {        
         this.OrderDeliveryService.list01 = res as OrderDelivery[];
+        console.log(this.OrderDeliveryService.list01);
         this.dataSource01 = new MatTableDataSource(this.OrderDeliveryService.list01.sort((a, b) => (a.DateCreated < b.DateCreated ? 1 : -1)));
         this.dataSource01.sort = this.sort;
         this.dataSource01.paginator = this.paginator;
@@ -106,12 +106,13 @@ export class OrderDeliveryComponent implements OnInit {
       }
     );
   }
-  get02ToList() {
+  get02ToList() {    
     this.isShowLoading = true;
     this.OrderDeliveryService.Get02ByYearAndMonthAndDayAndSearchStringToLisAsync(this.year, this.month, this.day, this.searchString).subscribe(
-      res => {        
+      res => {                
         this.OrderDeliveryService.list02 = res as OrderDelivery[];
-        this.dataSource02 = new MatTableDataSource(this.OrderDeliveryService.list02.sort((a, b) => (a.DateCreated > b.DateCreated ? 1 : -1)));
+        console.log(this.OrderDeliveryService.list02);
+        this.dataSource02 = new MatTableDataSource(this.OrderDeliveryService.list02.sort((a, b) => (a.DateCreated < b.DateCreated ? 1 : -1)));
         this.dataSource02.sort = this.sort;
         this.dataSource02.paginator = this.paginator;
         this.isShowLoading = false;
@@ -126,7 +127,8 @@ export class OrderDeliveryComponent implements OnInit {
     this.OrderDeliveryService.Get03ByYearAndMonthAndDayAndSearchStringToLisAsync(this.year, this.month, this.day, this.searchString).subscribe(
       res => {        
         this.OrderDeliveryService.list03 = res as OrderDelivery[];
-        this.dataSource03 = new MatTableDataSource(this.OrderDeliveryService.list03.sort((a, b) => (a.DateCreated > b.DateCreated ? 1 : -1)));
+        console.log(this.OrderDeliveryService.list03);
+        this.dataSource03 = new MatTableDataSource(this.OrderDeliveryService.list03.sort((a, b) => (a.DateCreated < b.DateCreated ? 1 : -1)));
         this.dataSource03.sort = this.sort;
         this.dataSource03.paginator = this.paginator;
         this.isShowLoading = false;
@@ -138,12 +140,13 @@ export class OrderDeliveryComponent implements OnInit {
   }
   onSearch() {
     this.get01ToList();
+    this.get02ToList();
+    this.get03ToList();
   }
   onAdd(ID: any) {
     this.OrderDeliveryService.GetByIDAsync(ID).subscribe(
       res => {
-        this.OrderDeliveryService.formData = res as OrderDelivery;            
-        console.log(this.OrderDeliveryService.formData);
+        this.OrderDeliveryService.formData = res as OrderDelivery;                    
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
@@ -151,9 +154,7 @@ export class OrderDeliveryComponent implements OnInit {
         dialogConfig.data = { ID: ID };
         const dialog = this.dialog.open(OrderDeliveryDetailComponent, dialogConfig);
         dialog.afterClosed().subscribe(() => {
-          this.get01ToList();
-          this.get02ToList();
-          this.get03ToList();
+          this.onSearch();
         });
       },
       err => {

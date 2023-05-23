@@ -47,6 +47,7 @@ builder.Services.AddTransient<IOrderDeliveryBusiness, OrderDeliveryBusiness>();
 builder.Services.AddTransient<IOrderDeliveryDetailBusiness, OrderDeliveryDetailBusiness>();
 builder.Services.AddTransient<IOrderDeliveryPaymentHistoryBusiness, OrderDeliveryPaymentHistoryBusiness>();
 builder.Services.AddTransient<IOrderDeliveryStatusBusiness, OrderDeliveryStatusBusiness>();
+builder.Services.AddTransient<IOrderDeliveryFileBusiness, OrderDeliveryFileBusiness>();
 builder.Services.AddTransient<IProvinceBusiness, ProvinceBusiness>();
 builder.Services.AddTransient<IStreetBusiness, StreetBusiness>();
 builder.Services.AddTransient<IStreetWardBusiness, StreetWardBusiness>();
@@ -66,6 +67,7 @@ builder.Services.AddTransient<IMembershipFileRepository, MembershipFileRepositor
 builder.Services.AddTransient<IOrderDeliveryDetailRepository, OrderDeliveryDetailRepository>();
 builder.Services.AddTransient<IOrderDeliveryPaymentHistoryRepository, OrderDeliveryPaymentHistoryRepository>();
 builder.Services.AddTransient<IOrderDeliveryRepository, OrderDeliveryRepository>();
+builder.Services.AddTransient<IOrderDeliveryFileRepository, OrderDeliveryFileRepository>();
 builder.Services.AddTransient<IOrderDeliveryStatusRepository, OrderDeliveryStatusRepository>();
 builder.Services.AddTransient<IProvinceRepository, ProvinceRepository>();
 builder.Services.AddTransient<IStreetRepository, StreetRepository>();

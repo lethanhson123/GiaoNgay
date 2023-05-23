@@ -11,7 +11,7 @@
         {
             if (model.RowVersion == null)
             {
-                model.ProvinceID = 0;
+                model.RowVersion = 0;
             }
             if (model.ProvinceID == null)
             {

@@ -11,41 +11,7 @@ namespace API.Controllers
         public BaseController(TBaseBusiness baseBusiness)
         {
             _baseBusiness = baseBusiness;
-        }
-
-        //[HttpGet]
-        //public virtual async Task<ActionResult<List<T>>> GetAsync()
-        //{
-        //    var result = await _baseBusiness.GetAllToListAsync();
-        //    return Ok(result);
-        //}
-        //[HttpGet]
-        //[Route("{id}")]
-        //public virtual async Task<ActionResult<T>> GetAsync(int id)
-        //{
-        //    var result = await _baseBusiness.GetByIDAsync(id);
-        //    return Ok(result);
-        //}
-        //[HttpPost]
-        //public virtual async Task<ActionResult<int>> CreateAsync(T t)
-        //{
-        //    var result = await _baseBusiness.AddAsync(t);
-        //    return Ok(result);
-        //}
-        //[HttpPut]
-        //[Route("{id}")]
-        //public virtual async Task<ActionResult<int>> UpdateAsync(T t)
-        //{
-        //    var result = await _baseBusiness.UpdateAsync(t);
-        //    return Ok(result);
-        //}
-        //[HttpDelete]
-        //[Route("{id}")]
-        //public virtual async Task<ActionResult<int>> DeleteAsync(int id)
-        //{
-        //    var result = await _baseBusiness.RemoveAsync(id);
-        //    return Ok(result);
-        //}
+        }      
 
         [HttpPost]
         [Route("Save")]

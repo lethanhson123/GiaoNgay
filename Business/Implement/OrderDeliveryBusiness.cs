@@ -40,6 +40,10 @@
             {
                 model.IsPrepayment = false;
             }
+            if (model.IsComplete == null)
+            {
+                model.IsComplete = false;
+            }
             if (model.DeliveryProvinceID == null)
             {
                 model.DeliveryProvinceID = 1;
@@ -67,15 +71,31 @@
                 Helper.Model.QRCodeModel qRCode = QRCodeHelper.CreateQRCode(model.Barcode, pathQRcode);
                 model.QRcode = qRCode.Code;
                 model.QRcodeFile = qRCode.FileName;
-            }           
+            }
         }
         public virtual async Task<OrderDelivery> Save01Async(OrderDelivery model, string webRootPath)
         {
             try
-            {                
+            {
                 if (model.ID > 0)
                 {
-                    model.RowVersion = await _orderDeliveryRepository.UpdateAsync(model);
+                    OrderDelivery modelExist = await _orderDeliveryRepository.GetByIDAsync(model.ID);
+                    if (modelExist != null)
+                    {
+                        modelExist.ShopID = model.ShopID;
+                        modelExist.ShipperID = model.ShipperID;
+                        modelExist.CustomerFullName = model.CustomerFullName;
+                        modelExist.CustomerPhone = model.CustomerPhone;
+                        modelExist.DeliveryAddress = model.DeliveryAddress;
+                        modelExist.DeliveryDistrictID = model.DeliveryDistrictID;
+                        modelExist.DeliveryWardID = model.DeliveryWardID;
+                        modelExist.IsExpress = model.IsExpress;
+                        modelExist.IsComplete = model.IsComplete;
+                        modelExist.IsShopPayment = model.IsShopPayment;
+                        modelExist.IsPrepayment = model.IsPrepayment;
+                        modelExist.DateCreated = model.DateCreated;
+                        model.RowVersion = await _orderDeliveryRepository.UpdateAsync(modelExist);
+                    }
                 }
                 else
                 {
@@ -90,7 +110,7 @@
             catch (Exception ex)
             {
                 string message = ex.Message;
-            }       
+            }
             return model;
         }
         private async Task<OrderDeliveryDetail> SaveOrderDeliveryDetail(OrderDelivery model)
@@ -136,27 +156,7 @@
             {
                 try
                 {
-                    result = await _orderDeliveryRepository.GetByCondition(item => item.CategoryOrderStatusID == 1 && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
-                }
-                catch (Exception ex)
-                {
-                    string message = ex.Message;
-                }
-            }
-            return result;
-        }
-        public async Task<List<OrderDelivery>> Get03ByYearAndMonthAndDayAndSearchStringToLisAsync(int year, int month, int day, string searchString)
-        {
-            List<OrderDelivery> result = new List<OrderDelivery>();
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                result = await GetBySearchStringToLisAsync(searchString);
-            }
-            else
-            {
-                try
-                {
-                    result = await _orderDeliveryRepository.GetByCondition(item => item.CategoryOrderStatusID == 6 && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.CategoryOrderStatusID == 1 && item.IsComplete != true && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
                 }
                 catch (Exception ex)
                 {
@@ -178,7 +178,7 @@
                 {
 
                     List<long> listCategoryOrderStatusID = new List<long> { 2, 3, 4, 5, 7 };
-                    result = await _orderDeliveryRepository.GetByCondition(item => listCategoryOrderStatusID.Contains(item.CategoryOrderStatusID.Value) && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.CategoryOrderStatusID != 1 && item.IsComplete != true && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
                 }
                 catch (Exception ex)
                 {
@@ -187,5 +187,26 @@
             }
             return result;
         }
+        public async Task<List<OrderDelivery>> Get03ByYearAndMonthAndDayAndSearchStringToLisAsync(int year, int month, int day, string searchString)
+        {
+            List<OrderDelivery> result = new List<OrderDelivery>();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                result = await GetBySearchStringToLisAsync(searchString);
+            }
+            else
+            {
+                try
+                {
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.IsComplete == true && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                }
+            }
+            return result;
+        }
+
     }
 }

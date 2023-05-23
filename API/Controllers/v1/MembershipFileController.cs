@@ -8,14 +8,14 @@ namespace API.Controllers.v1
     public class MembershipFileController : BaseController<MembershipFile, IMembershipFileBusiness>
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IMembershipFileBusiness _MembershipFileBusiness;
+        private readonly IMembershipFileBusiness _membershipFileBusiness;
         public MembershipFileController(
             IWebHostEnvironment webHostEnvironment
-            , IMembershipFileBusiness MembershipFileBusiness
-            ) : base(MembershipFileBusiness)
+            , IMembershipFileBusiness membershipFileBusiness
+            ) : base(membershipFileBusiness)
         {
             _webHostEnvironment = webHostEnvironment;
-            _MembershipFileBusiness = MembershipFileBusiness;
+            _membershipFileBusiness = membershipFileBusiness;
         }
         [HttpPost]
         [Route("SaveAndUploadFile")]
@@ -49,7 +49,7 @@ namespace API.Controllers.v1
             {
                 string mes = e.Message;
             }
-            await _MembershipFileBusiness.SaveAsync(model);
+            await _membershipFileBusiness.SaveAsync(model);
             return model;
         }
     }

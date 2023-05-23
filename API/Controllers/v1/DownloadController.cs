@@ -87,6 +87,12 @@ namespace API.Controllers.v1
                     contentHTML = contentHTML.Replace("[OrderDeliveryDetailQuantity]", oderDeliveryDetail.Quantity.Value.ToString("N0"));
                     contentHTML = contentHTML.Replace("[OrderDeliveryDetailNote]", oderDeliveryDetail.Note);
                 }
+                else
+                {
+                    contentHTML = contentHTML.Replace("[OrderDeliveryDetailName]", GlobalHelper.InitializationString);
+                    contentHTML = contentHTML.Replace("[OrderDeliveryDetailQuantity]", GlobalHelper.InitializationString);
+                    contentHTML = contentHTML.Replace("[OrderDeliveryDetailNote]", GlobalHelper.InitializationString);
+                }
 
                 string fileName = orderDelivery.Barcode + ".html";
                 result = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Download, GlobalHelper.OrderDelivery, fileName);

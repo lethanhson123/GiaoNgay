@@ -26,6 +26,7 @@ namespace Data.Model
         public virtual DbSet<Data.Model.OrderDelivery> OrderDelivery { get; set; }
         public virtual DbSet<Data.Model.OrderDeliveryDetail> OrderDeliveryDetail { get; set; }
         public virtual DbSet<Data.Model.OrderDeliveryPaymentHistory> OrderDeliveryPaymentHistory { get; set; }
+        public virtual DbSet<Data.Model.OrderDeliveryFile> OrderDeliveryFile { get; set; }
         public virtual DbSet<Data.Model.OrderDeliveryStatus> OrderDeliveryStatus { get; set; }
         public virtual DbSet<Data.Model.Province> Province { get; set; }
         public virtual DbSet<Data.Model.Street> Street { get; set; }

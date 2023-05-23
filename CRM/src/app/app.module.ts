@@ -12,6 +12,7 @@ import { ChartsModule } from 'ng2-charts';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { AppComponent } from './app.component';
+import { LoadingComponent } from './loading/loading.component';
 import { BankComponent } from './bank/bank.component';
 import { BankDetailComponent } from './bank/bank-detail/bank-detail.component';
 import { UploadComponent } from './upload/upload.component';
@@ -40,13 +41,16 @@ import { ShipperDetailComponent } from './shipper/shipper-detail/shipper-detail.
 import { MembershipFileComponent } from './membership-file/membership-file.component';
 import { MembershipFileDetailComponent } from './membership-file/membership-file-detail/membership-file-detail.component';
 import { OrderDeliveryComponent } from './order-delivery/order-delivery.component';
-import { OrderDeliveryDetailComponent } from './Order-Delivery/order-delivery-detail/order-delivery-detail.component';
-import { OrderDeliveryInfoComponent } from './Order-Delivery/order-delivery-info/order-delivery-info.component';
+import { OrderDeliveryDetailComponent } from './order-delivery/order-delivery-detail/order-delivery-detail.component';
+import { OrderDeliveryInfoComponent } from './order-delivery/order-delivery-info/order-delivery-info.component';
+import { OrderDeliveryPaymentHistoryComponent } from './order-delivery-payment-history/order-delivery-payment-history.component';
+import { OrderDeliveryPaymentHistoryDetailComponent } from './Order-Delivery-Payment-History/order-delivery-payment-history-detail/order-delivery-payment-history-detail.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoadingComponent,
     BankComponent,
     BankDetailComponent,
     UploadComponent,
@@ -76,7 +80,9 @@ import { OrderDeliveryInfoComponent } from './Order-Delivery/order-delivery-info
     MembershipFileDetailComponent,
     OrderDeliveryComponent,
     OrderDeliveryDetailComponent,
-    OrderDeliveryInfoComponent    
+    OrderDeliveryInfoComponent,
+    OrderDeliveryPaymentHistoryComponent,
+    OrderDeliveryPaymentHistoryDetailComponent    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

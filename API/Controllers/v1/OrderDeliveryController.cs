@@ -34,7 +34,7 @@ namespace API.Controllers.v1
             int month = JsonConvert.DeserializeObject<int>(Request.Form["month"]);
             int day = JsonConvert.DeserializeObject<int>(Request.Form["day"]);
             string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
-            var result = await _orderDeliveryBusiness.Get01ByYearAndMonthAndDayAndSearchStringToLisAsync(year, month, day, searchString);
+            var result = await _orderDeliveryBusiness.Get02ByYearAndMonthAndDayAndSearchStringToLisAsync(year, month, day, searchString);
             return result;
         }
         [HttpPost]
@@ -45,7 +45,7 @@ namespace API.Controllers.v1
             int month = JsonConvert.DeserializeObject<int>(Request.Form["month"]);
             int day = JsonConvert.DeserializeObject<int>(Request.Form["day"]);
             string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
-            var result = await _orderDeliveryBusiness.Get01ByYearAndMonthAndDayAndSearchStringToLisAsync(year, month, day, searchString);
+            var result = await _orderDeliveryBusiness.Get03ByYearAndMonthAndDayAndSearchStringToLisAsync(year, month, day, searchString);
             return result;
         }
         [HttpPost]

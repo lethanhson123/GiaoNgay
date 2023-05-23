@@ -54,6 +54,8 @@ export class OrderDelivery {
     CategoryOrderPaymentID?: number;  
     CategoryOrderStatusID?: number;  
     TotalBeforeTax?: number;  
+    TotalDebt?: number;  
+    TotalPayment?: number;  
     TaxVAT?: number;  
     TaxTotal?: number;  
     Discount?: number;  
@@ -77,5 +79,6 @@ export class OrderDelivery {
     IsExpress?: boolean;     
     IsShopPayment?: boolean;   
     IsPrepayment?: boolean;  
+    IsComplete?: boolean; 
 }
 

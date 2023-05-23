@@ -47,6 +47,8 @@ namespace Data.Model
         public long? CategoryOrderPaymentID { get; set; }
         public long? CategoryOrderStatusID { get; set; }
         public decimal? TotalBeforeTax { get; set; }
+        public decimal? TotalDebt { get; set; }
+        public decimal? TotalPayment { get; set; }
         public decimal? TaxVAT { get; set; }
         public decimal? TaxTotal { get; set; }
         public decimal? Discount { get; set; }
@@ -70,13 +72,14 @@ namespace Data.Model
         public bool? IsExpress { get; set; }
         public bool? IsShopPayment { get; set; }
         public bool? IsPrepayment { get; set; }
+        public bool? IsComplete { get; set; }
         public OrderDelivery()
         {            
             Active = true;
             IsExpress = false;
             IsShopPayment = false;
             IsPrepayment = false;
-            CategoryOrderStatusID = 1;
+            IsComplete = false;            
             DeliveryProvinceID = 1;
             TotalBeforeTax = 0;
             DateCreated = GlobalHelper.InitializationDateTime;
