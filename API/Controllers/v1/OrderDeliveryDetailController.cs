@@ -1,4 +1,5 @@
-﻿namespace API.Controllers.v1
+﻿
+namespace API.Controllers.v1
 {
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
@@ -9,6 +10,13 @@
         public OrderDeliveryDetailController(IOrderDeliveryDetailBusiness orderDeliveryDetailBusiness) : base(orderDeliveryDetailBusiness)
         {
             _orderDeliveryDetailBusiness = orderDeliveryDetailBusiness;
+        }
+        [HttpPost]
+        [Route("AddEmptyAsync")]
+        public virtual async Task<int> AddEmptyAsync()
+        {
+            long parentID = JsonConvert.DeserializeObject<long>(Request.Form["data"]);
+            return await _orderDeliveryDetailBusiness.AddEmptyAsync(parentID);
         }
     }
 }

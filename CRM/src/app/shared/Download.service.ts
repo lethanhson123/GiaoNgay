@@ -34,5 +34,11 @@ export class DownloadService {
         const formUpload: FormData = new FormData();   
         return this.httpClient.post(url, formUpload);
     }   
+    OrderDeliveryByIDToHTML(ID: number) {
+        let url = this.aPIURL + this.controller + '/OrderDeliveryByIDToHTML';
+        const params = new HttpParams()
+            .set('ID', JSON.stringify(ID))
+        return this.httpClient.get(url, { params }).toPromise();
+    }
 }
 

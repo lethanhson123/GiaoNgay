@@ -24,6 +24,7 @@ global using Business.Interface;
 global using Business.Implement;
 
 global using Helper;
+global using Helper.Model;
 global using Newtonsoft.Json;
 
 global using OfficeOpenXml;

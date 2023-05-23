@@ -69,5 +69,19 @@ export class OrderDeliveryDetailService {
         const formUpload: FormData = new FormData();        
         return this.httpClient.post(url, formUpload);
     } 
+    GetByParentIDToListAsync(parentID: number) {
+        let url = this.aPIURL + this.controller + '/GetByParentIDToListAsync';
+        const uploadData = JSON.stringify(parentID);
+        const formUpload: FormData = new FormData();
+        formUpload.append('data', uploadData);
+        return this.httpClient.post(url, formUpload);
+    }
+    AddEmptyAsync(parentID: number) {
+        let url = this.aPIURL + this.controller + '/AddEmptyAsync';
+        const uploadData = JSON.stringify(parentID);
+        const formUpload: FormData = new FormData();
+        formUpload.append('data', uploadData);
+        return this.httpClient.post(url, formUpload);
+    }
 }
 

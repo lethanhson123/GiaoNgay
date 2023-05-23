@@ -8,4 +8,6 @@ global using System.Threading.Tasks;
 global using System.Reflection;
 global using Microsoft.Extensions.Configuration;
 global using System.Security.Cryptography;
-
+global using System.Drawing.Imaging;
+global using System.Text.RegularExpressions;
+global using Helper.Model;

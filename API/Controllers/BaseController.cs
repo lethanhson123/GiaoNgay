@@ -95,7 +95,7 @@ namespace API.Controllers
             long ID = JsonConvert.DeserializeObject<long>(Request.Form["data"]);
             T result = await _baseBusiness.GetByIDAsync(ID);
             return result;
-        }       
+        }        
         [HttpPost]
         [Route("GetAllToList")]
         public virtual List<T> GetAllToList()
@@ -109,14 +109,7 @@ namespace API.Controllers
         {
             var result = await _baseBusiness.GetAllToListAsync();
             return result;
-        }
-        [HttpGet]
-        [Route("GetAllToListAsync2023")]
-        public virtual async Task<List<T>> GetAllToListAsync2023()
-        {
-            var result = await _baseBusiness.GetAllToListAsync();
-            return result;
-        }
+        }       
         [HttpPost]
         [Route("GetByActiveToList")]
         public virtual List<T> GetByActiveToList()

@@ -33,6 +33,13 @@ export class OrderDeliveryService {
         formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
     }
+    Save01Async(formData: OrderDelivery) {
+        let url = this.aPIURL + this.controller + '/Save01Async';
+        const uploadData = JSON.stringify(formData);
+        const formUpload: FormData = new FormData();
+        formUpload.append('data', uploadData);
+        return this.httpClient.post(url, formUpload);
+    }
     Remove(ID: number) {
         let url = this.aPIURL + this.controller + '/Remove';
         const uploadData = JSON.stringify(ID);
@@ -60,6 +67,12 @@ export class OrderDeliveryService {
         const formUpload: FormData = new FormData();
         formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
+    }
+    GetByIDStringAsync(ID: string) {
+        let url = this.aPIURL + this.controller + '/GetByIDStringAsync';
+        const params = new HttpParams()
+            .set('ID', ID)
+        return this.httpClient.get(url, { params }).toPromise();
     }
     GetAllToList() {
         let url = this.aPIURL + this.controller + '/GetAllToList';

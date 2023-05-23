@@ -75,5 +75,7 @@ export class OrderDelivery {
     DeliveryDistrictID?: number;  
     DeliveryProvinceID?: number;     
     IsExpress?: boolean;     
+    IsShopPayment?: boolean;   
+    IsPrepayment?: boolean;  
 }
 

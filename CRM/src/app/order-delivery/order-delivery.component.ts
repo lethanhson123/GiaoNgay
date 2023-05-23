@@ -18,10 +18,11 @@ import { DownloadService } from 'src/app/shared/Download.service';
 })
 export class OrderDeliveryComponent implements OnInit {
 
+  URLSub: string = environment.DomainDestination + "OrderDeliveryInfo";
   dataSource01: MatTableDataSource<any>;
   dataSource02: MatTableDataSource<any>;
   dataSource03: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'DateCreated', 'Barcode', 'ShopFullName', 'ShipperFullName', 'CustomerFullName'];
+  displayColumns: string[] = ['ID', 'DateCreated', 'Barcode', 'ShopFullName', 'ShipperFullName', 'CustomerFullName', 'TotalBeforeTax', 'Save'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
@@ -95,7 +96,7 @@ export class OrderDeliveryComponent implements OnInit {
     this.OrderDeliveryService.Get01ByYearAndMonthAndDayAndSearchStringToLisAsync(this.year, this.month, this.day, this.searchString).subscribe(
       res => {        
         this.OrderDeliveryService.list01 = res as OrderDelivery[];
-        this.dataSource01 = new MatTableDataSource(this.OrderDeliveryService.list01.sort((a, b) => (a.DateCreated > b.DateCreated ? 1 : -1)));
+        this.dataSource01 = new MatTableDataSource(this.OrderDeliveryService.list01.sort((a, b) => (a.DateCreated < b.DateCreated ? 1 : -1)));
         this.dataSource01.sort = this.sort;
         this.dataSource01.paginator = this.paginator;
         this.isShowLoading = false;
@@ -156,6 +157,15 @@ export class OrderDeliveryComponent implements OnInit {
         });
       },
       err => {
+      }
+    );
+  }
+  onPrint(ID: number) {
+    this.isShowLoading = true;
+    this.DownloadService.OrderDeliveryByIDToHTML(ID).then(
+      res => {
+        window.open(res.toString(), "_blank");
+        this.isShowLoading = false;
       }
     );
   }

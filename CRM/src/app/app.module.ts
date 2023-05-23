@@ -41,6 +41,7 @@ import { MembershipFileComponent } from './membership-file/membership-file.compo
 import { MembershipFileDetailComponent } from './membership-file/membership-file-detail/membership-file-detail.component';
 import { OrderDeliveryComponent } from './order-delivery/order-delivery.component';
 import { OrderDeliveryDetailComponent } from './Order-Delivery/order-delivery-detail/order-delivery-detail.component';
+import { OrderDeliveryInfoComponent } from './Order-Delivery/order-delivery-info/order-delivery-info.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { OrderDeliveryDetailComponent } from './Order-Delivery/order-delivery-de
     MembershipFileComponent,
     MembershipFileDetailComponent,
     OrderDeliveryComponent,
-    OrderDeliveryDetailComponent    
+    OrderDeliveryDetailComponent,
+    OrderDeliveryInfoComponent    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

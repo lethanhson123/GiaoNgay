@@ -111,10 +111,10 @@ export class OrderDeliveryDetailComponent implements OnInit {
     this.dialogRef.close();
   }
   onSubmit(form: NgForm) {
-    this.OrderDeliveryService.SaveAsync(form.value).subscribe(
+    this.OrderDeliveryService.Save01Async(form.value).subscribe(
       res => {
         this.notificationService.success(environment.SaveSuccess);
-        this.OrderDeliveryService.formData = res as OrderDelivery;
+        this.onClose();
       },
       err => {
         this.notificationService.warn(environment.SaveNotSuccess);

@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace Helper
+﻿namespace Helper
 {
     public class GlobalHelper
     {
@@ -56,6 +54,38 @@ namespace Helper
         }
         #endregion
         #region AppSettings 
+        public static string QRcode
+        {
+            get
+            {
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                return builder.Build().GetSection("AppSettings").GetSection("QRcode").Value;
+            }
+        }
+        public static string Barcode
+        {
+            get
+            {
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                return builder.Build().GetSection("AppSettings").GetSection("Barcode").Value;
+            }
+        }
+        public static string EAN13CountryCode
+        {
+            get
+            {
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                return builder.Build().GetSection("AppSettings").GetSection("EAN13CountryCode").Value;
+            }
+        }
+        public static string EAN13ManufacturerCode
+        {
+            get
+            {
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                return builder.Build().GetSection("AppSettings").GetSection("EAN13ManufacturerCode").Value;
+            }
+        }
         public static int YearBegin
         {
             get

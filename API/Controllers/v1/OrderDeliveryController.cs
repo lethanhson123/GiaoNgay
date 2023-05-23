@@ -8,9 +8,12 @@ namespace API.Controllers.v1
     public class OrderDeliveryController : BaseController<OrderDelivery, IOrderDeliveryBusiness>
     {
         private readonly IOrderDeliveryBusiness _orderDeliveryBusiness;
-        public OrderDeliveryController(IOrderDeliveryBusiness orderDeliveryBusiness) : base(orderDeliveryBusiness)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public OrderDeliveryController(IOrderDeliveryBusiness orderDeliveryBusiness
+            , IWebHostEnvironment webHostEnvironment) : base(orderDeliveryBusiness)
         {
             _orderDeliveryBusiness = orderDeliveryBusiness;
+            _webHostEnvironment = webHostEnvironment;
         }
         [HttpPost]
         [Route("Get01ByYearAndMonthAndDayAndSearchStringToLisAsync")]
@@ -43,6 +46,32 @@ namespace API.Controllers.v1
             int day = JsonConvert.DeserializeObject<int>(Request.Form["day"]);
             string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
             var result = await _orderDeliveryBusiness.Get01ByYearAndMonthAndDayAndSearchStringToLisAsync(year, month, day, searchString);
+            return result;
+        }
+        [HttpPost]
+        [Route("Save01Async")]
+        public virtual async Task<OrderDelivery> Save01Async()
+        {
+            OrderDelivery result = JsonConvert.DeserializeObject<OrderDelivery>(Request.Form["data"]);
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            await _orderDeliveryBusiness.Save01Async(result, webRootPath);
+            return result;
+        }        
+        [HttpGet]
+        [Route("GetByIDStringAsync")]
+        public async Task<OrderDelivery> GetByIDStringAsync(string ID)
+        {
+            OrderDelivery result = new OrderDelivery();
+            try
+            {
+                ID = ID.Split('.')[0];
+                ID = ID.Split('/')[ID.Split('/').Length - 1];
+                result = await _orderDeliveryBusiness.GetByIDAsync(long.Parse(ID));
+            }
+            catch (Exception e)
+            {
+                string mes = e.Message;
+            }            
             return result;
         }
     }

@@ -79,16 +79,17 @@ var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionD
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
-        {
-            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
-                description.GroupName.ToUpperInvariant());
-        }
-    });
+    
 }
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
+    {
+        options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+            description.GroupName.ToUpperInvariant());
+    }
+});
 
 app.UseCors(options =>
              options.AllowAnyOrigin()

@@ -14,10 +14,14 @@ import { MembershipComponent } from './membership/membership.component';
 import { ShopComponent } from './shop/shop.component';
 import { ShipperComponent } from './shipper/shipper.component';
 import { OrderDeliveryComponent } from './order-delivery/order-delivery.component';
+import { OrderDeliveryInfoComponent } from './order-delivery/order-delivery-info/order-delivery-info.component';
 
 const routes: Routes = [  
   {
     path: 'OrderDelivery', component: OrderDeliveryComponent,
+  },
+  {
+    path: 'OrderDeliveryInfo/:ID', component: OrderDeliveryInfoComponent,
   },
   {
     path: 'Membership', component: MembershipComponent,

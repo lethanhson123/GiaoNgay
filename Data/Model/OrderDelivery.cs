@@ -1,4 +1,6 @@
-﻿namespace Data.Model
+﻿using Helper.Model;
+
+namespace Data.Model
 {
     public partial class OrderDelivery : BaseModel
     {
@@ -13,6 +15,7 @@
         public string? ShopZalo { get; set; }
         public string? ShopEmail { get; set; }
         public string? ShopFacebook { get; set; }
+        public string? ShopAddress { get; set; }
         public string? ShopFacebookMessenger { get; set; }
         public string? ShopLicenseBusinessNumber { get; set; }
         public long? ShipperID { get; set; }
@@ -65,10 +68,14 @@
         public long? DeliveryDistrictID { get; set; }
         public long? DeliveryProvinceID { get; set; }
         public bool? IsExpress { get; set; }
+        public bool? IsShopPayment { get; set; }
+        public bool? IsPrepayment { get; set; }
         public OrderDelivery()
-        {
+        {            
             Active = true;
             IsExpress = false;
+            IsShopPayment = false;
+            IsPrepayment = false;
             CategoryOrderStatusID = 1;
             DeliveryProvinceID = 1;
             TotalBeforeTax = 0;

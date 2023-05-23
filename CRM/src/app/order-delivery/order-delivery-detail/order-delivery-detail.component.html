@@ -1,173 +1,204 @@
-<form autocomplete="off" class="row" #form="ngForm" (submit)="onSubmit(form)">
-    <div class="col s6 m6 l9">
-        <h5 class="card-title"><b>Đơn hàng: {{OrderDeliveryService.formData.Barcode}}</b></h5>
+<div class="card">
+    <div class="card-title">
+        <div class="row">
+            <div class="col s12 m6 l6">
+            </div>
+            <div class="col s12 m6 l6">
+                <ul class="tabs">
+                    <li class="tab col s4 p-0"><a class="active p-0" href="#1">Mới</a></li>
+                    <li class="tab col s4 p-0"><a class="p-0" href="#2">Đang giao</a></li>                    
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="col s6 m6 l3">
-        <button [disabled]="!OrderDeliveryService.formData.DeliveryAddress || !OrderDeliveryService.formData.CustomerPhone" title="Lưu thay đổi" type="submit"
-            class="mb-6 btn-floating waves-effect waves-light cyan"><i
-                class="material-icons">save</i></button>&nbsp;&nbsp;&nbsp;
-        <a title="Đóng" class="mb-6 btn-floating waves-effect waves-light purple lightrn-1" (click)="onClose()">
-            <i class="material-icons">close</i>
-        </a>
-    </div>
-    <input name="ID" [(ngModel)]="OrderDeliveryService.formData.ID" type="hidden">
-    <div class="col s6 m6 l6">
-        <div class="col s4 m4 l4">
-            <div class="input-field">
-                <label for="ShopID">Shop</label>
+    <div id="1">
+        <form autocomplete="off" class="row" #form="ngForm" (submit)="onSubmit(form)">
+            <div class="col s6 m6 l9">
+                <h5 class="card-title"><b>Đơn hàng: {{OrderDeliveryService.formData.Barcode}}</b></h5>
             </div>
-        </div>
-        <div class="col s8 m8 l8">
-            <div class="input-field">
-                <mat-select
-                    style="padding-top:30px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
-                    name="ShopID" class="browser-default" [(ngModel)]="OrderDeliveryService.formData.ShopID">
-                    <mat-option *ngFor="let item of MembershipService.listShop" [value]="item.ID">
-                        {{item.Display}}
-                    </mat-option>
-                </mat-select>
-            </div>
-        </div>
-        <div class="col s4 m4 l4">
-            <div class="input-field">
-                <label for="ShipperID">Shipper</label>
-            </div>
-        </div>
-        <div class="col s8 m8 l8">
-            <div class="input-field">
-                <mat-select
-                    style="padding-top:30px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
-                    name="ShipperID" class="browser-default" [(ngModel)]="OrderDeliveryService.formData.ShipperID">
-                    <mat-option *ngFor="let item of MembershipService.listShipper" [value]="item.ID">
-                        {{item.Display}}
-                    </mat-option>
-                </mat-select>
-            </div>
-        </div>
-        <div class="col s4 m4 l4">
-            <div class="input-field">
-                <label for="CustomerFullName">Khách hàng</label>
-            </div>
-        </div>
-        <div class="col s8 m8 l8">
-            <div class="input-field">
-                <input placeholder="Khách hàng" name="CustomerFullName"
-                    [(ngModel)]="OrderDeliveryService.formData.CustomerFullName" type="text">
-            </div>
-        </div>
-        <div class="col s4 m4 l4">
-            <div class="input-field">
-                <label for="CustomerPhone">Điện thoại</label>
-            </div>
-        </div>
-        <div class="col s8 m8 l8">
-            <div class="input-field">
-                <input placeholder="Điện thoại" name="CustomerPhone"
-                    [(ngModel)]="OrderDeliveryService.formData.CustomerPhone" type="text">
-            </div>
-        </div>
-        <div class="col s4 m4 l4">
-            <div class="input-field">
-                <label for="DeliveryAddress">Địa chỉ</label>
-            </div>
-        </div>
-        <div class="col s8 m8 l8">
-            <div class="input-field">
-                <input placeholder="Địa chỉ" name="DeliveryAddress"
-                    [(ngModel)]="OrderDeliveryService.formData.DeliveryAddress" type="text">
-            </div>
-        </div>
-        <div class="col s4 m4 l4">
-            <div class="input-field">
-                <label for="DeliveryDistrictID">Quận huyện</label>
-            </div>
-        </div>
-        <div class="col s8 m8 l8">
-            <div class="input-field">
-                <mat-select (selectionChange)="onChangeDistrictID($event)"
-                    style="padding-top:30px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
-                    name="DeliveryDistrictID" class="browser-default"
-                    [(ngModel)]="OrderDeliveryService.formData.DeliveryDistrictID">
-                    <mat-option *ngFor="let item of DistrictService.list" [value]="item.ID">
-                        {{item.Display}}
-                    </mat-option>
-                </mat-select>
-            </div>
-        </div>
-        <div class="col s4 m4 l4">
-            <div class="input-field">
-                <label for="DeliveryWardID">Phường xã</label>
-            </div>
-        </div>
-        <div class="col s8 m8 l8">
-            <div class="input-field">
-                <mat-select
-                    style="padding-top:30px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
-                    name="DeliveryWardID" class="browser-default"
-                    [(ngModel)]="OrderDeliveryService.formData.DeliveryWardID">
-                    <mat-option *ngFor="let item of WardService.list" [value]="item.ID">
-                        {{item.Display}}
-                    </mat-option>
-                </mat-select>
-            </div>
-        </div>
-        <div class="col s12 m12 l12">
             <div class="col s6 m6 l3">
-                <div class="input-field">
-                    <p>
-                        <label>
-                            <input type="checkbox" class="filled-in" name="IsExpress"
-                                [(ngModel)]="OrderDeliveryService.formData.IsExpress" />
-                            <span>Hoả tốc</span>
-                        </label>
-                    </p>
+                <button
+                    [disabled]="!OrderDeliveryService.formData.DeliveryAddress || !OrderDeliveryService.formData.CustomerPhone"
+                    title="Lưu thay đổi" type="submit" class="mb-6 btn-floating waves-effect waves-light cyan"><i
+                        class="material-icons">save</i></button>&nbsp;&nbsp;&nbsp;
+                <a title="Đóng" class="mb-6 btn-floating waves-effect waves-light purple lightrn-1" (click)="onClose()">
+                    <i class="material-icons">close</i>
+                </a>
+            </div>
+            <input name="ID" [(ngModel)]="OrderDeliveryService.formData.ID" type="hidden">
+            <div class="col s6 m6 l6">
+                <div class="col s4 m4 l4">
+                    <div class="input-field">
+                        <label for="ShopID">Shop</label>
+                    </div>
+                </div>
+                <div class="col s8 m8 l8">
+                    <div class="input-field">
+                        <mat-select
+                            style="padding-top:30px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
+                            name="ShopID" class="browser-default" [(ngModel)]="OrderDeliveryService.formData.ShopID">
+                            <mat-option *ngFor="let item of MembershipService.listShop" [value]="item.ID">
+                                {{item.Display}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="col s4 m4 l4">
+                    <div class="input-field">
+                        <label for="ShipperID">Shipper</label>
+                    </div>
+                </div>
+                <div class="col s8 m8 l8">
+                    <div class="input-field">
+                        <mat-select
+                            style="padding-top:30px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
+                            name="ShipperID" class="browser-default"
+                            [(ngModel)]="OrderDeliveryService.formData.ShipperID">
+                            <mat-option *ngFor="let item of MembershipService.listShipper" [value]="item.ID">
+                                {{item.Display}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="col s4 m4 l4">
+                    <div class="input-field">
+                        <label for="CustomerFullName">Khách hàng</label>
+                    </div>
+                </div>
+                <div class="col s8 m8 l8">
+                    <div class="input-field">
+                        <input placeholder="Khách hàng" name="CustomerFullName"
+                            [(ngModel)]="OrderDeliveryService.formData.CustomerFullName" type="text">
+                    </div>
+                </div>
+                <div class="col s4 m4 l4">
+                    <div class="input-field">
+                        <label for="CustomerPhone">Điện thoại</label>
+                    </div>
+                </div>
+                <div class="col s8 m8 l8">
+                    <div class="input-field">
+                        <input placeholder="Điện thoại" name="CustomerPhone"
+                            [(ngModel)]="OrderDeliveryService.formData.CustomerPhone" type="text">
+                    </div>
+                </div>
+                <div class="col s4 m4 l4">
+                    <div class="input-field">
+                        <label for="DeliveryAddress">Địa chỉ</label>
+                    </div>
+                </div>
+                <div class="col s8 m8 l8">
+                    <div class="input-field">
+                        <input placeholder="Địa chỉ" name="DeliveryAddress"
+                            [(ngModel)]="OrderDeliveryService.formData.DeliveryAddress" type="text">
+                    </div>
+                </div>
+                <div class="col s4 m4 l4">
+                    <div class="input-field">
+                        <label for="DeliveryDistrictID">Quận huyện</label>
+                    </div>
+                </div>
+                <div class="col s8 m8 l8">
+                    <div class="input-field">
+                        <mat-select (selectionChange)="onChangeDistrictID($event)"
+                            style="padding-top:30px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
+                            name="DeliveryDistrictID" class="browser-default"
+                            [(ngModel)]="OrderDeliveryService.formData.DeliveryDistrictID">
+                            <mat-option *ngFor="let item of DistrictService.list" [value]="item.ID">
+                                {{item.Display}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="col s4 m4 l4">
+                    <div class="input-field">
+                        <label for="DeliveryWardID">Phường xã</label>
+                    </div>
+                </div>
+                <div class="col s8 m8 l8">
+                    <div class="input-field">
+                        <mat-select
+                            style="padding-top:30px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
+                            name="DeliveryWardID" class="browser-default"
+                            [(ngModel)]="OrderDeliveryService.formData.DeliveryWardID">
+                            <mat-option *ngFor="let item of WardService.list" [value]="item.ID">
+                                {{item.Display}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <div class="col s12 m12 l12">
+                    <div class="col s6 m6 l4">
+                        <div class="input-field">
+                            <p>
+                                <label>
+                                    <input type="checkbox" class="filled-in" name="IsExpress"
+                                        [(ngModel)]="OrderDeliveryService.formData.IsExpress" />
+                                    <span>Hoả tốc</span>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col s6 m6 l4">
+                        <div class="input-field">
+                            <p>
+                                <label>
+                                    <input type="checkbox" class="filled-in" name="IsShopPayment"
+                                        [(ngModel)]="OrderDeliveryService.formData.IsShopPayment" />
+                                    <span>Shop trả phí giao</span>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col s6 m6 l4">
+                        <div class="input-field">
+                            <p>
+                                <label>
+                                    <input type="checkbox" class="filled-in" name="IsPrepayment"
+                                        [(ngModel)]="OrderDeliveryService.formData.IsPrepayment" />
+                                    <span>Ứng tiền trả shop</span>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="col s6 m6 l6">
+                <div class="col s4 m4 l4">
+                    <div class="input-field">
+                        <label for="DateCreated">Ngày tạo</label>
+                    </div>
+                </div>
+                <div class="col s8 m8 l8">
+                    <div class="input-field">
+                        <input style="text-align: right; font-weight: bold;" placeholder="DateCreated"
+                            name="DateCreated" [(ngModel)]="OrderDeliveryService.formData.DateCreated"
+                            type="datetime-local">
+                    </div>
+                </div>
+                <div class="col s4 m4 l4">
+                    <div class="input-field">
+                        <label for="TotalBeforeTax">Thành tiền</label>
+                    </div>
+                </div>
+                <div class="col s8 m8 l8">
+                    <div class="input-field">
+                        <p style="text-align: right; color: green; font-weight: bold; font-size: 30px;">
+                            {{OrderDeliveryService.formData.TotalBeforeTax | number: '1.0-0'}}</p>
+                    </div>
+                </div>
+                <!-- <div class="col s12 m12 l6" *ngIf="OrderDeliveryService.formData.BarcodeFile">
+                    <hr />
+                    <a target="_blank" href="{{BarcodeURL}}/{{OrderDeliveryService.formData.BarcodeFile}}"><img class="responsive-img"
+                            src="{{BarcodeURL}}/{{OrderDeliveryService.formData.BarcodeFile}}" /></a>
+                </div>
+                <div class="col s12 m12 l6" *ngIf="OrderDeliveryService.formData.QRcodeFile">
+                    <hr />
+                    <a target="_blank" href="{{QRcodeURL}}/{{OrderDeliveryService.formData.QRcodeFile}}"><img class="responsive-img"
+                            src="{{QRcodeURL}}/{{OrderDeliveryService.formData.QRcodeFile}}" /></a>
+                </div> -->
+            </div>
+        </form>
     </div>
-    <div class="col s6 m6 l6">
-        <div class="col s4 m4 l4">
-            <div class="input-field">
-                <label for="DateCreated">Ngày tạo</label>
-            </div>
-        </div>
-        <div class="col s8 m8 l8">
-            <div class="input-field">
-                <input style="text-align: right; font-weight: bold;" placeholder="DateCreated" name="DateCreated"
-                    [(ngModel)]="OrderDeliveryService.formData.DateCreated" type="datetime-local">
-            </div>
-        </div>
-        <div class="col s4 m4 l4">
-            <div class="input-field">
-                <label for="Barcode">Barcode</label>
-            </div>
-        </div>
-        <div class="col s8 m8 l8">
-            <div class="input-field">
-                <input style="text-align: right; font-weight: bold;" disabled placeholder="Barcode" name="Barcode"
-                    [(ngModel)]="OrderDeliveryService.formData.Barcode" type="text">
-            </div>
-        </div>
-        <div class="col s4 m4 l4">
-            <div class="input-field">
-                <label for="TotalBeforeTax">Thành tiền</label>
-            </div>
-        </div>
-        <div class="col s8 m8 l8">
-            <div class="input-field">
-                <p style="text-align: right; color: green; font-weight: bold; font-size: 30px;">
-                    {{OrderDeliveryService.formData.TotalBeforeTax | number: '1.0-0'}}</p>
-            </div>
-        </div>
-        <div class="col s12 m12 l6">
-            <hr />
-            <a target="_blank" href="{{BarcodeURL}}/barcode.png"><img class="responsive-img"
-                    src="{{BarcodeURL}}/barcode.png" /></a>
-        </div>
-        <div class="col s12 m12 l6">
-            <hr />
-            <a target="_blank" href="{{QRcodeURL}}/qrcode.png"><img class="responsive-img"
-                    src="{{QRcodeURL}}/qrcode.png" /></a>
-        </div>
-    </div>
-</form>
+    <div id="2"></div>
+</div>

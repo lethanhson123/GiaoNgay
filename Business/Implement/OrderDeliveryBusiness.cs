@@ -2,6 +2,7 @@
 {
     public class OrderDeliveryBusiness : BaseBusiness<OrderDelivery, IOrderDeliveryRepository>, IOrderDeliveryBusiness
     {
+
         private readonly IOrderDeliveryRepository _orderDeliveryRepository;
         private readonly IOrderDeliveryDetailRepository _orderDeliveryDetailRepository;
         private readonly ICategoryOrderDetailRepository _categoryOrderDetailRepository;
@@ -13,7 +14,7 @@
             _orderDeliveryDetailRepository = orderDeliveryDetailRepository;
             _categoryOrderDetailRepository = categoryOrderDetailRepository;
         }
-        public override void Initialization(OrderDelivery model)
+        public virtual void Initialization01(OrderDelivery model, string webRootPath)
         {
             if (model.DateCreated == null)
             {
@@ -31,6 +32,14 @@
             {
                 model.IsExpress = false;
             }
+            if (model.IsShopPayment == null)
+            {
+                model.IsShopPayment = false;
+            }
+            if (model.IsPrepayment == null)
+            {
+                model.IsPrepayment = false;
+            }
             if (model.DeliveryProvinceID == null)
             {
                 model.DeliveryProvinceID = 1;
@@ -47,26 +56,41 @@
                 }
             }
 
+            if (string.IsNullOrEmpty(model.Barcode))
+            {
+                string pathBarcode = Path.Combine(webRootPath, GlobalHelper.Barcode);
+                Helper.Model.Barcode barcode = Ean13.CreateBarcode(pathBarcode);
+                model.Barcode = barcode.Code;
+                model.BarcodeFile = barcode.FileName;
+
+                string pathQRcode = Path.Combine(webRootPath, GlobalHelper.QRcode);
+                Helper.Model.QRCodeModel qRCode = QRCodeHelper.CreateQRCode(model.Barcode, pathQRcode);
+                model.QRcode = qRCode.Code;
+                model.QRcodeFile = qRCode.FileName;
+            }           
         }
-        public override async Task<OrderDelivery> SaveAsync(OrderDelivery model)
+        public virtual async Task<OrderDelivery> Save01Async(OrderDelivery model, string webRootPath)
         {
-            Initialization(model);
-            if (model.ID > 0)
-            {
-                model.RowVersion = await _orderDeliveryRepository.UpdateAsync(model);
-            }
-            else
-            {
-                model.RowVersion = await _orderDeliveryRepository.AddAsync(model);
-            }
-            if (model.RowVersion > 1)
-            {
-                OrderDeliveryDetail orderDeliveryDetail = await SaveOrderDeliveryDetail(model);
-                if (orderDeliveryDetail.RowVersion > 0)
+            try
+            {                
+                if (model.ID > 0)
                 {
-                    model = await _orderDeliveryRepository.GetByIDAsync(model.ID);
+                    model.RowVersion = await _orderDeliveryRepository.UpdateAsync(model);
+                }
+                else
+                {
+                    Initialization01(model, webRootPath);
+                    model.RowVersion = await _orderDeliveryRepository.AddAsync(model);
+                    if (model.RowVersion > 0)
+                    {
+                        OrderDeliveryDetail orderDeliveryDetail = await SaveOrderDeliveryDetail(model);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+            }       
             return model;
         }
         private async Task<OrderDeliveryDetail> SaveOrderDeliveryDetail(OrderDelivery model)
