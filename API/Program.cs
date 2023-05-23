@@ -48,6 +48,12 @@ builder.Services.AddTransient<IOrderDeliveryDetailBusiness, OrderDeliveryDetailB
 builder.Services.AddTransient<IOrderDeliveryPaymentHistoryBusiness, OrderDeliveryPaymentHistoryBusiness>();
 builder.Services.AddTransient<IOrderDeliveryStatusBusiness, OrderDeliveryStatusBusiness>();
 builder.Services.AddTransient<IOrderDeliveryFileBusiness, OrderDeliveryFileBusiness>();
+
+builder.Services.AddTransient<IOrderReceiveBusiness, OrderReceiveBusiness>();
+builder.Services.AddTransient<IOrderReceiveDetailBusiness, OrderReceiveDetailBusiness>();
+builder.Services.AddTransient<IOrderShipperBusiness, OrderShipperBusiness>();
+builder.Services.AddTransient<IOrderShipperDetailBusiness, OrderShipperDetailBusiness>();
+
 builder.Services.AddTransient<IProvinceBusiness, ProvinceBusiness>();
 builder.Services.AddTransient<IStreetBusiness, StreetBusiness>();
 builder.Services.AddTransient<IStreetWardBusiness, StreetWardBusiness>();
@@ -69,6 +75,12 @@ builder.Services.AddTransient<IOrderDeliveryPaymentHistoryRepository, OrderDeliv
 builder.Services.AddTransient<IOrderDeliveryRepository, OrderDeliveryRepository>();
 builder.Services.AddTransient<IOrderDeliveryFileRepository, OrderDeliveryFileRepository>();
 builder.Services.AddTransient<IOrderDeliveryStatusRepository, OrderDeliveryStatusRepository>();
+
+builder.Services.AddTransient<IOrderReceiveDetailRepository, OrderReceiveDetailRepository>();
+builder.Services.AddTransient<IOrderReceiveRepository, OrderReceiveRepository>();
+builder.Services.AddTransient<IOrderShipperDetailRepository, OrderShipperDetailRepository>();
+builder.Services.AddTransient<IOrderShipperRepository, OrderShipperRepository>();
+
 builder.Services.AddTransient<IProvinceRepository, ProvinceRepository>();
 builder.Services.AddTransient<IStreetRepository, StreetRepository>();
 builder.Services.AddTransient<IStreetWardRepository, StreetWardRepository>();

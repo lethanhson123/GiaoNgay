@@ -2,10 +2,10 @@
 {
 	public class OrderShipperDetailBusiness : BaseBusiness<OrderShipperDetail, IOrderShipperDetailRepository>, IOrderShipperDetailBusiness
     {
-		private readonly IOrderShipperDetailRepository _OrderShipperDetailRepository;
-		public OrderShipperDetailBusiness(IOrderShipperDetailRepository OrderShipperDetailRepository) : base(OrderShipperDetailRepository)
+		private readonly IOrderShipperDetailRepository _orderShipperDetailRepository;
+		public OrderShipperDetailBusiness(IOrderShipperDetailRepository orderShipperDetailRepository) : base(orderShipperDetailRepository)
 		{
-            _OrderShipperDetailRepository = OrderShipperDetailRepository;
+            _orderShipperDetailRepository = orderShipperDetailRepository;
 		}		
 	}
 }

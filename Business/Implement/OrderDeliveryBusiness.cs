@@ -62,6 +62,7 @@
                 model.QRcodeFile = qRCode.FileName;
             }
         }
+        
         public virtual async Task<OrderDelivery> Save01Async(OrderDelivery model, string webRootPath)
         {
             try
@@ -218,6 +219,25 @@
             }
             return result;
         }
-
+        public async Task<List<OrderDelivery>> GetByOrderShipperIDToListAsync(long orderShipperID)
+        {
+            List<OrderDelivery> result = await _orderDeliveryRepository.GetByOrderShipperIDToListAsync(orderShipperID);
+            return result;
+        }
+        public virtual async Task<string> UpdateByIDAndActiveAndOrderShipperIDAsync(long ID, bool active, long orderShipperID)
+        {
+            var result = await _orderDeliveryRepository.UpdateByIDAndActiveAndOrderShipperIDAsync(ID, active, orderShipperID);
+            return result;
+        }
+        public async Task<List<OrderDelivery>> GetByOrderReceiveIDToListAsync(long orderReceiveID)
+        {
+            List<OrderDelivery> result = await _orderDeliveryRepository.GetByOrderReceiveIDToListAsync(orderReceiveID);
+            return result;
+        }
+        public virtual async Task<string> UpdateByIDAndActiveAndOrderReceiveIDAsync(long ID, bool active, long orderReceiveID)
+        {
+            var result = await _orderDeliveryRepository.UpdateByIDAndActiveAndOrderReceiveIDAsync(ID, active, orderReceiveID);
+            return result;
+        }
     }
 }

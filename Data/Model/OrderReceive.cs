@@ -6,6 +6,7 @@
         public long? ReceiveID { get; set; }
         public OrderReceive()
         {
+            DateCreated = GlobalHelper.InitializationDateTime;
         }
     }
 }

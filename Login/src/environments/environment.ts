@@ -1,0 +1,23 @@
+export const environment = {
+  production: false,  
+  APIURL: "http://localhost:49516/",
+  LoginURL: "https://login.vnptvungtau.vn/",
+  CRMURL: "https://crm.vnptvungtau.vn/#/",  
+  DomainURL: "https://login.vnptvungtau.vn/",
+  DomainFullURL: "https://login.vnptvungtau.vn/#/",
+  InitializationString: "",  
+  InitializationNumber: 0, 
+  AuthenticationToken: "AuthenticationToken",
+  MembershipID: "MembershipID",  
+  LoginSuccess: "Đăng nhập thành công.",
+  LoginNotSuccess: "Đăng nhập không thành công.",   
+  RegisterSuccess: "Đăng ký thành công.",
+  RegisterNotSuccess: "Đăng ký không thành công.",  
+  EmailRequired: "Email is required.", 
+  EmailExists: "Email đã được đăng ký.", 
+  PhoneExists: "Điện thoại đã được đăng ký.", 
+  EmailNotExists: "Email chưa đăng ký.", 
+  MOMOExists: "MOMO đã được đăng ký.",   
+  ForgotPassword: "Mật khẩu mới đã được gửi đến email của bạn.",
+};
+

@@ -6,6 +6,7 @@
         public long? ShipperID { get; set; }
         public OrderShipper()
         {
+            DateCreated = GlobalHelper.InitializationDateTime;
         }
     }
 }

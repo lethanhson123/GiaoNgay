@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col s12">
+        <div class="container">
+            <div id="login-page" class="row">
+                <div class="col s12 m6 l4 z-depth-4 card-panel border-radius-6 login-card bg-opacity-8">
+                    <form autocomplete="off" class="login-form" #form="ngForm" (submit)="onSubmit(form)">
+                        <div class="row">
+                            <div class="input-field col s12" style="text-align: center; padding-top: 5px;">     
+                                <img width="200" height="200" src="//login.vnptvungtau.vn/image/logo.png" title="Hệ sinh thái số VNPT Bà Rịa Vũng Tàu" alt="Hệ sinh thái số VNPT Bà Rịa Vũng Tàu">
+                            </div>
+                        </div>
+                        <div class="row margin">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix pt-2">local_phone</i>
+                                <input placeholder="Điện thoại" name="TaiKhoan" [(ngModel)]="nhanVienService.formData.TaiKhoan">
+                            </div>
+                        </div>
+                        <div class="row margin">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix pt-2">lock_outline</i>
+                                <input placeholder="Mật khẩu" name="MatKhau" [(ngModel)]="nhanVienService.formData.MatKhau" type="password">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <button type="submit" [disabled]="!nhanVienService.formData.TaiKhoan || !nhanVienService.formData.MatKhau"
+                                    class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12">Đăng
+                                    nhập</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6 m6 l6">
+                                <p class="margin medium-small"><a target="_blank" href="tel:0941869986" title="Hotline: 0941 86 99 86">Hotline: 0941 86 99 86</a>
+                                </p>
+                            </div>
+                            <div class="input-field col s6 m6 l6">
+                                <p class="margin right-align medium-small"><a target="_blank" href="tel:0941869986"
+                                        title="Quên mật khẩu">Quên mật khẩu?</a>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="isShowLoading"></app-loading>

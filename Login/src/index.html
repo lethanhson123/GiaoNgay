@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<head> 
+  <script language="JavaScript">
+    function redirectToHTTPS() {
+      var URL = location.href;
+      if (URL.includes("http://login.vnptvungtau.vn") == true) {
+        URL = URL.replace("http://", "https://")
+        window.location = URL;
+      }
+    }
+    redirectToHTTPS();
+  </script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+
+  <title>Đăng nhập - Hệ sinh thái số VNPT Bà Rịa Vũng Tàu</title>
+  <meta name="description" content="vnptvungtau.vn">
+  <meta name="keywords" content="vnptvungtau.vn">
+  <meta name="author" content="vnptvungtau.vn">
+  <base href="/">
+
+  <link rel="apple-touch-icon" href="https://login.vnptvungtau.vn/image/logo.png">
+  <link rel="shortcut icon" type="image/x-icon" href="https://login.vnptvungtau.vn/image/logo.png">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="//login.vnptvungtau.vn/app-assets/vendors/vendors.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="//login.vnptvungtau.vn/app-assets/css/themes/vertical-dark-menu-template/materialize.css">
+  <link rel="stylesheet" type="text/css"
+    href="//login.vnptvungtau.vn/app-assets/css/themes/vertical-dark-menu-template/style.css">
+  <link rel="stylesheet" type="text/css" href="//login.vnptvungtau.vn/app-assets/css/pages/login.css">
+  <link rel="stylesheet" type="text/css" href="//login.vnptvungtau.vn/app-assets/css/custom/custom.css">  
+
+  <style>
+    input::placeholder {
+      font-weight: bold;
+      opacity: 1;
+      color: #575757;      
+    }
+  </style>
+</head>
+
+<body
+  class="vertical-layout page-header-light vertical-menu-collapsible vertical-dark-menu 1-column login-bg  blank-page blank-page"
+  data-open="click" data-menu="vertical-dark-menu" data-col="1-column">
+  <app-root></app-root>
+  <script src="//login.vnptvungtau.vn/app-assets/js/vendors.min.js" type="text/javascript"></script>
+  <script src="//login.vnptvungtau.vn/app-assets/js/plugins.js" type="text/javascript"></script>
+  <script src="//login.vnptvungtau.vn/app-assets/js/custom/custom-script.js" type="text/javascript"></script>
+</body>
+
+</html>

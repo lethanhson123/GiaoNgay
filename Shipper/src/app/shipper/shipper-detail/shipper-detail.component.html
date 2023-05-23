@@ -1,0 +1,238 @@
+<form autocomplete="off" class="row" #form="ngForm" (submit)="onSubmit(form)">
+    <div class="col s6 m6 l9">
+        <h5 class="card-title"><b>Shipper: {{MembershipService.formData.FullName}}</b></h5>
+    </div>
+    <div class="col s6 m6 l3">
+        <button [disabled]="!MembershipService.formData.UserName" title="Lưu thay đổi" type="submit"
+            class="mb-6 btn-floating waves-effect waves-light cyan"><i
+                class="material-icons">save</i></button>&nbsp;&nbsp;&nbsp;
+        <a title="Đóng" class="mb-6 btn-floating waves-effect waves-light purple lightrn-1"
+            (click)="onClose()">
+            <i class="material-icons">close</i>
+        </a>
+    </div>
+    <input name="ID" [(ngModel)]="MembershipService.formData.ID" type="hidden">
+    <input name="ParentID" [(ngModel)]="MembershipService.formData.ParentID" type="hidden">
+    <input name="ProvinceID" [(ngModel)]="MembershipService.formData.ProvinceID" type="hidden">
+    <div class="col s6 m6 l6">
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="FullName">Shipper</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Shipper" name="FullName"
+                    [(ngModel)]="MembershipService.formData.FullName" type="text">
+            </div>
+        </div>
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="Phone">Điện thoại</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input (keyup)="onKeyupPhone()" placeholder="Điện thoại" name="Phone"
+                    [(ngModel)]="MembershipService.formData.Phone" type="text">
+            </div>
+        </div>
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="Facebook">Facebook</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Facebook" name="Facebook"
+                    [(ngModel)]="MembershipService.formData.Facebook" type="text">
+            </div>
+        </div>
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="Email">Email</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Email" name="Email" [(ngModel)]="MembershipService.formData.Email"
+                    type="text">
+            </div>
+        </div>
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="UserName">Đăng nhập</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Đăng nhập" name="UserName"
+                    [(ngModel)]="MembershipService.formData.UserName" type="text">
+            </div>
+        </div>
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="Password">Mật khẩu</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Mật khẩu" name="Password"
+                    [(ngModel)]="MembershipService.formData.Password" type="password">
+            </div>
+        </div>
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="IDNumber">CCCD</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="CCCD" name="IDNumber" [(ngModel)]="MembershipService.formData.IDNumber"
+                    type="text">
+            </div>
+        </div>
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="Note">Ghi chú</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Ghi chú" name="Note" [(ngModel)]="MembershipService.formData.Note"
+                    type="text">
+            </div>
+        </div>
+        <div class="col s12 m12 l12">
+            <div class="col s6 m6 l3">
+                <div class="input-field">
+                    <p>
+                        <label>
+                            <input type="checkbox" class="filled-in" name="Active"
+                                [(ngModel)]="MembershipService.formData.Active" />
+                            <span>Kích hoạt</span>
+                        </label>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s6 m6 l6">
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="AccountNumber">Số tài khoản</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Số tài khoản" name="AccountNumber"
+                    [(ngModel)]="MembershipService.formData.AccountNumber" type="text">
+            </div>
+        </div>
+        <div class="col s6 m6 l4">
+            <div class="input-field">
+                <label for="BankID">Ngân hàng</label>
+            </div>
+        </div>
+        <div class="col s6 m6 l8">
+            <mat-select
+                style="padding-top:30px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
+                name="BankID" class="browser-default" [(ngModel)]="MembershipService.formData.BankID">
+                <mat-option *ngFor="let item of BankService.list" [value]="item.ID">
+                    {{item.Display}}
+                </mat-option>
+            </mat-select>
+            <br />
+            <br />
+        </div>
+        <div class="col s6 m6 l4">
+            <div class="input-field">
+                <label for="DistrictID">Quận huyện</label>
+            </div>
+        </div>
+        <div class="col s6 m6 l8">
+            <mat-select (selectionChange)="onChangeDistrictID($event)"
+                style="padding-top:30px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
+                name="DistrictID" class="browser-default"
+                [(ngModel)]="MembershipService.formData.DistrictID">
+                <mat-option *ngFor="let item of DistrictService.list" [value]="item.ID">
+                    {{item.Display}}
+                </mat-option>
+            </mat-select>
+            <br />
+            <br />
+        </div>
+        <div class="col s6 m6 l4">
+            <div class="input-field">
+                <label for="WardID">Phường xã</label>
+            </div>
+        </div>
+        <div class="col s6 m6 l8">
+            <mat-select
+                style="padding-top:30px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
+                name="WardID" class="browser-default" [(ngModel)]="MembershipService.formData.WardID">
+                <mat-option *ngFor="let item of WardService.list" [value]="item.ID">
+                    {{item.Display}}
+                </mat-option>
+            </mat-select>
+            <br />
+            <br />
+        </div>
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="Address">Đường phố</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Đường phố" name="Address"
+                    [(ngModel)]="MembershipService.formData.Address" type="text">
+            </div>
+        </div>
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="AddressLegal">Địa chỉ</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Địa chỉ" name="AddressLegal"
+                    [(ngModel)]="MembershipService.formData.AddressLegal" type="text">
+            </div>
+        </div>
+
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="LicenseMotorbicycleNumber">GPLX</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Giấy phép lái xe" name="LicenseMotorbicycleNumber"
+                    [(ngModel)]="MembershipService.formData.LicenseMotorbicycleNumber" type="text">
+            </div>
+        </div>
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="LicenseBusinessNumber">GĐKX</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Giấy đăng ký xe" name="LicenseBusinessNumber"
+                    [(ngModel)]="MembershipService.formData.LicenseBusinessNumber" type="text">
+            </div>
+        </div>
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="MotorbicycleNumber">Biển kiểm soát</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Biển kiểm soát" name="MotorbicycleNumber"
+                    [(ngModel)]="MembershipService.formData.MotorbicycleNumber" type="text">
+            </div>
+        </div>
+    </div>
+</form>

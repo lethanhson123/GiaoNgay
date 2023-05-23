@@ -1,4 +1,5 @@
-﻿using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
+﻿using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 
 namespace API.Controllers.v1
 {
@@ -50,7 +51,8 @@ namespace API.Controllers.v1
         }
         [HttpPost]
         [Route("Get04ByYearAndMonthAndDayAndSearchStringToLisAsync")]
-        public virtual async Task<List<OrderDelivery>> Get04ByYearAndMonthAndDayAndSearchStringToLisAsync()        {
+        public virtual async Task<List<OrderDelivery>> Get04ByYearAndMonthAndDayAndSearchStringToLisAsync()
+        {
             int year = JsonConvert.DeserializeObject<int>(Request.Form["year"]);
             int month = JsonConvert.DeserializeObject<int>(Request.Form["month"]);
             int day = JsonConvert.DeserializeObject<int>(Request.Form["day"]);
@@ -66,7 +68,7 @@ namespace API.Controllers.v1
             string webRootPath = _webHostEnvironment.WebRootPath;
             await _orderDeliveryBusiness.Save01Async(result, webRootPath);
             return result;
-        }        
+        }
         [HttpGet]
         [Route("GetByIDStringAsync")]
         public async Task<OrderDelivery> GetByIDStringAsync(string ID)
@@ -81,7 +83,43 @@ namespace API.Controllers.v1
             catch (Exception e)
             {
                 string mes = e.Message;
-            }            
+            }
+            return result;
+        }
+        [HttpPost]
+        [Route("GetByOrderShipperIDToListAsync")]
+        public virtual async Task<List<OrderDelivery>> GetByOrderShipperIDToListAsync()
+        {
+            long orderShipperID = JsonConvert.DeserializeObject<long>(Request.Form["data"]);
+            var result = await _orderDeliveryBusiness.GetByOrderShipperIDToListAsync(orderShipperID);
+            return result;
+        }
+        [HttpPost]
+        [Route("UpdateByIDAndActiveAndOrderShipperIDAsync")]
+        public virtual async Task<string> UpdateByIDAndActiveAndOrderShipperIDAsync()
+        {
+            long ID = JsonConvert.DeserializeObject<long>(Request.Form["ID"]);
+            bool active = JsonConvert.DeserializeObject<bool>(Request.Form["active"]);
+            long orderShipperID = JsonConvert.DeserializeObject<long>(Request.Form["orderShipperID"]);
+            var result = await _orderDeliveryBusiness.UpdateByIDAndActiveAndOrderShipperIDAsync(ID, active, orderShipperID);
+            return result;
+        }
+        [HttpPost]
+        [Route("GetByOrderReceiveIDToListAsync")]
+        public virtual async Task<List<OrderDelivery>> GetByOrderReceiveIDToListAsync()
+        {
+            long orderReceiveID = JsonConvert.DeserializeObject<long>(Request.Form["data"]);
+            var result = await _orderDeliveryBusiness.GetByOrderReceiveIDToListAsync(orderReceiveID);
+            return result;
+        }
+        [HttpPost]
+        [Route("UpdateByIDAndActiveAndOrderReceiveIDAsync")]
+        public virtual async Task<string> UpdateByIDAndActiveAndOrderReceiveIDAsync()
+        {
+            long ID = JsonConvert.DeserializeObject<long>(Request.Form["ID"]);
+            bool active = JsonConvert.DeserializeObject<bool>(Request.Form["active"]);
+            long orderReceiveID = JsonConvert.DeserializeObject<long>(Request.Form["orderReceiveID"]);
+            var result = await _orderDeliveryBusiness.UpdateByIDAndActiveAndOrderReceiveIDAsync(ID, active, orderReceiveID);
             return result;
         }
     }
