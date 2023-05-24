@@ -10,5 +10,13 @@
         {
             _membershipBusiness = membershipBusiness;
         }       
+        [HttpPost]
+        [Route("Authentication")]
+        public virtual Membership Authentication()
+        {
+            Membership result = JsonConvert.DeserializeObject<Membership>(Request.Form["data"]);
+            result = _membershipBusiness.Authentication(result);
+            return result;
+        }
     }
 }

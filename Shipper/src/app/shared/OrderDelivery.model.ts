@@ -19,6 +19,7 @@ export class OrderDelivery {
     QRcodeFile?: string;  
     ShopID?: number;  
     ShopFullName?: string;  
+    ShopAddress?: string;  
     ShopPhone?: string;  
     ShopZalo?: string;  
     ShopEmail?: string;  

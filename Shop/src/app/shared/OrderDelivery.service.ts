@@ -42,6 +42,21 @@ export class OrderDeliveryService {
         formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
     }
+    SaveMembershipAsync(formData: OrderDelivery) {
+        let url = this.aPIURL + this.controller + '/SaveMembershipAsync';
+        const uploadData = JSON.stringify(formData);
+        const formUpload: FormData = new FormData();
+        formUpload.append('data', uploadData);
+        return this.httpClient.post(url, formUpload);
+    }
+    SaveShopAsync(formData: OrderDelivery) {
+        console.log(formData);
+        let url = this.aPIURL + this.controller + '/SaveShopAsync';
+        const uploadData = JSON.stringify(formData);
+        const formUpload: FormData = new FormData();
+        formUpload.append('data', uploadData);
+        return this.httpClient.post(url, formUpload);
+    }
     Remove(ID: number) {
         let url = this.aPIURL + this.controller + '/Remove';
         const uploadData = JSON.stringify(ID);
@@ -128,6 +143,20 @@ export class OrderDeliveryService {
         const monthData = JSON.stringify(month);
         const dayData = JSON.stringify(day);
         const formUpload: FormData = new FormData();
+        formUpload.append('year', yearData);
+        formUpload.append('month', monthData);
+        formUpload.append('day', dayData);
+        formUpload.append('searchString', searchString);
+        return this.httpClient.post(url, formUpload);
+    }
+    GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync(membershipID:number, year: number, month: number, day: number, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync';
+        const membershipIDData = JSON.stringify(membershipID);
+        const yearData = JSON.stringify(year);
+        const monthData = JSON.stringify(month);
+        const dayData = JSON.stringify(day);
+        const formUpload: FormData = new FormData();
+        formUpload.append('membershipID', membershipIDData);
         formUpload.append('year', yearData);
         formUpload.append('month', monthData);
         formUpload.append('day', dayData);

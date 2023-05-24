@@ -12,6 +12,7 @@ export class Membership {
     Description?: string;    
     Note?: string;    
     Active?: boolean;     
+    SortOrder?: number;
     UserName?: string; 
     Password?: string; 
     Email?: string; 

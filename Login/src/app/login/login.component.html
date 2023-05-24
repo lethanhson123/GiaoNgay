@@ -6,35 +6,35 @@
                     <form autocomplete="off" class="login-form" #form="ngForm" (submit)="onSubmit(form)">
                         <div class="row">
                             <div class="input-field col s12" style="text-align: center; padding-top: 5px;">     
-                                <img width="200" height="200" src="//login.vnptvungtau.vn/image/logo.png" title="Hệ sinh thái số VNPT Bà Rịa Vũng Tàu" alt="Hệ sinh thái số VNPT Bà Rịa Vũng Tàu">
+                                <img width="300" height="150" src="https://crm.giaongay.com.vn/image/logo.png" title="Hệ sinh thái số Giao Ngay" alt="Hệ sinh thái số Giao Ngay">
                             </div>
                         </div>
                         <div class="row margin">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix pt-2">local_phone</i>
-                                <input placeholder="Điện thoại" name="TaiKhoan" [(ngModel)]="nhanVienService.formData.TaiKhoan">
+                                <input placeholder="Điện thoại" name="UserName" [(ngModel)]="MembershipService.formData.UserName">
                             </div>
                         </div>
                         <div class="row margin">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix pt-2">lock_outline</i>
-                                <input placeholder="Mật khẩu" name="MatKhau" [(ngModel)]="nhanVienService.formData.MatKhau" type="password">
+                                <input placeholder="Mật khẩu" name="Password" [(ngModel)]="MembershipService.formData.Password" type="password">
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <button type="submit" [disabled]="!nhanVienService.formData.TaiKhoan || !nhanVienService.formData.MatKhau"
+                                <button type="submit" [disabled]="!MembershipService.formData.UserName || !MembershipService.formData.Password"
                                     class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12">Đăng
                                     nhập</button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6 m6 l6">
-                                <p class="margin medium-small"><a target="_blank" href="tel:0941869986" title="Hotline: 0941 86 99 86">Hotline: 0941 86 99 86</a>
+                                <p class="margin medium-small"><a target="_blank" href="tel:0904040496" title="Hotline: 0904 040 496">Hotline: 0904 040 496</a>
                                 </p>
                             </div>
                             <div class="input-field col s6 m6 l6">
-                                <p class="margin right-align medium-small"><a target="_blank" href="tel:0941869986"
+                                <p class="margin right-align medium-small"><a target="_blank" href="tel:0904040496"
                                         title="Quên mật khẩu">Quên mật khẩu?</a>
                                 </p>
                             </div>

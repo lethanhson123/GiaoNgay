@@ -21,6 +21,7 @@ namespace Data.Model
         public virtual DbSet<Data.Model.CompanyProfile> CompanyProfile { get; set; }
         public virtual DbSet<Data.Model.District> District { get; set; }
         public virtual DbSet<Data.Model.Membership> Membership { get; set; }
+        public virtual DbSet<Data.Model.MembershipAuthenticationToken> MembershipAuthenticationToken { get; set; }
         public virtual DbSet<Data.Model.MembershipFile> MembershipFile { get; set; }
         public virtual DbSet<Data.Model.MembershipProfile> MembershipProfile { get; set; }
         public virtual DbSet<Data.Model.OrderDelivery> OrderDelivery { get; set; }

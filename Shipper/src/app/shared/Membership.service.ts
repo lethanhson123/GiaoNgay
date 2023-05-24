@@ -78,6 +78,13 @@ export class MembershipService {
         const formUpload: FormData = new FormData();
         formUpload.append('data', uploadData);        
         return this.httpClient.post(url, formUpload);
-    } 
+    }
+    Authentication(model: Membership) {
+        let url = this.aPIURL + this.controller + '/Authentication';
+        const uploadData = JSON.stringify(model);
+        const formUpload: FormData = new FormData();
+        formUpload.append('data', uploadData);
+        return this.httpClient.post(url, formUpload);
+    }
 }
 

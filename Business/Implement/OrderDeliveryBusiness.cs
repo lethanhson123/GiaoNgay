@@ -62,7 +62,64 @@
                 model.QRcodeFile = qRCode.FileName;
             }
         }
-        
+        public virtual async Task<OrderDelivery> SaveMembershipAsync(OrderDelivery model)
+        {
+            try
+            {
+                if (model.ID > 0)
+                {
+                    OrderDelivery modelExist = await _orderDeliveryRepository.GetByIDAsync(model.ID);
+                    if (modelExist != null)
+                    {
+                        modelExist.IsComplete = model.IsComplete;
+                        model.RowVersion = await _orderDeliveryRepository.UpdateAsync(modelExist);
+                    }
+                }               
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+            }
+            return model;
+        }
+        public virtual async Task<OrderDelivery> SaveShopAsync(OrderDelivery model, string webRootPath)
+        {
+            try
+            {
+                if (model.ID > 0)
+                {
+                    OrderDelivery modelExist = await _orderDeliveryRepository.GetByIDAsync(model.ID);
+                    if (modelExist != null)
+                    {
+                        modelExist.ShopID = model.ShopID;
+                        modelExist.CustomerFullName = model.CustomerFullName;
+                        modelExist.CustomerPhone = model.CustomerPhone;
+                        modelExist.DeliveryAddress = model.DeliveryAddress;
+                        modelExist.DeliveryDistrictID = model.DeliveryDistrictID;
+                        modelExist.DeliveryWardID = model.DeliveryWardID;
+                        modelExist.IsExpress = model.IsExpress;
+                        modelExist.IsShopPayment = model.IsShopPayment;
+                        modelExist.IsPrepayment = model.IsPrepayment;
+                        modelExist.DateCreated = model.DateCreated;
+                        model.RowVersion = await _orderDeliveryRepository.UpdateAsync(modelExist);
+                    }
+                }
+                else
+                {
+                    Initialization01(model, webRootPath);
+                    model.RowVersion = await _orderDeliveryRepository.AddAsync(model);
+                    if (model.RowVersion > 0)
+                    {
+                        OrderDeliveryDetail orderDeliveryDetail = await SaveOrderDeliveryDetail(model);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+            }
+            return model;
+        }
         public virtual async Task<OrderDelivery> Save01Async(OrderDelivery model, string webRootPath)
         {
             try
@@ -74,6 +131,7 @@
                     {
                         modelExist.ShopID = model.ShopID;
                         modelExist.ShipperID = model.ShipperID;
+                        modelExist.ReceiveID = model.ReceiveID;
                         modelExist.CustomerFullName = model.CustomerFullName;
                         modelExist.CustomerPhone = model.CustomerPhone;
                         modelExist.DeliveryAddress = model.DeliveryAddress;
@@ -103,6 +161,7 @@
             }
             return model;
         }
+       
         private async Task<OrderDeliveryDetail> SaveOrderDeliveryDetail(OrderDelivery model)
         {
             CategoryOrderDetail categoryOrderDetail = new CategoryOrderDetail();
@@ -237,6 +296,35 @@
         public virtual async Task<string> UpdateByIDAndActiveAndOrderReceiveIDAsync(long ID, bool active, long orderReceiveID)
         {
             var result = await _orderDeliveryRepository.UpdateByIDAndActiveAndOrderReceiveIDAsync(ID, active, orderReceiveID);
+            return result;
+        }
+        public async Task<List<OrderDelivery>> GetByMembershipIDAndSearchStringToLisAsync(long membershipID, string searchString)
+        {
+            List<OrderDelivery> result = new List<OrderDelivery>();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                result = await _orderDeliveryRepository.GetByCondition(item => (item.ShopID == membershipID || item.ReceiveID == membershipID || item.ShipperID == membershipID) && item.Barcode.Contains(searchString) || item.ShopFullName.Contains(searchString) || item.ShipperFullName.Contains(searchString) || item.CustomerFullName.Contains(searchString) || item.DeliveryAddress.Contains(searchString)).ToListAsync();
+            }
+            return result;
+        }
+        public async Task<List<OrderDelivery>> GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync(long membershipID, int year, int month, int day, string searchString)
+        {
+            List<OrderDelivery> result = new List<OrderDelivery>();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                result = await GetByMembershipIDAndSearchStringToLisAsync(membershipID, searchString);
+            }
+            else
+            {
+                try
+                {
+                    result = await _orderDeliveryRepository.GetByCondition(item => (item.ShopID == membershipID || item.ReceiveID == membershipID || item.ShipperID == membershipID) && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                }
+            }
             return result;
         }
     }

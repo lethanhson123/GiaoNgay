@@ -36,134 +36,18 @@
       <aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-dark sidenav-active-rounded">
             <div class="brand-sidebar">
                   <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="#" style="color:#009f3c;"><span
-                                    class="logo-text hide-on-med-and-down" style="color:#009f3c;">CRM
+                                    class="logo-text hide-on-med-and-down" style="color:#009f3c;">Shipper
                                     | Giao Ngay</span></a><a class="navbar-toggler" href="#"><i
                                     class="material-icons">radio_button_checked</i></a></h1>
             </div>
             <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow"
                   id="slide-out" data-menu="menu-navigation" data-collapsible="accordion">
-                  <!-- <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="#"><i
-                                    class="material-icons">border_all</i><span class="menu-title" data-i18n="">Giao
+                  <li class="bold"><a class="waves-effect waves-cyan " href="{{domainName}}OrderDelivery"><i class="material-icons">filter_none</i><span
+                                    class="menu-title" data-i18n="">Đơn
                                     hàng</span></a>
-                        <div class="collapsible-body">
-                              <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                                    <li><a class="collapsible-body" href="{{domainName}}OrderShipper" data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Phân
-                                                      công</span></a>
-                                    </li>
-                                    <li><a class="collapsible-body" href="{{domainName}}OrderShipper" data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Trực
-                                                      tiếp</span></a>
-                                    </li>
-                              </ul>
-                        </div>
                   </li>
-                  <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="#"><i
-                                    class="material-icons">apps</i><span class="menu-title" data-i18n="">Nhận
-                                    hàng</span></a>
-                        <div class="collapsible-body">
-                              <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                                    <li><a class="collapsible-body" href="{{domainName}}OrderReceive" data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Phân
-                                                      công</span></a>
-                                    </li>
-                                    <li><a class="collapsible-body" href="{{domainName}}OrderReceive" data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Trực
-                                                      tiếp</span></a>
-                                    </li>
-                              </ul>
-                        </div>
-                  </li> -->
-                  <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="#"><i
-                                    class="material-icons">filter_none</i><span class="menu-title" data-i18n="">Đơn
-                                    hàng</span></a>
-                        <div class="collapsible-body">
-                              <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                                    <li><a class="collapsible-body" href="{{domainName}}OrderShipper"
-                                                data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Giao hàng</span></a>
-                                    </li>
-                                    <li><a class="collapsible-body" href="{{domainName}}OrderReceive"
-                                                data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Nhận
-                                                      hàng</span></a>
-                                    </li>
-                                    <li><a class="collapsible-body" target="_blank" href="{{domainName}}OrderDelivery"
-                                                data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Đơn
-                                                      hàng</span></a>
-                                    </li>
-                                    <li><a class="collapsible-body" href="{{domainName}}CategoryOrderDetail"
-                                                data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Bảng
-                                                      giá</span></a>
-                                    </li>
-                              </ul>
-                        </div>
-                  </li>
-                  <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="#"><i
-                                    class="material-icons">face</i><span class="menu-title" data-i18n="">Thành
-                                    viên</span></a>
-                        <div class="collapsible-body">
-                              <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                                    <li><a class="collapsible-body" href="{{domainName}}Membership" data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Điều
-                                                      hành</span></a>
-                                    </li>
-                                    <li><a class="collapsible-body" href="{{domainName}}Shop" data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Shop</span></a>
-                                    </li>
-                                    <li><a class="collapsible-body" href="{{domainName}}Shipper" data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Shipper</span></a>
-                                    </li>
-                              </ul>
-                        </div>
-                  </li>
-                  <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="#"><i
-                                    class="material-icons">brightness_5</i><span class="menu-title" data-i18n="">Hệ
-                                    thống</span></a>
-                        <div class="collapsible-body">
-                              <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                                    <li><a class="collapsible-body" href="{{domainName}}Company" data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Công
-                                                      ty</span></a>
-                                    </li>
-                                    <li><a class="collapsible-body" href="{{domainName}}CategoryMembership"
-                                                data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Thành
-                                                      viên</span></a>
-                                    </li>
-                                    <li><a class="collapsible-body" href="{{domainName}}CategoryOrderPayment"
-                                                data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Thanh
-                                                      toán</span></a>
-                                    </li>
-                                    <li><a class="collapsible-body" href="{{domainName}}CategoryOrderStatus"
-                                                data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Trạng
-                                                      thái</span></a>
-                                    </li>
-                                    <li><a class="collapsible-body" href="{{domainName}}Bank" data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Ngân
-                                                      hàng</span></a>
-                                    </li>
-                                    <li><a class="collapsible-body" href="{{domainName}}Province" data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Tỉnh
-                                                      thành</span></a>
-                                    </li>
-                                    <li><a class="collapsible-body" href="{{domainName}}District" data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Quận
-                                                      huyện</span></a>
-                                    </li>
-                                    <li><a class="collapsible-body" href="{{domainName}}Ward" data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Phường
-                                                      xã</span></a>
-                                    </li>
-                                    <li><a class="collapsible-body" href="{{domainName}}Upload" data-i18n=""><i
-                                                      class="material-icons">radio_button_unchecked</i><span>Upload</span></a>
-                                    </li>
-                              </ul>
-                        </div>
+                  <li class="bold"><a class="waves-effect waves-cyan " href="{{domainName}}Membership"><i class="material-icons">face</i><span
+                                    class="menu-title" data-i18n="">Tài khoản</span></a>
                   </li>
             </ul>
             <div class="navigation-background"></div><a

@@ -8,18 +8,16 @@
                             <div class="card-content">
                                 <div class="card-title">
                                     <div class="row">
-                                        <div class="col s12 m6 l6">
+                                        <div class="col s12 m12 l8">
                                             <h5 class="card-title" style="font-size: 14px;">
                                                 <b></b>
                                             </h5>
                                         </div>
-                                        <div class="col s12 m6 l6">
+                                        <div class="col s12 m12 l4">
                                             <ul class="tabs">
-                                                <li class="tab col m4 s12 p-0"><a class="active p-0" href="#1">Đơn
+                                                <li class="tab col s12 m6 l4 p-0"><a class="active p-0" href="#1">Đơn
                                                         hàng</a></li>
-                                                <li class="tab col m4 s12 p-0"><a class="p-0" href="#2">Thanh toán</a>
-                                                </li>
-                                                <li class="tab col m4 s12 p-0"><a class="p-0" href="#3">Hình ảnh</a>
+                                                <li class="tab col s12 m6 l4 p-0"><a class="p-0" href="#3">Hình ảnh</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -43,60 +41,44 @@
 
                                         </div>
                                         <input name="ID" [(ngModel)]="OrderDeliveryService.formData.ID" type="hidden">
+                                        <input name="ShopID" [(ngModel)]="OrderDeliveryService.formData.ShopID" type="hidden">
                                         <div class="col s12 m12 l5">
-                                            
-                                            <div class="col s12 m12 l4">
-                                                <div class="input-field">
-                                                    <label for="ShopID">Shop</label>
+                                            <div class="col s12 m12 l12">
+                                                <div class="col s12 m12 l3">
+                                                    <div class="input-field">
+                                                        <p>
+                                                            <label>
+                                                                <input type="checkbox" class="filled-in"
+                                                                    name="IsExpress"
+                                                                    [(ngModel)]="OrderDeliveryService.formData.IsExpress" />
+                                                                <span>Hoả tốc</span>
+                                                            </label>
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col s12 m12 l8">
-                                                <div class="input-field">
-                                                    <mat-select
-                                                        style="padding-top:20px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
-                                                        name="ShopID" class="browser-default"
-                                                        [(ngModel)]="OrderDeliveryService.formData.ShopID">
-                                                        <mat-option *ngFor="let item of MembershipService.listShop"
-                                                            [value]="item.ID">
-                                                            {{item.Display}}
-                                                        </mat-option>
-                                                    </mat-select>
+                                                <div class="col s12 m12 l3">
+                                                    <div class="input-field">
+                                                        <p>
+                                                            <label>
+                                                                <input type="checkbox" class="filled-in"
+                                                                    name="IsShopPayment"
+                                                                    [(ngModel)]="OrderDeliveryService.formData.IsShopPayment" />
+                                                                <span>Shop trả phí</span>
+                                                            </label>
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col s12 m12 l4">
-                                                <div class="input-field">
-                                                    <label for="ReceiveID">Nhận hàng</label>
-                                                </div>
-                                            </div>
-                                            <div class="col s12 m12 l8">
-                                                <div class="input-field">
-                                                    <mat-select
-                                                        style="padding-top:20px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
-                                                        name="ReceiveID" class="browser-default"
-                                                        [(ngModel)]="OrderDeliveryService.formData.ReceiveID">
-                                                        <mat-option *ngFor="let item of MembershipService.listShipper"
-                                                            [value]="item.ID">
-                                                            {{item.Display}}
-                                                        </mat-option>
-                                                    </mat-select>
-                                                </div>
-                                            </div>
-                                            <div class="col s12 m12 l4">
-                                                <div class="input-field">
-                                                    <label for="ShipperID">Giao hàng</label>
-                                                </div>
-                                            </div>
-                                            <div class="col s12 m12 l8">
-                                                <div class="input-field">
-                                                    <mat-select
-                                                        style="padding-top:20px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
-                                                        name="ShipperID" class="browser-default"
-                                                        [(ngModel)]="OrderDeliveryService.formData.ShipperID">
-                                                        <mat-option *ngFor="let item of MembershipService.listShipper"
-                                                            [value]="item.ID">
-                                                            {{item.Display}}
-                                                        </mat-option>
-                                                    </mat-select>
+                                                <div class="col s12 m12 l3">
+                                                    <div class="input-field">
+                                                        <p>
+                                                            <label>
+                                                                <input type="checkbox" class="filled-in"
+                                                                    name="IsPrepayment"
+                                                                    [(ngModel)]="OrderDeliveryService.formData.IsPrepayment" />
+                                                                <span>Ứng tiền</span>
+                                                            </label>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col s12 m12 l4">
@@ -174,56 +156,6 @@
 
                                         </div>
                                         <div class="col s12 m12 l7">
-                                            <div class="col s12 m12 l12">
-                                                <div class="col s12 m12 l3">
-                                                    <div class="input-field">
-                                                        <p>
-                                                            <label>
-                                                                <input type="checkbox" class="filled-in"
-                                                                    name="IsComplete"
-                                                                    [(ngModel)]="OrderDeliveryService.formData.IsComplete" />
-                                                                <span>Hoàn thành</span>
-                                                            </label>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="col s12 m12 l3">
-                                                    <div class="input-field">
-                                                        <p>
-                                                            <label>
-                                                                <input type="checkbox" class="filled-in"
-                                                                    name="IsExpress"
-                                                                    [(ngModel)]="OrderDeliveryService.formData.IsExpress" />
-                                                                <span>Hoả tốc</span>
-                                                            </label>
-                                                        </p>
-                                                    </div>
-                                                </div>                                                
-                                                <div class="col s12 m12 l3">
-                                                    <div class="input-field">
-                                                        <p>
-                                                            <label>
-                                                                <input type="checkbox" class="filled-in"
-                                                                    name="IsShopPayment"
-                                                                    [(ngModel)]="OrderDeliveryService.formData.IsShopPayment" />
-                                                                <span>Shop trả phí</span>
-                                                            </label>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="col s12 m12 l3">
-                                                    <div class="input-field">
-                                                        <p>
-                                                            <label>
-                                                                <input type="checkbox" class="filled-in"
-                                                                    name="IsPrepayment"
-                                                                    [(ngModel)]="OrderDeliveryService.formData.IsPrepayment" />
-                                                                <span>Ứng tiền</span>
-                                                            </label>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col s12 m12 l4">
                                                 <div class="input-field">
                                                     <label for="DateCreated">Ngày tạo</label>
@@ -237,6 +169,7 @@
                                                         type="datetime-local">
                                                 </div>
                                             </div>
+
                                             <div class="col s12 m12 l4">
                                                 <div class="input-field">
                                                     <label for="Barcode">Đơn hàng</label>
@@ -261,34 +194,8 @@
                                                         [(ngModel)]="OrderDeliveryService.formData.TotalBeforeTax"
                                                         type="number">
                                                 </div>
-                                            </div>
-                                            <div class="col s12 m12 l4">
-                                                <div class="input-field">
-                                                    <label for="TotalPayment">Thanh toán</label>
-                                                </div>
-                                            </div>
-                                            <div class="col s12 m12 l8">
-                                                <div class="input-field">
-                                                    <input disabled placeholder="Thanh toán" name="TotalPayment"
-                                                        style="text-align: right; color: green; font-weight: bold; font-size: 16px;"
-                                                        [(ngModel)]="OrderDeliveryService.formData.TotalPayment"
-                                                        type="number">
-                                                </div>
-                                            </div>
-                                            <div class="col s12 m12 l4">
-                                                <div class="input-field">
-                                                    <label for="TotalDebt">Dư nợ</label>
-                                                </div>
-                                            </div>
-                                            <div class="col s12 m12 l8">
-                                                <div class="input-field">
-                                                    <input disabled placeholder="Dư nợ" name="TotalDebt"
-                                                        style="text-align: right; color: red; font-weight: bold; font-size: 16px;"
-                                                        [(ngModel)]="OrderDeliveryService.formData.TotalDebt"
-                                                        type="number">
-                                                </div>
-                                            </div>
-                                            <div class="col s12 m12 l12">                                                
+                                            </div>                                            
+                                            <div class="col s12 m12 l12">
                                                 <div class="KhungOverflow">
                                                     <mat-table [dataSource]="dataSource" matSort>
                                                         <ng-container matColumnDef="Name">
@@ -397,71 +304,6 @@
                                             </div>
                                         </div>
                                     </form>
-                                </div>
-                                <div id="2">
-                                    <div class="col s12 m12 l12">
-                                        <div class="col s12 m12 l12">
-                                            <a title="Thêm mới" (click)="onPaymentAdd(0)"
-                                                class="btn-floating waves-effect waves-light green darken-1"><i
-                                                    class="material-icons">add</i></a>&nbsp;&nbsp;&nbsp;
-                                        </div>
-                                        <div class="KhungOverflow">
-                                            <mat-table [dataSource]="dataSourcePayment" matSort>
-                                                <ng-container matColumnDef="ID">
-                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>ID
-                                                    </mat-header-cell>
-                                                    <mat-cell *matCellDef="let element">{{element.ID}}</mat-cell>
-                                                </ng-container>
-                                                <ng-container matColumnDef="PaymentDate">
-                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Ngày thanh toán
-                                                    </mat-header-cell>
-                                                    <mat-cell *matCellDef="let element">{{element.PaymentDate |
-                                                        date:'yyyy-MM-dd'}}</mat-cell>
-                                                </ng-container>
-                                                <ng-container matColumnDef="PaymentAmount">
-                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Thanh toán
-                                                    </mat-header-cell>
-                                                    <mat-cell *matCellDef="let element">
-                                                        <p style="text-align: right; color: green; font-weight: bold;">
-                                                            {{element.PaymentAmount | number:
-                                                            '1.0-0'}}
-                                                        </p>
-                                                    </mat-cell>
-                                                </ng-container>
-                                                <ng-container matColumnDef="actions">
-                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>
-                                                    </mat-header-cell>
-                                                    <mat-cell *matCellDef="let element">
-                                                        <a title="Xóa"
-                                                            class="mb-6 btn-floating waves-effect waves-light red"
-                                                            (click)="onOrderDeliveryPaymentHistoryDelete(element)"><i
-                                                                class="material-icons">delete_outline</i></a>
-                                                    </mat-cell>
-                                                </ng-container>
-                                                <ng-container matColumnDef="loading">
-                                                    <mat-footer-cell *matFooterCellDef colspan="4">
-                                                        Đang tải dữ liệu...
-                                                    </mat-footer-cell>
-                                                </ng-container>
-                                                <ng-container matColumnDef="noData">
-                                                    <mat-footer-cell *matFooterCellDef colspan="4">
-                                                        Chưa có dữ liệu.
-                                                    </mat-footer-cell>
-                                                </ng-container>
-                                                <mat-header-row
-                                                    *matHeaderRowDef="displayColumnsPayment"></mat-header-row>
-                                                <mat-row
-                                                    *matRowDef="let row; columns: displayColumnsPayment;"></mat-row>
-                                                <mat-footer-row *matFooterRowDef="['loading']"
-                                                    [ngClass]="{'hide':dataSourcePayment!=null}"></mat-footer-row>
-                                                <mat-footer-row *matFooterRowDef="['noData']"
-                                                    [ngClass]="{'hide':!(dataSourcePayment!=null && dataSourcePayment.data.length==0)}">
-                                                </mat-footer-row>
-                                            </mat-table>
-                                            <!-- <mat-paginator [pageSizeOptions]="[10,20,50,100]" [pageSize]="10"
-                                            [showFirstLastButtons]></mat-paginator>                            -->
-                                        </div>
-                                    </div>
                                 </div>
                                 <div id="3">
                                     <div class="col s12 m12 l6">

@@ -22,6 +22,7 @@ import { OrderShipperInfoComponent } from './order-shipper/order-shipper-info/or
 import { OrderShipperLiveComponent } from './order-shipper-live/order-shipper-live.component';
 
 const routes: Routes = [  
+  { path: '', redirectTo: '/OrderDelivery', pathMatch: 'full' },
   {
     path: 'OrderShipperLive', component: OrderShipperLiveComponent,
   },
