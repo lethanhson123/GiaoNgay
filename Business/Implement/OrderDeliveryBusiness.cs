@@ -1,4 +1,6 @@
-﻿namespace Business.Implement
+﻿using Data.Model;
+
+namespace Business.Implement
 {
     public class OrderDeliveryBusiness : BaseBusiness<OrderDelivery, IOrderDeliveryRepository>, IOrderDeliveryBusiness
     {
@@ -73,8 +75,14 @@
                     {
                         modelExist.IsComplete = model.IsComplete;
                         model.RowVersion = await _orderDeliveryRepository.UpdateAsync(modelExist);
+                        if (model.RowVersion > 0)
+                        {
+                            //string url = GlobalHelper.APISite + "api/v1/Mail/SendMailWhenOrderDeliveryComplete?orderDeliveryID=" + model.ID;
+                            //HttpClient client = new HttpClient();
+                            //HttpResponseMessage response = await client.GetAsync(url);
+                        }
                     }
-                }               
+                }
             }
             catch (Exception ex)
             {
@@ -111,6 +119,10 @@
                     if (model.RowVersion > 0)
                     {
                         OrderDeliveryDetail orderDeliveryDetail = await SaveOrderDeliveryDetail(model);
+
+                        //string url = GlobalHelper.APISite + "api/v1/Mail/SendMailWhenOrderDeliveryComplete?orderDeliveryID=" + model.ID;
+                        //HttpClient client = new HttpClient();
+                        //HttpResponseMessage response = await client.GetAsync(url);
                     }
                 }
             }
@@ -152,6 +164,10 @@
                     if (model.RowVersion > 0)
                     {
                         OrderDeliveryDetail orderDeliveryDetail = await SaveOrderDeliveryDetail(model);
+
+                        //string url = GlobalHelper.APISite + "api/v1/Mail/SendMailWhenOrderDeliveryComplete?orderDeliveryID=" + model.ID;
+                        //HttpClient client = new HttpClient();
+                        //HttpResponseMessage response = await client.GetAsync(url);
                     }
                 }
             }
@@ -161,7 +177,7 @@
             }
             return model;
         }
-       
+
         private async Task<OrderDeliveryDetail> SaveOrderDeliveryDetail(OrderDelivery model)
         {
             CategoryOrderDetail categoryOrderDetail = new CategoryOrderDetail();

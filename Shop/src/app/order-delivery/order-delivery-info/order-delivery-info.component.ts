@@ -20,6 +20,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { DownloadService } from 'src/app/shared/Download.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MailService } from 'src/app/shared/Mail.service';
 
 @Component({
   selector: 'app-order-delivery-info',
@@ -54,6 +55,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
     public WardService: WardService,
     public DistrictService: DistrictService,
     public MembershipService: MembershipService,
+    public MailService: MailService,
     public notificationService: NotificationService,
     private dialog: MatDialog
   ) {
@@ -151,8 +153,20 @@ export class OrderDeliveryInfoComponent implements OnInit {
         this.notificationService.success(environment.SaveSuccess);
         if (this.OrderDeliveryService.formData.ID == 0) {
           this.OrderDeliveryService.formData = res as OrderDelivery;
+          this.MailService.SendMailWhenOrderDeliveryCreate(this.OrderDeliveryService.formData.ID).then(
+            res => {                            
+            }
+          );
           let url = this.URLSub + "/" + this.OrderDeliveryService.formData.ID;
           window.location.href = this.URLSub + "/" + this.OrderDeliveryService.formData.ID;
+        }
+        else {
+          if (this.OrderDeliveryService.formData.IsComplete == true) {
+            this.MailService.SendMailWhenOrderDeliveryComplete(this.OrderDeliveryService.formData.ID).then(
+              res => {                
+              }
+            );
+          }
         }
       },
       err => {

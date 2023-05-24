@@ -11,6 +11,7 @@ import { WardService } from 'src/app/shared/Ward.service';
 import { Bank } from 'src/app/shared/Bank.model';
 import { BankService } from 'src/app/shared/Bank.service';
 import { Membership } from 'src/app/shared/Membership.model';
+import { MailService } from 'src/app/shared/Mail.service';
 
 @Component({
   selector: 'app-shop-detail',
@@ -25,6 +26,7 @@ export class ShopDetailComponent implements OnInit {
     public DistrictService: DistrictService,
     public WardService: WardService,
     public MembershipService: MembershipService,
+    public MailService: MailService,
     public notificationService: NotificationService,
     public dialogRef: MatDialogRef<ShopDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -97,6 +99,11 @@ export class ShopDetailComponent implements OnInit {
           case 1: {
             message = environment.SaveSuccess;
             console.log(message);
+            this.MailService.SendMailWhenMembershipChange(this.MembershipService.formData.ID).then(
+              res => {
+                
+              }
+            );
             break;
           }
           case 11: {

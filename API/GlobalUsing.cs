@@ -1,5 +1,6 @@
 ﻿global using System.Net;
 global using System.Text.RegularExpressions;
+global using System.Text;
 
 
 global using Microsoft.AspNetCore.Authorization;
@@ -28,3 +29,6 @@ global using Helper.Model;
 global using Newtonsoft.Json;
 
 global using OfficeOpenXml;
+global using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
+global using OfficeOpenXml.FormulaParsing.Excel.Functions.Numeric;
+global using System.IO;

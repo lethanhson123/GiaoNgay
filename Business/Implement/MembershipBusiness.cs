@@ -72,6 +72,12 @@ namespace Business.Implement
                     {
                         model.RowVersion = await _membershipRepository.AddAsync(model);
                     }
+                    if (model.RowVersion > 0)
+                    {
+                        //string url = GlobalHelper.APISite + "api/v1/Mail/SendMailWhenMembershipChange?membershipID=" + model.ID;
+                        //HttpClient client = new HttpClient();
+                        //HttpResponseMessage response = await client.GetAsync(url);
+                    }
                 }
             }
             return model;
@@ -109,7 +115,7 @@ namespace Business.Implement
                 {
                     result.Note = membershipAuthenticationToken.AuthenticationToken;
                     result.Description = result.Description + "?AuthenticationToken=" + membershipAuthenticationToken.AuthenticationToken;
-                }                
+                }
             }
             else
             {

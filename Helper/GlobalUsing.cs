@@ -10,4 +10,5 @@ global using Microsoft.Extensions.Configuration;
 global using System.Security.Cryptography;
 global using System.Drawing.Imaging;
 global using System.Text.RegularExpressions;
+global using System.Net.Mail;
 global using Helper.Model;

@@ -23,6 +23,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { DownloadService } from 'src/app/shared/Download.service';
 import { OrderDeliveryPaymentHistoryDetailComponent } from 'src/app/order-delivery-payment-history/order-delivery-payment-history-detail/order-delivery-payment-history-detail.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MailService } from 'src/app/shared/Mail.service';
 
 @Component({
   selector: 'app-order-delivery-info',
@@ -61,6 +62,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
     public WardService: WardService,
     public DistrictService: DistrictService,
     public MembershipService: MembershipService,
+    public MailService: MailService,
     public notificationService: NotificationService,
     private dialog: MatDialog
   ) {
@@ -124,6 +126,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
           if (this.MembershipService.listShipper.length > 0) {
             if (this.OrderDeliveryService.formData.ID == 0) {
               this.OrderDeliveryService.formData.ShipperID = this.MembershipService.listShipper[0].ID;
+              this.OrderDeliveryService.formData.ReceiveID = this.MembershipService.listShipper[0].ID;
             }
           }
         }
@@ -189,8 +192,20 @@ export class OrderDeliveryInfoComponent implements OnInit {
         this.notificationService.success(environment.SaveSuccess);
         if (this.OrderDeliveryService.formData.ID == 0) {
           this.OrderDeliveryService.formData = res as OrderDelivery;
+          this.MailService.SendMailWhenOrderDeliveryCreate(this.OrderDeliveryService.formData.ID).then(
+            res => {                            
+            }
+          );
           let url = this.URLSub + "/" + this.OrderDeliveryService.formData.ID;
-          window.location.href = this.URLSub + "/" + this.OrderDeliveryService.formData.ID;
+          window.location.href = this.URLSub + "/" + this.OrderDeliveryService.formData.ID;         
+        }
+        else {
+          if (this.OrderDeliveryService.formData.IsComplete == true) {
+            this.MailService.SendMailWhenOrderDeliveryComplete(this.OrderDeliveryService.formData.ID).then(
+              res => {                
+              }
+            );
+          }
         }
       },
       err => {

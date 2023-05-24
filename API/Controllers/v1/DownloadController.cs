@@ -1,11 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Hosting;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
-using OfficeOpenXml.Style;
-using System.IO;
-using System.Text;
-
-namespace API.Controllers.v1
+﻿namespace API.Controllers.v1
 {
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
@@ -66,7 +59,7 @@ namespace API.Controllers.v1
             OrderDelivery orderDelivery = _orderDeliveryBusiness.GetByID(ID);
             if (orderDelivery != null)
             {
-                contentHTML = contentHTML.Replace("[DateCreated]", orderDelivery.DateCreated.Value.ToString("dd/MM/yyyy HH:mm:ss"));
+                contentHTML = contentHTML.Replace("[DateCreated]", orderDelivery.DateCreated.Value.ToString("dd/MM/yyyy HH:mm"));
                 contentHTML = contentHTML.Replace("[Barcode]", orderDelivery.Barcode);
                 contentHTML = contentHTML.Replace("[BarcodeFile]", Path.Combine(GlobalHelper.APISite, GlobalHelper.Barcode, orderDelivery.BarcodeFile));
                 contentHTML = contentHTML.Replace("[QRcodeFile]", Path.Combine(GlobalHelper.APISite, GlobalHelper.QRcode, orderDelivery.QRcodeFile));
