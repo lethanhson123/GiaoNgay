@@ -38,6 +38,11 @@ namespace Data.Model
         public virtual DbSet<Data.Model.StreetWard> StreetWard { get; set; }
         public virtual DbSet<Data.Model.Ward> Ward { get; set; }
 
+        public virtual DbSet<Data.Model.OrderCall> OrderCall { get; set; }
+        public virtual DbSet<Data.Model.OrderCallFile> OrderCallFile { get; set; }
+
+        public virtual DbSet<Data.Model.QuickAccess> QuickAccess { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			if (!optionsBuilder.IsConfigured)

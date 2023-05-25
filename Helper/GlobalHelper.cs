@@ -182,6 +182,14 @@
                 return builder.Build().GetSection("AppSettings").GetSection("Company").Value;
             }
         }
+        public static string QuickAccess
+        {
+            get
+            {
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                return builder.Build().GetSection("AppSettings").GetSection("QuickAccess").Value;
+            }
+        }
         public static string Membership
         {
             get
@@ -196,6 +204,14 @@
             {
                 var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
                 return builder.Build().GetSection("AppSettings").GetSection("OrderDelivery").Value;
+            }
+        }
+        public static string OrderCall
+        {
+            get
+            {
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                return builder.Build().GetSection("AppSettings").GetSection("OrderCall").Value;
             }
         }
         public static string Mail

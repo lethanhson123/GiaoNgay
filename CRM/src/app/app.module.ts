@@ -50,6 +50,11 @@ import { OrderReceiveInfoComponent } from './order-receive/order-receive-info/or
 import { OrderShipperComponent } from './order-shipper/order-shipper.component';
 import { OrderShipperInfoComponent } from './order-shipper/order-shipper-info/order-shipper-info.component';
 import { OrderShipperLiveComponent } from './order-shipper-live/order-shipper-live.component';
+import { OrderCallComponent } from './order-call/order-call.component';
+import { OrderCallDetailComponent } from './order-call/order-call-detail/order-call-detail.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { QuickAccessComponent } from './quick-access/quick-access.component';
+import { QuickAccessDetailComponent } from './quick-access/quick-access-detail/quick-access-detail.component';
 
 
 @NgModule({
@@ -92,7 +97,12 @@ import { OrderShipperLiveComponent } from './order-shipper-live/order-shipper-li
     OrderReceiveInfoComponent,
     OrderShipperComponent,
     OrderShipperInfoComponent,
-    OrderShipperLiveComponent    
+    OrderShipperLiveComponent,
+    OrderCallComponent,
+    OrderCallDetailComponent,
+    HomepageComponent,
+    QuickAccessComponent,
+    QuickAccessDetailComponent    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

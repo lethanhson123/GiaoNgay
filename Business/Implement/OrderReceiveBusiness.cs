@@ -12,6 +12,14 @@
         }
         public override void Initialization(OrderReceive model)
         {
+            if (model.DateCreated == null)
+            {
+                model.DateCreated = GlobalHelper.InitializationDateTime;
+            }
+            if (model.DateCreated != null)
+            {
+                model.DateCreated = new DateTime(model.DateCreated.Value.Year, model.DateCreated.Value.Month, model.DateCreated.Value.Day, model.DateCreated.Value.Hour, model.DateCreated.Value.Minute, 0, 0);
+            }
             if (model.ReceiveID != null)
             {
                 Membership receive = _membershipRepository.GetByID(model.ReceiveID.Value);

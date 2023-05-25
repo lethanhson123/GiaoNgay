@@ -1,0 +1,73 @@
+<form autocomplete="off" class="row" #form="ngForm" (submit)="onSubmit(form)">
+    <div class="col s6 m6 l9">
+        <h5 class="card-title"><b>Truy cập nhanh: {{QuickAccessService.formData.Name}}</b></h5>
+    </div>
+    <div class="col s6 m6 l3">
+        <button [disabled]="!QuickAccessService.formData.Name" title="Lưu thay đổi" type="submit" class="mb-6 btn-floating waves-effect waves-light cyan"><i
+                class="material-icons">save</i></button>&nbsp;&nbsp;&nbsp;
+        <a title="Đóng" class="mb-6 btn-floating waves-effect waves-light purple lightrn-1" (click)="onClose()">
+            <i class="material-icons">close</i>
+        </a>
+    </div>
+    <input name="ID" [(ngModel)]="QuickAccessService.formData.ID" type="hidden">    
+    <div class="col s6 m6 l6">        
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="Name">Tiêu đề</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Tiêu đề" name="Name" [(ngModel)]="QuickAccessService.formData.Name" type="text">
+            </div>
+        </div>        
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="Code">URL</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="URL" name="Code" [(ngModel)]="QuickAccessService.formData.Code" type="text">
+            </div>
+        </div>   
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="Display">Icon</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Icon" name="Display" [(ngModel)]="QuickAccessService.formData.Display" type="text">
+            </div>
+        </div>   
+    </div>
+    <div class="col s6 m6 l6">        
+        <div class="col s12 m12 l4">
+            <div class="input-field">
+                <label for="ParentID">Nhóm</label>
+            </div>
+        </div>
+        <div class="col s12 m12 l8">
+            <div class="input-field">
+                <mat-select
+                    style="padding-top:20px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
+                    name="ParentID" class="browser-default" [(ngModel)]="QuickAccessService.formData.ParentID">
+                    <mat-option *ngFor="let item of CategoryMembershipService.list" [value]="item.ID">
+                        {{item.Display}}
+                    </mat-option>
+                </mat-select>
+            </div>
+        </div>
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="SortOrder">Sắp xếp</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Sắp xếp" name="SortOrder" [(ngModel)]="QuickAccessService.formData.SortOrder" type="number">
+            </div>
+        </div>  
+    </div>
+</form>

@@ -38,9 +38,14 @@ namespace API.Controllers.v1
                 {
                     string fileExtension = Path.GetExtension(file.FileName);
                     string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                    fileName = "Bank" + GlobalHelper.InitializationDateTimeCode + fileExtension;
-                    string pathSub = GlobalHelper.Upload;
-                    var physicalPath = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Upload, fileName);
+                    fileName = "Bank" + GlobalHelper.InitializationDateTimeCode + fileExtension;                    
+                    string folderPath = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Upload);
+                    bool isFolderExists = System.IO.Directory.Exists(folderPath);
+                    if (!isFolderExists)
+                    {
+                        System.IO.Directory.CreateDirectory(folderPath);
+                    }
+                    var physicalPath = Path.Combine(folderPath, fileName);                    
                     using (var stream = new FileStream(physicalPath, FileMode.Create))
                     {
                         file.CopyTo(stream);
@@ -107,8 +112,13 @@ namespace API.Controllers.v1
                     string fileExtension = Path.GetExtension(file.FileName);
                     string fileName = Path.GetFileNameWithoutExtension(file.FileName);
                     fileName = "District" + GlobalHelper.InitializationDateTimeCode + fileExtension;
-                    string pathSub = GlobalHelper.Upload;
-                    var physicalPath = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Upload, fileName);
+                    string folderPath = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Upload);
+                    bool isFolderExists = System.IO.Directory.Exists(folderPath);
+                    if (!isFolderExists)
+                    {
+                        System.IO.Directory.CreateDirectory(folderPath);
+                    }
+                    var physicalPath = Path.Combine(folderPath, fileName);
                     using (var stream = new FileStream(physicalPath, FileMode.Create))
                     {
                         file.CopyTo(stream);
@@ -171,8 +181,13 @@ namespace API.Controllers.v1
                     string fileExtension = Path.GetExtension(file.FileName);
                     string fileName = Path.GetFileNameWithoutExtension(file.FileName);
                     fileName = "Ward" + GlobalHelper.InitializationDateTimeCode + fileExtension;
-                    string pathSub = GlobalHelper.Upload;
-                    var physicalPath = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Upload, fileName);
+                    string folderPath = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Upload);
+                    bool isFolderExists = System.IO.Directory.Exists(folderPath);
+                    if (!isFolderExists)
+                    {
+                        System.IO.Directory.CreateDirectory(folderPath);
+                    }
+                    var physicalPath = Path.Combine(folderPath, fileName);
                     using (var stream = new FileStream(physicalPath, FileMode.Create))
                     {
                         file.CopyTo(stream);

@@ -28,6 +28,7 @@
   <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="wwwroot\Image\Membership\" />
+    <Folder Include="wwwroot\Image\OrderCall\" />
     <Folder Include="wwwroot\Image\OrderDelivery\" />
     <Folder Include="wwwroot\Upload\" />
   </ItemGroup>

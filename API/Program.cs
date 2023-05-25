@@ -62,6 +62,12 @@ builder.Services.AddTransient<IStreetBusiness, StreetBusiness>();
 builder.Services.AddTransient<IStreetWardBusiness, StreetWardBusiness>();
 builder.Services.AddTransient<IWardBusiness, WardBusiness>();
 
+builder.Services.AddTransient<IOrderCallBusiness, OrderCallBusiness>();
+builder.Services.AddTransient<IOrderCallFileBusiness, OrderCallFileBusiness>();
+
+builder.Services.AddTransient<IQuickAccessBusiness, QuickAccessBusiness>();
+
+
 builder.Services.AddTransient<IBankRepository, BankRepository>();
 builder.Services.AddTransient<ICategoryMembershipRepository, CategoryMembershipRepository>();
 builder.Services.AddTransient<ICategoryOrderDetailRepository, CategoryOrderDetailRepository>();
@@ -91,6 +97,11 @@ builder.Services.AddTransient<IProvinceRepository, ProvinceRepository>();
 builder.Services.AddTransient<IStreetRepository, StreetRepository>();
 builder.Services.AddTransient<IStreetWardRepository, StreetWardRepository>();
 builder.Services.AddTransient<IWardRepository, WardRepository>();
+
+builder.Services.AddTransient<IOrderCallRepository, OrderCallRepository>();
+builder.Services.AddTransient<IOrderCallFileRepository, OrderCallFileRepository>();
+
+builder.Services.AddTransient<IQuickAccessRepository, QuickAccessRepository>();
 
 
 var app = builder.Build();

@@ -102,11 +102,11 @@
                                                         <mat-cell *matCellDef="let element"><a target="_blank"
                                                                 href="{{URLOrderDeliveryInfo}}/{{element.ID}}"><b>{{element.Barcode}}</b></a></mat-cell>
                                                     </ng-container>
-                                                    <ng-container matColumnDef="CustomerAddress">
-                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Địa chỉ
+                                                    <ng-container matColumnDef="ShopFullName">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Shop
                                                         </mat-header-cell>
                                                         <mat-cell
-                                                            *matCellDef="let element">{{element.CustomerAddress}}</mat-cell>
+                                                            *matCellDef="let element">{{element.ShopFullName}}</mat-cell>
                                                     </ng-container>
                                                     <ng-container matColumnDef="Save">
                                                         <mat-header-cell *matHeaderCellDef mat-sort-header>

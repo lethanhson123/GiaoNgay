@@ -4,23 +4,23 @@ namespace API.Controllers.v1
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
-    public class CompanyController : BaseController<Company, ICompanyBusiness>
+    public class QuickAccessController : BaseController<QuickAccess, IQuickAccessBusiness>
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly ICompanyBusiness _companyBusiness;
-        public CompanyController(
+        private readonly IQuickAccessBusiness _quickAccessBusiness;
+        public QuickAccessController(
             IWebHostEnvironment webHostEnvironment
-            , ICompanyBusiness companyBusiness
-            ) : base(companyBusiness)
+            , IQuickAccessBusiness quickAccessBusiness
+            ) : base(quickAccessBusiness)
         {
             _webHostEnvironment = webHostEnvironment;
-            _companyBusiness = companyBusiness;
+            _quickAccessBusiness = quickAccessBusiness;
         }
         [HttpPost]
         [Route("SaveAndUploadFile")]
-        public async Task<Company> SaveAndUploadFile()
+        public async Task<QuickAccess> SaveAndUploadFile()
         {
-            Company model = JsonConvert.DeserializeObject<Company>(Request.Form["data"]);
+            QuickAccess model = JsonConvert.DeserializeObject<QuickAccess>(Request.Form["data"]);
             try
             {
                 if (Request.Form.Files.Count > 0)
@@ -34,7 +34,7 @@ namespace API.Controllers.v1
                         string fileExtension = Path.GetExtension(file.FileName);
                         string fileName = Path.GetFileNameWithoutExtension(file.FileName);
                         fileName = GlobalHelper.InitializationDateTimeCode + fileExtension;
-                        string folderPath = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Image, GlobalHelper.Company);
+                        string folderPath = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Image, GlobalHelper.QuickAccess);
                         bool isFolderExists = System.IO.Directory.Exists(folderPath);
                         if (!isFolderExists)
                         {
@@ -45,7 +45,7 @@ namespace API.Controllers.v1
                         {
                             file.CopyTo(stream);
                         }
-                        model.QRcodeFile = fileName;
+                        model.Note = fileName;
                     }
 
                 }
@@ -55,7 +55,7 @@ namespace API.Controllers.v1
                 string mes = e.Message;
             }
 
-            await _companyBusiness.SaveAsync(model);
+            await _quickAccessBusiness.SaveAsync(model);
             return model;
         }
     }

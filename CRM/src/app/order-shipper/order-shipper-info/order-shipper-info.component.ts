@@ -25,7 +25,7 @@ export class OrderShipperInfoComponent implements OnInit {
   isShowLoading: boolean = false;
   queryString: string = environment.InitializationString;
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['Active', 'ShipperFullName', 'Barcode', 'CustomerAddress', 'Save'];
+  displayColumns: string[] = ['Active', 'ShipperFullName', 'Barcode', 'ShopFullName'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
@@ -67,7 +67,7 @@ export class OrderShipperInfoComponent implements OnInit {
       res => {
         this.OrderDeliveryService.list = res as OrderDelivery[];
         console.log(this.OrderDeliveryService.list);
-        this.dataSource = new MatTableDataSource(this.OrderDeliveryService.list.sort((a, b) => (a.CustomerAddress < b.CustomerAddress ? 1 : -1)));
+        this.dataSource = new MatTableDataSource(this.OrderDeliveryService.list.sort((a, b) => (a.ShopFullName < b.ShopFullName ? 1 : -1)));
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.isShowLoading = false;

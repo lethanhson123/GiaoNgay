@@ -20,9 +20,21 @@ import { OrderReceiveInfoComponent } from './order-receive/order-receive-info/or
 import { OrderShipperComponent } from './order-shipper/order-shipper.component';
 import { OrderShipperInfoComponent } from './order-shipper/order-shipper-info/order-shipper-info.component';
 import { OrderShipperLiveComponent } from './order-shipper-live/order-shipper-live.component';
+import { OrderCallComponent } from './order-call/order-call.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { QuickAccessComponent } from './quick-access/quick-access.component';
 
 const routes: Routes = [  
-  { path: '', redirectTo: '/OrderDelivery', pathMatch: 'full' },
+  { path: '', redirectTo: '/Homepage', pathMatch: 'full' },
+  {
+    path: 'Homepage', component: HomepageComponent,
+  },
+  {
+    path: 'QuickAccess', component: QuickAccessComponent,
+  },
+  {
+    path: 'OrderCall', component: OrderCallComponent,
+  },
   {
     path: 'OrderShipperLive', component: OrderShipperLiveComponent,
   },

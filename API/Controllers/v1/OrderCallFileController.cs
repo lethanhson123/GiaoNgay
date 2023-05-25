@@ -1,18 +1,19 @@
-﻿
+﻿using Microsoft.AspNetCore.Hosting.Server;
+
 namespace API.Controllers.v1
 {
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
-    public class OrderDeliveryFileController : BaseController<OrderDeliveryFile, IOrderDeliveryFileBusiness>
+    public class OrderCallFileController : BaseController<OrderCallFile, IOrderCallFileBusiness>
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IOrderDeliveryFileBusiness _orderDeliveryFileBusiness;
-        public OrderDeliveryFileController(IWebHostEnvironment webHostEnvironment
-            , IOrderDeliveryFileBusiness orderDeliveryFileBusiness) : base(orderDeliveryFileBusiness)
+        private readonly IOrderCallFileBusiness _orderCallFileBusiness;
+        public OrderCallFileController(IWebHostEnvironment webHostEnvironment
+            , IOrderCallFileBusiness olrderCallFileBusiness) : base(olrderCallFileBusiness)
         {
             _webHostEnvironment = webHostEnvironment;
-            _orderDeliveryFileBusiness = orderDeliveryFileBusiness;
+            _orderCallFileBusiness = olrderCallFileBusiness;
         }
         [HttpPost]
         [Route("SaveAndUploadFiles")]
@@ -32,12 +33,12 @@ namespace API.Controllers.v1
                         }
                         if (file != null)
                         {
-                            OrderDeliveryFile orderDeliveryFile = new OrderDeliveryFile();
-                            orderDeliveryFile.ParentID = parentID;
+                            OrderCallFile orderCallFile = new OrderCallFile();
+                            orderCallFile.ParentID = parentID;
                             string fileExtension = Path.GetExtension(file.FileName);
                             string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                            fileName = orderDeliveryFile.ParentID + "_" + GlobalHelper.InitializationDateTimeCode + fileExtension;
-                            string folderPath = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Image, GlobalHelper.OrderDelivery);
+                            fileName = orderCallFile.ParentID + "_" + GlobalHelper.InitializationDateTimeCode + fileExtension;
+                            string folderPath = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Image, GlobalHelper.OrderCall);
                             bool isFolderExists = System.IO.Directory.Exists(folderPath);
                             if (!isFolderExists)
                             {
@@ -48,8 +49,8 @@ namespace API.Controllers.v1
                             {
                                 file.CopyTo(stream);
                             }
-                            orderDeliveryFile.Note = fileName;
-                            await _orderDeliveryFileBusiness.AddAsync(orderDeliveryFile);
+                            orderCallFile.Note = fileName;
+                            await _orderCallFileBusiness.AddAsync(orderCallFile);
                         }
                     }
                 }
