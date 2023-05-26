@@ -19,7 +19,7 @@
                                                         hàng</a></li>
                                                 <li class="tab col m4 s12 p-0"><a class="p-0" href="#2">Thanh toán</a>
                                                 </li>
-                                                <li class="tab col m4 s12 p-0"><a class="p-0" href="#3">Hình ảnh</a>
+                                                <li class="tab col m4 s12 p-0"><a class="p-0" href="#3">Khác</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -44,7 +44,7 @@
                                         </div>
                                         <input name="ID" [(ngModel)]="OrderDeliveryService.formData.ID" type="hidden">
                                         <div class="col s12 m12 l5">
-                                            
+
                                             <div class="col s12 m12 l4">
                                                 <div class="input-field">
                                                     <label for="ShopID">Shop</label>
@@ -198,7 +198,7 @@
                                                             </label>
                                                         </p>
                                                     </div>
-                                                </div>                                                
+                                                </div>
                                                 <div class="col s12 m12 l3">
                                                     <div class="input-field">
                                                         <p>
@@ -288,7 +288,7 @@
                                                         type="number">
                                                 </div>
                                             </div>
-                                            <div class="col s12 m12 l12">                                                
+                                            <div class="col s12 m12 l12">
                                                 <div class="KhungOverflow">
                                                     <mat-table [dataSource]="dataSource" matSort>
                                                         <ng-container matColumnDef="Name">
@@ -466,6 +466,10 @@
                                 <div id="3">
                                     <div class="col s12 m12 l6">
                                         <div class="col s12 m12 l12">
+                                            <h4><b>Hình ảnh</b></h4>
+                                            <hr />
+                                        </div>
+                                        <div class="col s12 m12 l12">
                                             <div class="input-field col s8 m4 l8">
                                                 <input type="file" multiple (change)="changeImage($event.target.files)">
                                             </div>
@@ -475,8 +479,6 @@
                                                         class="material-icons">cloud_upload</i></a>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col s12 m12 l6">
                                         <div class="KhungOverflow">
                                             <mat-table [dataSource]="dataSourceFile" matSort>
                                                 <ng-container matColumnDef="Note">
@@ -516,6 +518,64 @@
                                                     [ngClass]="{'hide':dataSourceFile!=null}"></mat-footer-row>
                                                 <mat-footer-row *matFooterRowDef="['noData']"
                                                     [ngClass]="{'hide':!(dataSourceFile!=null && dataSourceFile.data.length==0)}">
+                                                </mat-footer-row>
+                                            </mat-table>
+                                            <!-- <mat-paginator [pageSizeOptions]="[10,20,50,100]" [pageSize]="10"
+                                                [showFirstLastButtons]></mat-paginator>                            -->
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m12 l6">
+                                        <div class="col s12 m12 l12">
+                                            <h4><b>Trả hàng</b></h4>
+                                            <hr />
+                                        </div>
+                                        <div class="KhungOverflow">
+                                            <mat-table [dataSource]="dataSourceReturn" matSort>
+                                                <ng-container matColumnDef="Name">
+                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Name
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let element" style="margin-right: 10px;">
+                                                        {{element.Name}}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="Quantity">
+                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Số lượng
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let element" style="margin-right: 10px;">
+                                                        <input placeholder="0" name="Quantity{{element.ID}}"
+                                                            style="text-align: right;" [(ngModel)]="element.Quantity"
+                                                            type="number">
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="Active">
+                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Chọn
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let element">
+                                                        <label>                                                              
+                                                            <input type="checkbox" class="filled-in" name="Active{{element.ID}}"
+                                                                (change)="onOrderDeliveryReturnActiveChange(element)"
+                                                                [(ngModel)]="element.Active" />
+                                                            <span>.</span>
+                                                        </label>
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="loading">
+                                                    <mat-footer-cell *matFooterCellDef colspan="4">
+                                                        Đang tải dữ liệu...
+                                                    </mat-footer-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="noData">
+                                                    <mat-footer-cell *matFooterCellDef colspan="4">
+                                                        Chưa có dữ liệu.
+                                                    </mat-footer-cell>
+                                                </ng-container>
+                                                <mat-header-row
+                                                    *matHeaderRowDef="displayColumnsReturn"></mat-header-row>
+                                                <mat-row *matRowDef="let row; columns: displayColumnsReturn;"></mat-row>
+                                                <mat-footer-row *matFooterRowDef="['loading']"
+                                                    [ngClass]="{'hide':dataSourceReturn!=null}"></mat-footer-row>
+                                                <mat-footer-row *matFooterRowDef="['noData']"
+                                                    [ngClass]="{'hide':!(dataSourceReturn!=null && dataSourceReturn.data.length==0)}">
                                                 </mat-footer-row>
                                             </mat-table>
                                             <!-- <mat-paginator [pageSizeOptions]="[10,20,50,100]" [pageSize]="10"

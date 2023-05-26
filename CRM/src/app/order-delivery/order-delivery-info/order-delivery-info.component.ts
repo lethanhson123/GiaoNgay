@@ -7,6 +7,8 @@ import { OrderDelivery } from 'src/app/shared/OrderDelivery.model';
 import { OrderDeliveryService } from 'src/app/shared/OrderDelivery.service';
 import { OrderDeliveryDetail } from 'src/app/shared/OrderDeliveryDetail.model';
 import { OrderDeliveryDetailService } from 'src/app/shared/OrderDeliveryDetail.service';
+import { OrderDeliveryReturn } from 'src/app/shared/OrderDeliveryReturn.model';
+import { OrderDeliveryReturnService } from 'src/app/shared/OrderDeliveryReturn.service';
 import { OrderDeliveryFile } from 'src/app/shared/OrderDeliveryFile.model';
 import { OrderDeliveryFileService } from 'src/app/shared/OrderDeliveryFile.service';
 import { OrderDeliveryPaymentHistory } from 'src/app/shared/OrderDeliveryPaymentHistory.model';
@@ -47,6 +49,9 @@ export class OrderDeliveryInfoComponent implements OnInit {
   dataSourcePayment: MatTableDataSource<any>;
   displayColumnsPayment: string[] = ['ID', 'PaymentDate', 'PaymentAmount', 'actions'];
 
+  dataSourceReturn: MatTableDataSource<any>;
+  displayColumnsReturn: string[] = ['Name', 'Quantity', 'Active'];
+
   fileToUpload: any;
   fileToUpload0: File = null;
 
@@ -57,6 +62,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
     public DownloadService: DownloadService,
     public OrderDeliveryService: OrderDeliveryService,
     public OrderDeliveryDetailService: OrderDeliveryDetailService,
+    public OrderDeliveryReturnService: OrderDeliveryReturnService,
     public OrderDeliveryFileService: OrderDeliveryFileService,
     public OrderDeliveryPaymentHistoryService: OrderDeliveryPaymentHistoryService,
     public WardService: WardService,
@@ -81,7 +87,8 @@ export class OrderDeliveryInfoComponent implements OnInit {
       this.OrderDeliveryService.formData = res as OrderDelivery;
       if (this.OrderDeliveryService.formData) {
         this.GetOrderDeliveryDetailByParentIDToListAsync();
-        this.GetOrderDeliveryFileByParentIDToListAsync();
+        this.GetOrderDeliveryReturnByParentIDToListAsync();
+        this.GetOrderDeliveryFileByParentIDToListAsync();        
         this.GetOrderDeliveryPaymentHistoryByParentIDToListAsync();
         this.getShopToList();
         this.getShipperToList();
@@ -96,6 +103,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
       this.OrderDeliveryService.formData = res as OrderDelivery;
       if (this.OrderDeliveryService.formData) {
         this.GetOrderDeliveryDetailByParentIDToListAsync();
+        this.GetOrderDeliveryReturnByParentIDToListAsync();
         this.GetOrderDeliveryFileByParentIDToListAsync();
         this.GetOrderDeliveryPaymentHistoryByParentIDToListAsync();
       }
@@ -176,6 +184,21 @@ export class OrderDeliveryInfoComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.OrderDeliveryDetailService.list.sort((a, b) => (a.CreatedDate > b.CreatedDate ? 1 : -1)));
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.isShowLoading = false;
+      },
+      err => {
+        this.isShowLoading = false;
+      }
+    );
+  }
+  GetOrderDeliveryReturnByParentIDToListAsync() {
+    this.isShowLoading = true;
+    this.OrderDeliveryReturnService.GetByParentIDToListAsync(this.OrderDeliveryService.formData.ID).subscribe(
+      res => {
+        this.OrderDeliveryReturnService.list = res as OrderDeliveryReturn[];
+        this.dataSourceReturn = new MatTableDataSource(this.OrderDeliveryReturnService.list.sort((a, b) => (a.CreatedDate > b.CreatedDate ? 1 : -1)));
+        this.dataSourceReturn.sort = this.sort;
+        this.dataSourceReturn.paginator = this.paginator;
         this.isShowLoading = false;
       },
       err => {
@@ -342,6 +365,17 @@ export class OrderDeliveryInfoComponent implements OnInit {
         });
       },
       err => {
+      }
+    );
+  }
+  onOrderDeliveryReturnActiveChange(element: OrderDeliveryReturn) {
+    this.OrderDeliveryReturnService.SaveAsync(element).subscribe(
+      res => {
+        this.notificationService.warn(environment.SaveSuccess);
+        this.GetOrderDeliveryReturnByParentIDToListAsync();
+      },
+      err => {
+        this.notificationService.warn(environment.SaveNotSuccess);
       }
     );
   }

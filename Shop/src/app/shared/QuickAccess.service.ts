@@ -1,92 +1,94 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Membership } from 'src/app/shared/Membership.model';
+import { QuickAccess } from 'src/app/shared/QuickAccess.model';
 @Injectable({
     providedIn: 'root'
 })
-export class MembershipService {
-    list: Membership[] | undefined;
-    listDieuHanh: Membership[] | undefined;
-    listShop: Membership[] | undefined;
-    listShipper: Membership[] | undefined;
-    formData!: Membership;
-    MembershipID!: number;
+export class QuickAccessService {
+    list: QuickAccess[] | undefined;
+    formData!: QuickAccess;
     aPIURL: string = environment.APIURL;
-    controller: string = "Membership";
+    controller: string = "QuickAccess";
     constructor(private httpClient: HttpClient) {
         this.initializationFormData();
     }
     initializationFormData() {
-        this.MembershipID = Number(localStorage.getItem(environment.MembershipID));
         this.formData = {
         }
     }
-    Save(formData: Membership) {        
+    SaveAndUploadFile(formData: QuickAccess, fileToUpload: FileList) {
+        let url = this.aPIURL + this.controller + '/SaveAndUploadFile';
+        const uploadData = JSON.stringify(formData);
+        const formUpload: FormData = new FormData();
+        formUpload.append('data', uploadData);
+        if (fileToUpload) {
+            if (fileToUpload.length > 0) {
+                for (var i = 0; i < fileToUpload.length; i++) {
+                    formUpload.append('file[]', fileToUpload[i]);
+                }
+            }
+        }
+        return this.httpClient.post(url, formUpload);
+    }
+    Save(formData: QuickAccess) {
         let url = this.aPIURL + this.controller + '/Save';
         const uploadData = JSON.stringify(formData);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    }  
-    SaveAsync(formData: Membership) {        
+    }
+    SaveAsync(formData: QuickAccess) {
         let url = this.aPIURL + this.controller + '/SaveAsync';
         const uploadData = JSON.stringify(formData);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    }  
-    Remove(ID: number) {        
+    }
+    Remove(ID: number) {
         let url = this.aPIURL + this.controller + '/Remove';
         const uploadData = JSON.stringify(ID);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    }  
-    RemoveAsync(ID: number) {        
+    }
+    RemoveAsync(ID: number) {
         let url = this.aPIURL + this.controller + '/RemoveAsync';
         const uploadData = JSON.stringify(ID);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    }  
-    GetByID(ID: number) {        
+    }
+    GetByID(ID: number) {
         let url = this.aPIURL + this.controller + '/GetByID';
         const uploadData = JSON.stringify(ID);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    }  
-    GetByIDAsync(ID: number) {        
+    }
+    GetByIDAsync(ID: number) {
         let url = this.aPIURL + this.controller + '/GetByIDAsync';
         const uploadData = JSON.stringify(ID);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    } 
-    GetAllToList() {        
-        let url = this.aPIURL + this.controller + '/GetAllToList';     
-        const formUpload: FormData = new FormData();   
+    }
+    GetAllToList() {
+        let url = this.aPIURL + this.controller + '/GetAllToList';
+        const formUpload: FormData = new FormData();
         return this.httpClient.post(url, formUpload);
-    }  
-    GetAllToListAsync() {        
-        let url = this.aPIURL + this.controller + '/GetAllToListAsync';        
-        const formUpload: FormData = new FormData();        
+    }
+    GetAllToListAsync() {
+        let url = this.aPIURL + this.controller + '/GetAllToListAsync';
+        const formUpload: FormData = new FormData();
         return this.httpClient.post(url, formUpload);
-    } 
+    }
     GetByParentIDToListAsync(parentID: number) {        
         let url = this.aPIURL + this.controller + '/GetByParentIDToListAsync';
         const uploadData = JSON.stringify(parentID);
         const formUpload: FormData = new FormData();
         formUpload.append('data', uploadData);        
         return this.httpClient.post(url, formUpload);
-    }
-    Authentication(model: Membership) {
-        let url = this.aPIURL + this.controller + '/Authentication';
-        const uploadData = JSON.stringify(model);
-        const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);
-        return this.httpClient.post(url, formUpload);
-    }
+    } 
 }
 

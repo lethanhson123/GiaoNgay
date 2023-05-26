@@ -1,35 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Membership } from 'src/app/shared/Membership.model';
+import { OrderCallFile } from 'src/app/shared/OrderCallFile.model';
 @Injectable({
     providedIn: 'root'
 })
-export class MembershipService {
-    list: Membership[] | undefined;
-    listDieuHanh: Membership[] | undefined;
-    listShop: Membership[] | undefined;
-    listShipper: Membership[] | undefined;
-    formData!: Membership;
-    MembershipID!: number;
+export class OrderCallFileService {
+    list: OrderCallFile[] | undefined;
+    formData!: OrderCallFile;
     aPIURL: string = environment.APIURL;
-    controller: string = "Membership";
+    controller: string = "OrderCallFile";
     constructor(private httpClient: HttpClient) {
         this.initializationFormData();
     }
     initializationFormData() {
-        this.MembershipID = Number(localStorage.getItem(environment.MembershipID));
         this.formData = {
         }
     }
-    Save(formData: Membership) {        
+    Save(formData: OrderCallFile) {        
         let url = this.aPIURL + this.controller + '/Save';
         const uploadData = JSON.stringify(formData);
         const formUpload: FormData = new FormData();
         formUpload.append('data', uploadData);        
         return this.httpClient.post(url, formUpload);
     }  
-    SaveAsync(formData: Membership) {        
+    SaveAsync(formData: OrderCallFile) {        
         let url = this.aPIURL + this.controller + '/SaveAsync';
         const uploadData = JSON.stringify(formData);
         const formUpload: FormData = new FormData();
@@ -73,19 +68,26 @@ export class MembershipService {
         let url = this.aPIURL + this.controller + '/GetAllToListAsync';        
         const formUpload: FormData = new FormData();        
         return this.httpClient.post(url, formUpload);
-    } 
+    }     
     GetByParentIDToListAsync(parentID: number) {        
         let url = this.aPIURL + this.controller + '/GetByParentIDToListAsync';
         const uploadData = JSON.stringify(parentID);
         const formUpload: FormData = new FormData();
         formUpload.append('data', uploadData);        
         return this.httpClient.post(url, formUpload);
-    }
-    Authentication(model: Membership) {
-        let url = this.aPIURL + this.controller + '/Authentication';
-        const uploadData = JSON.stringify(model);
+    } 
+    SaveAndUploadFiles(parentID: number, fileToUpload: FileList) {        
+        let url = this.aPIURL + this.controller + '/SaveAndUploadFiles';
+        const uploadData = JSON.stringify(parentID);
         const formUpload: FormData = new FormData();
         formUpload.append('data', uploadData);
+        if (fileToUpload) {
+            if (fileToUpload.length > 0) {
+                for (var i = 0; i < fileToUpload.length; i++) {
+                    formUpload.append('file[]', fileToUpload[i]);
+                }
+            }
+        }        
         return this.httpClient.post(url, formUpload);
     }
 }

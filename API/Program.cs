@@ -48,6 +48,7 @@ builder.Services.AddTransient<IMembershipAuthenticationTokenBusiness, Membership
 
 builder.Services.AddTransient<IOrderDeliveryBusiness, OrderDeliveryBusiness>();
 builder.Services.AddTransient<IOrderDeliveryDetailBusiness, OrderDeliveryDetailBusiness>();
+builder.Services.AddTransient<IOrderDeliveryReturnBusiness, OrderDeliveryReturnBusiness>();
 builder.Services.AddTransient<IOrderDeliveryPaymentHistoryBusiness, OrderDeliveryPaymentHistoryBusiness>();
 builder.Services.AddTransient<IOrderDeliveryStatusBusiness, OrderDeliveryStatusBusiness>();
 builder.Services.AddTransient<IOrderDeliveryFileBusiness, OrderDeliveryFileBusiness>();
@@ -83,6 +84,7 @@ builder.Services.AddTransient<IMembershipFileRepository, MembershipFileRepositor
 builder.Services.AddTransient<IMembershipAuthenticationTokenRepository, MembershipAuthenticationTokenRepository>();
 
 builder.Services.AddTransient<IOrderDeliveryDetailRepository, OrderDeliveryDetailRepository>();
+builder.Services.AddTransient<IOrderDeliveryReturnRepository, OrderDeliveryReturnRepository>();
 builder.Services.AddTransient<IOrderDeliveryPaymentHistoryRepository, OrderDeliveryPaymentHistoryRepository>();
 builder.Services.AddTransient<IOrderDeliveryRepository, OrderDeliveryRepository>();
 builder.Services.AddTransient<IOrderDeliveryFileRepository, OrderDeliveryFileRepository>();

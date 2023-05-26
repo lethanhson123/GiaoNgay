@@ -26,13 +26,16 @@
                     <div class="card-content">
                         <div class="center-align">
                             <div class="col s12 m6 l2" *ngFor="let item of QuickAccessService.list;">
-                                <a href="{{item.Code}}"><i class="material-icons large icon-demo">{{item.Display}}</i></a>
+                                <a href="{{item.Code}}"><i
+                                        class="material-icons large icon-demo">{{item.Display}}</i></a>
                                 <br>
-                                <a href="{{item.Code}}"><h2>{{item.Name}}</h2></a>
-                            </div>                           
+                                <a href="{{item.Code}}">
+                                    <h2>{{item.Name}}</h2>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div>                
             </div>
         </div>
     </div>

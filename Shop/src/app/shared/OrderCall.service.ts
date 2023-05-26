@@ -1,35 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Membership } from 'src/app/shared/Membership.model';
+import { OrderCall } from 'src/app/shared/OrderCall.model';
 @Injectable({
     providedIn: 'root'
 })
-export class MembershipService {
-    list: Membership[] | undefined;
-    listDieuHanh: Membership[] | undefined;
-    listShop: Membership[] | undefined;
-    listShipper: Membership[] | undefined;
-    formData!: Membership;
-    MembershipID!: number;
+export class OrderCallService {
+    list: OrderCall[] | undefined;
+    formData!: OrderCall;
     aPIURL: string = environment.APIURL;
-    controller: string = "Membership";
+    controller: string = "OrderCall";
     constructor(private httpClient: HttpClient) {
         this.initializationFormData();
     }
     initializationFormData() {
-        this.MembershipID = Number(localStorage.getItem(environment.MembershipID));
         this.formData = {
         }
     }
-    Save(formData: Membership) {        
+    Save(formData: OrderCall) {        
         let url = this.aPIURL + this.controller + '/Save';
         const uploadData = JSON.stringify(formData);
         const formUpload: FormData = new FormData();
         formUpload.append('data', uploadData);        
         return this.httpClient.post(url, formUpload);
     }  
-    SaveAsync(formData: Membership) {        
+    SaveAsync(formData: OrderCall) {        
         let url = this.aPIURL + this.controller + '/SaveAsync';
         const uploadData = JSON.stringify(formData);
         const formUpload: FormData = new FormData();
@@ -74,18 +69,30 @@ export class MembershipService {
         const formUpload: FormData = new FormData();        
         return this.httpClient.post(url, formUpload);
     } 
-    GetByParentIDToListAsync(parentID: number) {        
-        let url = this.aPIURL + this.controller + '/GetByParentIDToListAsync';
-        const uploadData = JSON.stringify(parentID);
+    GetByYearAndMonthAndDayAndSearchStringToLisAsync(year: number, month: number, day: number, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetByYearAndMonthAndDayAndSearchStringToLisAsync';
+        const yearData = JSON.stringify(year);
+        const monthData = JSON.stringify(month);
+        const dayData = JSON.stringify(day);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('year', yearData);
+        formUpload.append('month', monthData);
+        formUpload.append('day', dayData);
+        formUpload.append('searchString', searchString);
         return this.httpClient.post(url, formUpload);
     }
-    Authentication(model: Membership) {
-        let url = this.aPIURL + this.controller + '/Authentication';
-        const uploadData = JSON.stringify(model);
+    GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync(membershipID:number, year: number, month: number, day: number, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync';
+        const membershipIDData = JSON.stringify(membershipID);
+        const yearData = JSON.stringify(year);
+        const monthData = JSON.stringify(month);
+        const dayData = JSON.stringify(day);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);
+        formUpload.append('membershipID', membershipIDData);
+        formUpload.append('year', yearData);
+        formUpload.append('month', monthData);
+        formUpload.append('day', dayData);
+        formUpload.append('searchString', searchString);
         return this.httpClient.post(url, formUpload);
     }
 }

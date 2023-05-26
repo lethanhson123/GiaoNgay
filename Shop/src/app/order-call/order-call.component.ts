@@ -1,41 +1,42 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { NotificationService } from 'src/app/shared/notification.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { OrderDelivery } from 'src/app/shared/OrderDelivery.model';
-import { OrderDeliveryService } from 'src/app/shared/OrderDelivery.service';
+import { OrderCall } from 'src/app/shared/OrderCall.model';
+import { OrderCallService } from 'src/app/shared/OrderCall.service';
+import { OrderCallDetailComponent } from './order-call-detail/order-call-detail.component';
 import { DateHelper } from 'src/app/shared/DateHelper.model';
 import { DownloadService } from 'src/app/shared/Download.service';
 import { MembershipService } from 'src/app/shared/Membership.service';
 
-@Component({
-  selector: 'app-order-delivery',
-  templateUrl: './order-delivery.component.html',
-  styleUrls: ['./order-delivery.component.css']
-})
-export class OrderDeliveryComponent implements OnInit {
 
-  URLSub: string = environment.DomainDestination + "OrderDeliveryInfo";
+@Component({
+  selector: 'app-order-call',
+  templateUrl: './order-call.component.html',
+  styleUrls: ['./order-call.component.css']
+})
+export class OrderCallComponent implements OnInit {
+
+  dataSource: MatTableDataSource<any>;
+  displayColumns: string[] = ['ID', 'DateCreated', 'ShopFullName', 'ShipperFullName', 'Quantity'];
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
   searchString: string = environment.InitializationString;
   year: number = new Date().getFullYear();
   month: number = new Date().getMonth() + 1;
   day: number = new Date().getUTCDate();
   id: any;
-  dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['Barcode', 'TotalBeforeTax', 'Save'];
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
-    public OrderDeliveryService: OrderDeliveryService,
+    public OrderCallService: OrderCallService,
     public DownloadService: DownloadService,
     public MembershipService: MembershipService,
     public NotificationService: NotificationService,
-  ) {
-
-  }
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.GetYear();
@@ -49,7 +50,7 @@ export class OrderDeliveryComponent implements OnInit {
   GetYear() {
     this.isShowLoading = true;
     this.DownloadService.GetYear().subscribe(
-      res => {
+      res => {        
         this.DownloadService.listYear = res as DateHelper[];
         this.isShowLoading = false;
       },
@@ -61,7 +62,7 @@ export class OrderDeliveryComponent implements OnInit {
   GetMonth() {
     this.isShowLoading = true;
     this.DownloadService.GetMonth().subscribe(
-      res => {
+      res => {        
         this.DownloadService.listMonth = res as DateHelper[];
         this.isShowLoading = false;
       },
@@ -73,8 +74,8 @@ export class OrderDeliveryComponent implements OnInit {
   GetDay() {
     this.isShowLoading = true;
     this.DownloadService.GetDay().subscribe(
-      res => {
-        this.DownloadService.listDay = res as DateHelper[];
+      res => {        
+        this.DownloadService.listDay = res as DateHelper[];        
         this.isShowLoading = false;
       },
       err => {
@@ -82,16 +83,12 @@ export class OrderDeliveryComponent implements OnInit {
       }
     );
   }
-  onSearch() {
-    this.getToList();
-  }
   getToList() {
-    this.isShowLoading = true;    
-    this.OrderDeliveryService.GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync(this.MembershipService.MembershipID, this.year, this.month, this.day, this.searchString).subscribe(
-      res => {
-        this.OrderDeliveryService.list = res as OrderDelivery[];
-        console.log(this.OrderDeliveryService.list);
-        this.dataSource = new MatTableDataSource(this.OrderDeliveryService.list.sort((a, b) => (a.DateCreated < b.DateCreated ? 1 : -1)));
+    this.isShowLoading = true;
+    this.OrderCallService.GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync(this.MembershipService.MembershipID, this.year, this.month, this.day, this.searchString).subscribe(
+      res => {        
+        this.OrderCallService.list = res as OrderCall[];        
+        this.dataSource = new MatTableDataSource(this.OrderCallService.list.sort((a, b) => (a.ShopFullName > b.ShopFullName ? 1 : -1)));
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.isShowLoading = false;
@@ -101,12 +98,30 @@ export class OrderDeliveryComponent implements OnInit {
       }
     );
   }
-  onPrint(ID: number) {
-    this.isShowLoading = true;
-    this.DownloadService.OrderDeliveryByIDToHTML(ID).then(
+  onSearch() {
+    if (this.searchString.length > 0) {
+      this.dataSource.filter = this.searchString.toLowerCase();
+    }
+    else {
+      this.getToList();
+    }
+  }
+  onAdd(ID: any) {
+    this.OrderCallService.GetByIDAsync(ID).subscribe(
       res => {
-        window.open(res.toString(), "_blank");
-        this.isShowLoading = false;
+        this.OrderCallService.formData = res as OrderCall;
+        console.log(this.OrderCallService.formData);
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.width = environment.DialogConfigWidth;
+        dialogConfig.data = { ID: ID };
+        const dialog = this.dialog.open(OrderCallDetailComponent, dialogConfig);
+        dialog.afterClosed().subscribe(() => {
+          this.getToList();
+        });
+      },
+      err => {
       }
     );
   }

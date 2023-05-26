@@ -16,6 +16,9 @@ import { LoadingComponent } from './loading/loading.component';
 import { MembershipComponent } from './membership/membership.component';
 import { OrderDeliveryComponent } from './order-delivery/order-delivery.component';
 import { OrderDeliveryInfoComponent } from './order-delivery/order-delivery-info/order-delivery-info.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { OrderCallComponent } from './order-call/order-call.component';
+import { OrderCallDetailComponent } from './order-call/order-call-detail/order-call-detail.component';
 
 
 @NgModule({
@@ -24,7 +27,10 @@ import { OrderDeliveryInfoComponent } from './order-delivery/order-delivery-info
     LoadingComponent,
     MembershipComponent,
     OrderDeliveryComponent,
-    OrderDeliveryInfoComponent,
+    OrderDeliveryInfoComponent,    
+    HomepageComponent,
+    OrderCallComponent,
+    OrderCallDetailComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

@@ -221,7 +221,7 @@ namespace Business.Implement
             {
                 try
                 {
-                    result = await _orderDeliveryRepository.GetByCondition(item => item.IsComplete != true && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.IsComplete != true && (item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day)).ToListAsync();
                 }
                 catch (Exception ex)
                 {
@@ -243,7 +243,7 @@ namespace Business.Implement
                 {
 
                     List<long> listCategoryOrderStatusID = new List<long> { 2, 3, 4, 5, 7 };
-                    result = await _orderDeliveryRepository.GetByCondition(item => item.ShipperID != null && item.IsComplete != true && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.ShipperID != null && item.IsComplete != true && (item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day)).ToListAsync();
                 }
                 catch (Exception ex)
                 {
@@ -265,7 +265,7 @@ namespace Business.Implement
                 {
 
                     List<long> listCategoryOrderStatusID = new List<long> { 2, 3, 4, 5, 7 };
-                    result = await _orderDeliveryRepository.GetByCondition(item => item.ReceiveID != null && item.IsComplete != true && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.ReceiveID != null && item.IsComplete != true && (item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day)).ToListAsync();
                 }
                 catch (Exception ex)
                 {
@@ -285,7 +285,7 @@ namespace Business.Implement
             {
                 try
                 {
-                    result = await _orderDeliveryRepository.GetByCondition(item => item.IsComplete == true && item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day).ToListAsync();
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.IsComplete == true && (item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day)).ToListAsync();
                 }
                 catch (Exception ex)
                 {
@@ -319,7 +319,7 @@ namespace Business.Implement
             List<OrderDelivery> result = new List<OrderDelivery>();
             if (!string.IsNullOrEmpty(searchString))
             {
-                result = await _orderDeliveryRepository.GetByCondition(item => (item.ShopID == membershipID || item.ReceiveID == membershipID || item.ShipperID == membershipID) && item.Barcode.Contains(searchString) || item.ShopFullName.Contains(searchString) || item.ShipperFullName.Contains(searchString) || item.CustomerFullName.Contains(searchString) || item.DeliveryAddress.Contains(searchString)).ToListAsync();
+                result = await _orderDeliveryRepository.GetByCondition(item => (item.ShopID == membershipID || item.ReceiveID == membershipID || item.ShipperID == membershipID) && (item.Barcode.Contains(searchString) || item.ShopFullName.Contains(searchString) || item.ShipperFullName.Contains(searchString) || item.CustomerFullName.Contains(searchString) || item.DeliveryAddress.Contains(searchString))).ToListAsync();
             }
             return result;
         }
