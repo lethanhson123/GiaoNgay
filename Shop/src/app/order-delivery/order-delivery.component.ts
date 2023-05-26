@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { NotificationService } from 'src/app/shared/notification.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -9,6 +10,7 @@ import { OrderDeliveryService } from 'src/app/shared/OrderDelivery.service';
 import { DateHelper } from 'src/app/shared/DateHelper.model';
 import { DownloadService } from 'src/app/shared/Download.service';
 import { MembershipService } from 'src/app/shared/Membership.service';
+import { UploadComponent } from '../upload/upload.component';
 
 @Component({
   selector: 'app-order-delivery',
@@ -33,6 +35,7 @@ export class OrderDeliveryComponent implements OnInit {
     public DownloadService: DownloadService,
     public MembershipService: MembershipService,
     public NotificationService: NotificationService,
+    private dialog: MatDialog
   ) {
 
   }
@@ -109,5 +112,16 @@ export class OrderDeliveryComponent implements OnInit {
         this.isShowLoading = false;
       }
     );
+  }
+  onAdd(ID: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = environment.DialogConfigWidth;
+    dialogConfig.data = { ID: ID };
+    const dialog = this.dialog.open(UploadComponent, dialogConfig);
+    dialog.afterClosed().subscribe(() => {
+      this.onSearch();
+    });
   }
 }

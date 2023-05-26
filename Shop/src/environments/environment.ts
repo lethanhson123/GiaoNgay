@@ -1,7 +1,7 @@
 export const environment = {
   production: false, 
-  DomainURL: "http://localhost:4200/",  
-  DomainDestination: "http://localhost:4200/#/",  
+  DomainURL: "https://shop.giaongay.com.vn/",  
+  DomainDestination: "https://shop.giaongay.com.vn/#/",  
   APIURL: "https://api.giaongay.com.vn/api/v1/",    
   APIRootURL: "https://api.giaongay.com.vn/",    
   LoginURL: "https://login.giaongay.com.vn/",
@@ -12,6 +12,7 @@ export const environment = {
   Barcode: "Barcode",
   QRcode: "QRcode",
   OrderDelivery: "OrderDelivery", 
+  OrderCall: "OrderCall", 
   Download: "Download",  
   LoadingFile: "loading.gif",
   DialogConfigWidth: "80%",

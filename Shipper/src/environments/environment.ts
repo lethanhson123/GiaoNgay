@@ -12,6 +12,7 @@ export const environment = {
   Barcode: "Barcode",
   QRcode: "QRcode",
   OrderDelivery: "OrderDelivery", 
+  OrderCall: "OrderCall", 
   Download: "Download",  
   LoadingFile: "loading.gif",
   DialogConfigWidth: "80%",

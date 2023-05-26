@@ -30,7 +30,7 @@
     <Folder Include="wwwroot\Image\Membership\" />
     <Folder Include="wwwroot\Image\OrderCall\" />
     <Folder Include="wwwroot\Image\OrderDelivery\" />
-    <Folder Include="wwwroot\Upload\" />
+    <Folder Include="wwwroot\Upload\OrderDelivery\" />
   </ItemGroup>
 
   <ItemGroup>

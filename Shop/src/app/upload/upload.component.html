@@ -1,0 +1,25 @@
+<div class="col s12 m12 l9">
+    <h5 class="card-title"><b>Upload đơn hàng bằng excel</b></h5>
+</div>
+<div class="col s12 m12 l3">
+    <button [disabled]="!isOrderDelivery" title="Lưu thay đổi" (click)="onSubmit()"
+        class="btn-floating waves-effect waves-light cyan"><i
+            class="material-icons">cloud_upload</i></button>&nbsp;&nbsp;&nbsp;
+    <a title="Đóng" class="btn-floating waves-effect waves-light purple lightrn-1" (click)="onClose()">
+        <i class="material-icons">close</i>
+    </a>
+</div>
+<div class="col s12 m12 l6">
+    <div class="input-field col s12">
+        Bước 01: <a target="_blank" href="{{excelTemplateOrderDeliveryURL}}">Tải về</a> file
+        excel mẫu
+    </div>
+    <div class="input-field col s12">
+        Bước 02: Chọn file excel có dữ liệu:
+        <input type="file" #uploadOrderDelivery (change)="changeOrderDelivery($event.target.files)">
+    </div>
+</div>
+<div class="col s12 m12 l6">
+
+</div>
+<app-loading *ngIf="isShowLoading"></app-loading>

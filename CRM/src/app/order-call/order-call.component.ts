@@ -82,7 +82,7 @@ export class OrderCallComponent implements OnInit {
   }
   getToList() {
     this.isShowLoading = true;
-    this.OrderCallService.GetAllToListAsync().subscribe(
+    this.OrderCallService.GetByYearAndMonthAndDayAndSearchStringToLisAsync(this.year, this.month, this.day, this.searchString).subscribe(
       res => {        
         this.OrderCallService.list = res as OrderCall[];        
         this.dataSource = new MatTableDataSource(this.OrderCallService.list.sort((a, b) => (a.ShopFullName > b.ShopFullName ? 1 : -1)));

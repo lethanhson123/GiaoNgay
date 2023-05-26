@@ -66,6 +66,9 @@
                                 <a title="Thêm mới" target="_blank" href="{{URLSub}}/0" style="margin-top: 5px;"
                                     class="btn-floating waves-effect waves-light green darken-1"><i
                                         class="material-icons">add</i></a>&nbsp;&nbsp;&nbsp;
+                                <a title="Upload bằng excel" (click)="onAdd(0)" style="margin-top: 5px;"
+                                        class="btn-floating waves-effect waves-light green darken-1"><i
+                                            class="material-icons">cloud_upload</i></a>&nbsp;&nbsp;&nbsp;
                             </div>
                             <div class="KhungOverflow">
                                 <mat-table [dataSource]="dataSource" matSort>

@@ -7,6 +7,8 @@ import { OrderDelivery } from 'src/app/shared/OrderDelivery.model';
 import { OrderDeliveryService } from 'src/app/shared/OrderDelivery.service';
 import { OrderDeliveryDetail } from 'src/app/shared/OrderDeliveryDetail.model';
 import { OrderDeliveryDetailService } from 'src/app/shared/OrderDeliveryDetail.service';
+import { OrderDeliveryReturn } from 'src/app/shared/OrderDeliveryReturn.model';
+import { OrderDeliveryReturnService } from 'src/app/shared/OrderDeliveryReturn.service';
 import { OrderDeliveryFile } from 'src/app/shared/OrderDeliveryFile.model';
 import { OrderDeliveryFileService } from 'src/app/shared/OrderDeliveryFile.service';
 import { Ward } from 'src/app/shared/Ward.model';
@@ -41,6 +43,9 @@ export class OrderDeliveryInfoComponent implements OnInit {
   dataSourceFile: MatTableDataSource<any>;
   displayColumnsFile: string[] = ['Note', 'actions'];
 
+  dataSourceReturn: MatTableDataSource<any>;
+  displayColumnsReturn: string[] = ['Name', 'Quantity', 'Active'];
+
   fileToUpload: any;
   fileToUpload0: File = null;
 
@@ -51,6 +56,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
     public DownloadService: DownloadService,
     public OrderDeliveryService: OrderDeliveryService,
     public OrderDeliveryDetailService: OrderDeliveryDetailService,
+    public OrderDeliveryReturnService: OrderDeliveryReturnService,
     public OrderDeliveryFileService: OrderDeliveryFileService,
     public WardService: WardService,
     public DistrictService: DistrictService,
@@ -76,6 +82,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
         let membershipID = localStorage.getItem(environment.MembershipID);
         this.OrderDeliveryService.formData.ShopID = Number(membershipID);
         this.GetOrderDeliveryDetailByParentIDToListAsync();
+        this.GetOrderDeliveryReturnByParentIDToListAsync();
         this.GetOrderDeliveryFileByParentIDToListAsync();       
         this.getDistrictToList();
       }
@@ -88,6 +95,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
       this.OrderDeliveryService.formData = res as OrderDelivery;
       if (this.OrderDeliveryService.formData) {
         this.GetOrderDeliveryDetailByParentIDToListAsync();
+        this.GetOrderDeliveryReturnByParentIDToListAsync();
         this.GetOrderDeliveryFileByParentIDToListAsync();
       }
       this.isShowLoading = false;
@@ -257,5 +265,20 @@ export class OrderDeliveryInfoComponent implements OnInit {
         }
       );
     }
+  }
+  GetOrderDeliveryReturnByParentIDToListAsync() {
+    this.isShowLoading = true;
+    this.OrderDeliveryReturnService.GetByParentIDToListAsync(this.OrderDeliveryService.formData.ID).subscribe(
+      res => {
+        this.OrderDeliveryReturnService.list = res as OrderDeliveryReturn[];
+        this.dataSourceReturn = new MatTableDataSource(this.OrderDeliveryReturnService.list.sort((a, b) => (a.CreatedDate > b.CreatedDate ? 1 : -1)));
+        this.dataSourceReturn.sort = this.sort;
+        this.dataSourceReturn.paginator = this.paginator;
+        this.isShowLoading = false;
+      },
+      err => {
+        this.isShowLoading = false;
+      }
+    );
   }
 }

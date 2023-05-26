@@ -4,9 +4,9 @@
     </div>
     <div class="col s6 m6 l3">
         <button [disabled]="!MembershipService.formData.UserName" title="Lưu thay đổi" type="submit"
-            class="mb-6 btn-floating waves-effect waves-light cyan"><i
+            class="btn-floating waves-effect waves-light cyan"><i
                 class="material-icons">save</i></button>&nbsp;&nbsp;&nbsp;
-        <a title="Đóng" class="mb-6 btn-floating waves-effect waves-light purple lightrn-1" (click)="onClose()">
+        <a title="Đóng" class="btn-floating waves-effect waves-light purple lightrn-1" (click)="onClose()">
             <i class="material-icons">close</i>
         </a>
     </div>
@@ -47,7 +47,7 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>
                     </mat-header-cell>
                     <mat-cell *matCellDef="let element">
-                        <a title="Xóa" class="mb-6 btn-floating waves-effect waves-light red"
+                        <a title="Xóa" class="btn-floating waves-effect waves-light red"
                             (click)="onDelete(element)"><i class="material-icons">delete_outline</i></a>
                     </mat-cell>
                 </ng-container>

@@ -11,17 +11,23 @@ namespace API.Controllers.v1
         private readonly IBankBusiness _bankBusiness;
         private readonly IDistrictBusiness _districtBusiness;
         private readonly IWardBusiness _wardBusiness;
+        private readonly IOrderDeliveryBusiness _orderDeliveryBusiness;
+        private readonly IOrderDeliveryDetailBusiness _orderDeliveryDetailBusiness;
         public UploadController(
             IWebHostEnvironment webHostEnvironment
             , IBankBusiness bankBusiness
             , IDistrictBusiness districtBusiness
             , IWardBusiness wardBusiness
+            , IOrderDeliveryBusiness orderDeliveryBusiness
+            , IOrderDeliveryDetailBusiness orderDeliveryDetailBusiness
             ) : base(bankBusiness)
         {
             _webHostEnvironment = webHostEnvironment;
             _bankBusiness = bankBusiness;
             _districtBusiness = districtBusiness;
             _wardBusiness = wardBusiness;
+            _orderDeliveryBusiness = orderDeliveryBusiness;
+            _orderDeliveryDetailBusiness = orderDeliveryDetailBusiness;
         }
         [HttpPost]
         [Route("PostBankListByExcelFile")]
@@ -38,14 +44,14 @@ namespace API.Controllers.v1
                 {
                     string fileExtension = Path.GetExtension(file.FileName);
                     string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                    fileName = "Bank" + GlobalHelper.InitializationDateTimeCode + fileExtension;                    
+                    fileName = "Bank" + GlobalHelper.InitializationDateTimeCode + fileExtension;
                     string folderPath = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Upload);
                     bool isFolderExists = System.IO.Directory.Exists(folderPath);
                     if (!isFolderExists)
                     {
                         System.IO.Directory.CreateDirectory(folderPath);
                     }
-                    var physicalPath = Path.Combine(folderPath, fileName);                    
+                    var physicalPath = Path.Combine(folderPath, fileName);
                     using (var stream = new FileStream(physicalPath, FileMode.Create))
                     {
                         file.CopyTo(stream);
@@ -67,7 +73,7 @@ namespace API.Controllers.v1
                                             int totalRows = workSheet.Dimension.Rows;
                                             for (int i = 2; i <= totalRows; i++)
                                             {
-                                                Bank bank = new Bank();                                              
+                                                Bank bank = new Bank();
                                                 if (workSheet.Cells[i, 1].Value != null)
                                                 {
                                                     bank.Code = workSheet.Cells[i, 1].Value.ToString().Trim();
@@ -144,7 +150,7 @@ namespace API.Controllers.v1
                                                 if (workSheet.Cells[i, 1].Value != null)
                                                 {
                                                     district.Display = workSheet.Cells[i, 1].Value.ToString().Trim();
-                                                }                                                
+                                                }
                                                 int result = await _districtBusiness.AddAsync(district);
                                                 if (result > 0)
                                                 {
@@ -233,6 +239,145 @@ namespace API.Controllers.v1
                     catch (Exception e)
                     {
                         string result = e.Message;
+                    }
+                }
+            }
+            return list;
+        }
+
+        [HttpPost]
+        [Route("PostOrderDeliveryListByExcelFile")]
+        public async Task<List<OrderDelivery>> PostOrderDeliveryListByExcelFile()
+        {
+            int membershipID = JsonConvert.DeserializeObject<int>(Request.Form["MembershipID"]);
+            List<OrderDelivery> list = new List<OrderDelivery>();
+            if (Request.Form.Files.Count > 0)
+            {
+                var file = Request.Form.Files[0];
+                if (file == null || file.Length == 0)
+                {
+                }
+                if (file != null)
+                {
+                    string fileExtension = Path.GetExtension(file.FileName);
+                    string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                    fileName = "OrderDelivery" + GlobalHelper.InitializationDateTimeCode + fileExtension;
+                    string folderPath = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Upload, GlobalHelper.OrderDelivery);
+                    bool isFolderExists = System.IO.Directory.Exists(folderPath);
+                    if (!isFolderExists)
+                    {
+                        System.IO.Directory.CreateDirectory(folderPath);
+                    }
+                    var physicalPath = Path.Combine(folderPath, fileName);
+                    using (var stream = new FileStream(physicalPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    try
+                    {
+                        FileInfo fileLocation = new FileInfo(physicalPath);
+                        if (fileLocation.Length > 0)
+                        {
+                            if ((fileExtension == ".xlsx") || (fileExtension == ".xls"))
+                            {
+                                using (ExcelPackage package = new ExcelPackage(fileLocation))
+                                {
+                                    if (package.Workbook.Worksheets.Count > 0)
+                                    {
+                                        ExcelWorksheet workSheet = package.Workbook.Worksheets[1];
+                                        if (workSheet != null)
+                                        {
+                                            int totalRows = workSheet.Dimension.Rows;
+                                            for (int i = 2; i <= totalRows; i++)
+                                            {
+                                                OrderDelivery orderDelivery = new OrderDelivery();
+                                                orderDelivery.ShopID = membershipID;
+                                                if (workSheet.Cells[i, 1].Value != null)
+                                                {
+                                                    orderDelivery.CustomerFullName = workSheet.Cells[i, 1].Value.ToString().Trim();
+                                                }
+                                                if (workSheet.Cells[i, 2].Value != null)
+                                                {
+                                                    orderDelivery.CustomerPhone = workSheet.Cells[i, 2].Value.ToString().Trim();
+                                                }
+                                                if (workSheet.Cells[i, 3].Value != null)
+                                                {
+                                                    orderDelivery.CustomerAddress = workSheet.Cells[i, 3].Value.ToString().Trim();
+                                                }
+                                                if (workSheet.Cells[i, 4].Value != null)
+                                                {
+                                                    Ward ward = new Ward();
+                                                    ward.Display = workSheet.Cells[i, 4].Value.ToString().Trim();
+                                                    ward = await _wardBusiness.GetByCondition(item => item.Display.Contains(ward.Display)).FirstOrDefaultAsync();
+                                                    if (ward != null)
+                                                    {
+                                                        if (ward.ID > 0)
+                                                        {
+                                                            orderDelivery.DeliveryWardID = ward.ID;
+                                                        }
+                                                    }
+                                                }
+                                                if (workSheet.Cells[i, 5].Value != null)
+                                                {
+                                                    District district = new District();
+                                                    district.Display = workSheet.Cells[i, 5].Value.ToString().Trim();
+                                                    district = await _districtBusiness.GetByCondition(item => item.Display.Contains(district.Display)).FirstOrDefaultAsync();
+                                                    if (district != null)
+                                                    {
+                                                        if (district.ID > 0)
+                                                        {
+                                                            orderDelivery.DeliveryDistrictID = district.ID;
+                                                        }
+                                                    }
+                                                }
+                                                orderDelivery = await _orderDeliveryBusiness.SaveShopAsync(orderDelivery, _webHostEnvironment.WebRootPath);
+                                                if (orderDelivery.ID > 0)
+                                                {
+                                                    OrderDeliveryDetail orderDeliveryDetail = new OrderDeliveryDetail();
+                                                    orderDeliveryDetail.ParentID = orderDelivery.ID;
+                                                    if (workSheet.Cells[i, 6].Value != null)
+                                                    {
+                                                        orderDeliveryDetail.Name = workSheet.Cells[i, 6].Value.ToString().Trim();
+                                                    }
+                                                    try
+                                                    {
+                                                        if (workSheet.Cells[i, 7].Value != null)
+                                                        {
+                                                            orderDeliveryDetail.Quantity = decimal.Parse(workSheet.Cells[i, 7].Value.ToString().Trim());
+                                                        }
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        string mes = ex.Message;
+                                                    }
+                                                    try
+                                                    {
+                                                        if (workSheet.Cells[i, 8].Value != null)
+                                                        {
+                                                            orderDeliveryDetail.Price = decimal.Parse(workSheet.Cells[i, 8].Value.ToString().Trim());
+                                                        }
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        string mes = ex.Message;
+                                                    }
+                                                    if (workSheet.Cells[i, 9].Value != null)
+                                                    {
+                                                        orderDeliveryDetail.Note = workSheet.Cells[i, 9].Value.ToString().Trim();
+                                                    }
+                                                    await _orderDeliveryDetailBusiness.AddAsync(orderDeliveryDetail);
+                                                    list.Add(orderDelivery);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        string result = ex.Message;
                     }
                 }
             }

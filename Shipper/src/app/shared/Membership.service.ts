@@ -11,12 +11,14 @@ export class MembershipService {
     listShop: Membership[] | undefined;
     listShipper: Membership[] | undefined;
     formData!: Membership;
+    MembershipID!: number;
     aPIURL: string = environment.APIURL;
     controller: string = "Membership";
     constructor(private httpClient: HttpClient) {
         this.initializationFormData();
     }
     initializationFormData() {
+        this.MembershipID = Number(localStorage.getItem(environment.MembershipID));
         this.formData = {
         }
     }
