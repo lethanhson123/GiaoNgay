@@ -19,7 +19,7 @@ export class OrderShipperComponent implements OnInit {
 
   URLSub: string = environment.DomainDestination + "OrderShipperInfo";
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'DateCreated', 'Name'];
+  displayColumns: string[] = ['ID', 'DateCreated', 'Name', 'Note'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;

@@ -25,7 +25,7 @@ export class OrderShipperInfoComponent implements OnInit {
   isShowLoading: boolean = false;
   queryString: string = environment.InitializationString;
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['Active', 'ShipperFullName', 'Barcode', 'ShopFullName', 'CustomerAddress'];
+  displayColumns: string[] = ['Active', 'ShipperFullName', 'Barcode', 'ShopFullName', 'CustomerAddress', 'Note'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
@@ -45,6 +45,9 @@ export class OrderShipperInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getShipperToList();
+  }
+  onChangeDateCreated(value) {
+    this.OrderShipperService.formData.DateCreated = new Date(value);
   }
   getShipperToList() {
     this.MembershipService.GetByParentIDToListAsync(environment.ShipperID).subscribe(

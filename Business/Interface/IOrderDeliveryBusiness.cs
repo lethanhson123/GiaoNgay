@@ -11,5 +11,6 @@
         Task<List<OrderDelivery>> GetByOrderReceiveIDToListAsync(long orderReceiveID);
         Task<string> UpdateByIDAndActiveAndOrderReceiveIDAsync(long ID, bool active, long orderReceiveID);
         Task<List<OrderDelivery>> GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync(long membershipID, int year, int month, int day, string searchString);
+        Task<List<OrderDelivery>> GetCRMByShopIDAndIsCompleteShopListAsync(long shopID, bool isCompleteShop);
     }
 }

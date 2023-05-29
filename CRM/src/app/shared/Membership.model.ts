@@ -32,5 +32,6 @@ export class Membership {
     WardID?: number;    
     AccountNumber?: string;  
     BankID?: number;      
+    TotalDebt?: number;      
 }
 

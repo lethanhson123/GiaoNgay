@@ -4,16 +4,18 @@
     {
         private readonly IWardRepository _wardRepository;
         private readonly IDistrictBusiness _districtBusiness;
+        private readonly IProvinceBusiness _provinceBusiness;
         public WardBusiness(IWardRepository wardRepository
             , IDistrictBusiness districtBusiness
+            , IProvinceBusiness provinceBusiness
             ) : base(wardRepository)
         {
             _wardRepository = wardRepository;
             _districtBusiness = districtBusiness;
+            _provinceBusiness = provinceBusiness;
         }
         public override void Initialization(Ward model)
         {
-
             if (!string.IsNullOrEmpty(model.Display))
             {
                 model.Display = model.Display.Trim();
@@ -21,7 +23,6 @@
         }
         public override async Task<int> AddAsync(Ward model)
         {
-            Initialization(model);
             int result = GlobalHelper.InitializationNumber;
             if (!string.IsNullOrEmpty(model.Display))
             {
@@ -29,11 +30,17 @@
                 if (district != null)
                 {
                     model.ParentID = district.ID;
+                    Province province = await _provinceBusiness.GetByIDAsync(district.ParentID.Value);
+                    if (province != null)
+                    {
+                        model.Description = province.Display;
+                    }
+                    Initialization(model);
                     result = await _wardRepository.AddAsync(model);
                 }
             }
             return result;
-        }       
+        }
         public virtual async Task<List<Ward>> GetBySearchStringToListAsync(string searchString)
         {
             List<Ward> list = new List<Ward>();
@@ -48,7 +55,7 @@
             List<Ward> list = new List<Ward>();
             if (!string.IsNullOrEmpty(searchString))
             {
-                list = await GetBySearchStringToListAsync(searchString);                
+                list = await GetBySearchStringToListAsync(searchString);
             }
             else
             {

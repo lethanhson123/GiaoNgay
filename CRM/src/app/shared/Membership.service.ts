@@ -79,5 +79,10 @@ export class MembershipService {
         formUpload.append('data', uploadData);        
         return this.httpClient.post(url, formUpload);
     } 
+    GetByTotalDebtGreaterThanZeroToListAsync() {        
+        let url = this.aPIURL + this.controller + '/GetByTotalDebtGreaterThanZeroToListAsync';        
+        const formUpload: FormData = new FormData();        
+        return this.httpClient.post(url, formUpload);
+    } 
 }
 

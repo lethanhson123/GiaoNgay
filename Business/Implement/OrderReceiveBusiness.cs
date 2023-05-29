@@ -71,5 +71,27 @@
             }
             return result;
         }
+        public async Task<List<OrderReceive>> GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString)
+        {
+            List<OrderReceive> result = new List<OrderReceive>();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                result = await GetBySearchStringToLisAsync(searchString);
+            }
+            else
+            {
+                try
+                {
+                    dateTimeBegin = new DateTime(dateTimeBegin.Year, dateTimeBegin.Month, dateTimeBegin.Day, 0, 0, 0);
+                    dateTimeEnd = new DateTime(dateTimeEnd.Year, dateTimeEnd.Month, dateTimeEnd.Day, 23, 59, 59);
+                    result = await _orderReceiveRepository.GetByCondition(item => item.DateCreated >= dateTimeBegin && item.DateCreated <= dateTimeEnd).ToListAsync();
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                }
+            }
+            return result;
+        }
     }
 }

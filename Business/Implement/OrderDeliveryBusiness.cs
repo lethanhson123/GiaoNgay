@@ -290,5 +290,19 @@ namespace Business.Implement
             }
             return result;
         }
+        public async Task<List<OrderDelivery>> GetCRMByShopIDAndIsCompleteShopListAsync(long shopID, bool isCompleteShop)
+        {
+            List<OrderDelivery> result = new List<OrderDelivery>();
+            try
+            {
+                result = await _orderDeliveryRepository.GetByCondition(item => item.ShopID == shopID && item.IsCompleteShop != true).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+            }
+
+            return result;
+        }
     }
 }

@@ -19,15 +19,14 @@ export class OrderReceiveComponent implements OnInit {
 
   URLSub: string = environment.DomainDestination + "OrderReceiveInfo";
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'DateCreated', 'Name'];
+  displayColumns: string[] = ['ID', 'DateCreated', 'Name', 'Note'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
   searchString: string = environment.InitializationString;
 
-  year: number = new Date().getFullYear();
-  month: number = new Date().getMonth() + 1;
-  day: number = new Date().getUTCDate();
+  dateTimeBegin: Date = new Date();
+  dateTimeEnd: Date = new Date();
   id: any;
   constructor(
     public OrderReceiveService: OrderReceiveService,
@@ -36,9 +35,6 @@ export class OrderReceiveComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.GetYear();
-    this.GetMonth();
-    this.GetDay();
     this.onSearch();   
   }
   ngOnDestroy() {
@@ -46,45 +42,15 @@ export class OrderReceiveComponent implements OnInit {
       clearInterval(this.id);
     }
   }
-  GetYear() {
-    this.isShowLoading = true;
-    this.DownloadService.GetYear().subscribe(
-      res => {
-        this.DownloadService.listYear = res as DateHelper[];
-        this.isShowLoading = false;
-      },
-      err => {
-        this.isShowLoading = false;
-      }
-    );
+  onChangeDateTimeBegin(value) {
+    this.dateTimeBegin = new Date(value);
   }
-  GetMonth() {
-    this.isShowLoading = true;
-    this.DownloadService.GetMonth().subscribe(
-      res => {
-        this.DownloadService.listMonth = res as DateHelper[];
-        this.isShowLoading = false;
-      },
-      err => {
-        this.isShowLoading = false;
-      }
-    );
-  }
-  GetDay() {
-    this.isShowLoading = true;
-    this.DownloadService.GetDay().subscribe(
-      res => {
-        this.DownloadService.listDay = res as DateHelper[];        
-        this.isShowLoading = false;
-      },
-      err => {
-        this.isShowLoading = false;
-      }
-    );
+  onChangeDateTimeEnd(value) {
+    this.dateTimeEnd = new Date(value);
   }
   getToList() {
     this.isShowLoading = true;
-    this.OrderReceiveService.GetByYearAndMonthAndDayAndSearchStringToLisAsync(this.year, this.month, this.day, this.searchString).subscribe(
+    this.OrderReceiveService.GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
       res => {        
         this.OrderReceiveService.list = res as OrderReceive[];        
         this.dataSource = new MatTableDataSource(this.OrderReceiveService.list.sort((a, b) => (a.DateCreated < b.DateCreated ? 1 : -1)));

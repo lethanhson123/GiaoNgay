@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m6 l6">
-                    <h5 class="breadcrumbs-title mt-0 mb-0" style="color: #ffffff;">Nhận hàng
+                    <h5 class="breadcrumbs-title mt-0 mb-0" style="color: #ffffff;">Lấy hàng
                     </h5>
                 </div>
                 <div class="col s12 m6 l6 right-align-md">
@@ -13,7 +13,7 @@
                         </li>
                         <li class="breadcrumb-item"><a href="#" style="color: #ffffff;">Hệ thống</a>
                         </li>
-                        <li class="breadcrumb-item active" style="color: #ffffff;">Nhận hàng
+                        <li class="breadcrumb-item active" style="color: #ffffff;">Lấy hàng
                         </li>
                     </ol>
                 </div>
@@ -42,7 +42,7 @@
                                         <input name="ID" [(ngModel)]="OrderReceiveService.formData.ID" type="hidden">
                                         <input name="Name" [(ngModel)]="OrderReceiveService.formData.Name"
                                             type="hidden">
-                                        <div class="col s12 m12 l5">
+                                        <div class="col s12 m12 l4">
                                             <div class="col s12 m12 l4">
                                                 <div class="input-field">
                                                     <label for="DateCreated">Ngày tạo</label>
@@ -50,10 +50,11 @@
                                             </div>
                                             <div class="col s12 m12 l8">
                                                 <div class="input-field">
-                                                    <input style="text-align: right; font-weight: bold; width: 100%;"
-                                                        placeholder="DateCreated" name="DateCreated"
-                                                        [(ngModel)]="OrderReceiveService.formData.DateCreated"
-                                                        type="datetime-local">
+                                                    <input name="DateCreated"
+                                                        style="text-align: right; font-weight: bold; width: 100%;"
+                                                        [ngModel]="OrderReceiveService.formData.DateCreated | date:'yyyy-MM-dd HH:mm'"
+                                                        (ngModelChange)="onChangeDateCreated($event)"
+                                                        [ngModelOptions]="{ updateOn: 'blur' }" type="datetime-local">
                                                 </div>
                                             </div>
                                             <div class="col s12 m12 l4">
@@ -74,8 +75,19 @@
                                                     </mat-select>
                                                 </div>
                                             </div>
+                                            <div class="col s12 m12 l4">
+                                                <div class="input-field">
+                                                    <label for="Note">Ghi chú</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s12 m12 l8">
+                                                <div class="input-field">
+                                                    <input placeholder="Ghi chú" name="Note"
+                                                        [(ngModel)]="OrderReceiveService.formData.Note" type="text">
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col s12 m12 l7">
+                                        <div class="col s12 m12 l8">
                                             <div class="KhungOverflow">
                                                 <mat-table [dataSource]="dataSource" matSort>
                                                     <ng-container matColumnDef="Active">
@@ -90,23 +102,29 @@
                                                             </label>
                                                         </mat-cell>
                                                     </ng-container>
-                                                    <ng-container matColumnDef="ReceiveFullName">
+                                                    <ng-container matColumnDef="ShipperFullName">
                                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Shipper
                                                         </mat-header-cell>
                                                         <mat-cell
-                                                            *matCellDef="let element">{{element.ReceiveFullName}}</mat-cell>
-                                                    </ng-container>
-                                                    <ng-container matColumnDef="Barcode">
-                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Đơn hàng
-                                                        </mat-header-cell>
-                                                        <mat-cell *matCellDef="let element"><a target="_blank"
-                                                                href="{{URLOrderDeliveryInfo}}/{{element.ID}}"><b>{{element.Barcode}}</b></a></mat-cell>
-                                                    </ng-container>
+                                                            *matCellDef="let element">{{element.ShipperFullName}}</mat-cell>
+                                                    </ng-container>                                                   
                                                     <ng-container matColumnDef="ShopFullName">
                                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Shop
                                                         </mat-header-cell>
                                                         <mat-cell
                                                             *matCellDef="let element">{{element.ShopFullName}}</mat-cell>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="ShopAddress">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Địa chỉ
+                                                        </mat-header-cell>
+                                                        <mat-cell
+                                                            *matCellDef="let element">{{element.ShopAddress}}</mat-cell>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="Note">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Ghi chú
+                                                        </mat-header-cell>
+                                                        <mat-cell
+                                                            *matCellDef="let element">{{element.Note}}</mat-cell>
                                                     </ng-container>
                                                     <ng-container matColumnDef="Save">
                                                         <mat-header-cell *matHeaderCellDef mat-sort-header>

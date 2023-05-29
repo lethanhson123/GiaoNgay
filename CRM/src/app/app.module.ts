@@ -55,6 +55,10 @@ import { OrderCallDetailComponent } from './order-call/order-call-detail/order-c
 import { HomepageComponent } from './homepage/homepage.component';
 import { QuickAccessComponent } from './quick-access/quick-access.component';
 import { QuickAccessDetailComponent } from './quick-access/quick-access-detail/quick-access-detail.component';
+import { OrderDeliveryHistoryComponent } from './order-delivery-history/order-delivery-history.component';
+import { OrderDeliveryHistoryDetailComponent } from './order-delivery-history/order-delivery-history-detail/order-delivery-history-detail.component';
+import { MembershipTotalDebtComponent } from './membership-total-debt/membership-total-debt.component';
+import { MembershipTotalDebtInfoComponent } from './membership-total-debt/membership-total-debt-info/membership-total-debt-info.component';
 
 
 @NgModule({
@@ -102,7 +106,11 @@ import { QuickAccessDetailComponent } from './quick-access/quick-access-detail/q
     OrderCallDetailComponent,
     HomepageComponent,
     QuickAccessComponent,
-    QuickAccessDetailComponent    
+    QuickAccessDetailComponent,
+    OrderDeliveryHistoryComponent,
+    OrderDeliveryHistoryDetailComponent,
+    MembershipTotalDebtComponent,
+    MembershipTotalDebtInfoComponent    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

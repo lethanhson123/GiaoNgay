@@ -5,8 +5,8 @@ import { environment } from 'src/environments/environment';
 import { NotificationService } from 'src/app/shared/notification.service';
 import { OrderReceive } from 'src/app/shared/OrderReceive.model';
 import { OrderReceiveService } from 'src/app/shared/OrderReceive.service';
-import { OrderDelivery } from 'src/app/shared/OrderDelivery.model';
-import { OrderDeliveryService } from 'src/app/shared/OrderDelivery.service';
+import { OrderCall } from 'src/app/shared/OrderCall.model';
+import { OrderCallService } from 'src/app/shared/OrderCall.service';
 import { Membership } from 'src/app/shared/Membership.model';
 import { MembershipService } from 'src/app/shared/Membership.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -20,18 +20,18 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class OrderReceiveInfoComponent implements OnInit {
 
-  URLOrderDeliveryInfo: string = environment.DomainDestination + "OrderDeliveryInfo";
+  URLOrderCallInfo: string = environment.DomainDestination + "OrderCallInfo";
   URLSub: string = environment.DomainDestination + "OrderReceiveInfo";
   isShowLoading: boolean = false;
   queryString: string = environment.InitializationString;
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['Active', 'ReceiveFullName', 'Barcode', 'ShopFullName'];
+  displayColumns: string[] = ['Active', 'ShipperFullName', 'ShopFullName', 'ShopAddress', 'Note'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     public router: Router,
     public OrderReceiveService: OrderReceiveService,
-    public OrderDeliveryService: OrderDeliveryService,
+    public OrderCallService: OrderCallService,
     public MembershipService: MembershipService,
     public notificationService: NotificationService,
   ) {
@@ -45,6 +45,9 @@ export class OrderReceiveInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getShipperToList();
+  }
+  onChangeDateCreated(value) {
+    this.OrderReceiveService.formData.DateCreated = new Date(value);
   }
   getShipperToList() {
     this.MembershipService.GetByParentIDToListAsync(environment.ShipperID).subscribe(
@@ -63,11 +66,11 @@ export class OrderReceiveInfoComponent implements OnInit {
     );
   }
   GetByOrderReceiveIDToListAsync() {
-    this.OrderDeliveryService.GetByOrderReceiveIDToListAsync(this.OrderReceiveService.formData.ID).subscribe(
+    this.OrderCallService.GetByOrderReceiveIDToListAsync(this.OrderReceiveService.formData.ID).subscribe(
       res => {
-        this.OrderDeliveryService.list = res as OrderDelivery[];
-        console.log(this.OrderDeliveryService.list);
-        this.dataSource = new MatTableDataSource(this.OrderDeliveryService.list.sort((a, b) => (a.ShopFullName < b.ShopFullName ? 1 : -1)));
+        this.OrderCallService.list = res as OrderCall[];
+        console.log(this.OrderCallService.list);
+        this.dataSource = new MatTableDataSource(this.OrderCallService.list.sort((a, b) => (a.ShopFullName < b.ShopFullName ? 1 : -1)));
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.isShowLoading = false;
@@ -102,8 +105,8 @@ export class OrderReceiveInfoComponent implements OnInit {
       }
     );
   }
-  onActiveChange(element: OrderDelivery) {
-    this.OrderDeliveryService.UpdateByIDAndActiveAndOrderReceiveIDAsync(element.ID, element.Active, this.OrderReceiveService.formData.ID).subscribe(
+  onActiveChange(element: OrderCall) {
+    this.OrderCallService.UpdateByIDAndActiveAndOrderReceiveIDAsync(element.ID, element.Active, this.OrderReceiveService.formData.ID).subscribe(
       res => {
         this.GetByOrderReceiveIDToListAsync();
       },

@@ -413,7 +413,7 @@
                                         <div class="col s12 m12 l12">
                                             <h4><b>Thanh toán</b></h4>
                                             <hr />
-                                            <a title="Thêm mới" (click)="onPaymentAdd(0)"
+                                            <a title="Thêm mới" (click)="onPaymentAdd(0)" *ngIf="OrderDeliveryService.formData.ID>0"
                                                 class="btn-floating waves-effect waves-light green darken-1"><i
                                                     class="material-icons">add</i></a>&nbsp;&nbsp;&nbsp;
                                         </div>
@@ -483,7 +483,7 @@
                                                 <input type="file" multiple (change)="changeImage($event.target.files)">
                                             </div>
                                             <div class="input-field col s4 m4 l4">
-                                                <a class="btn-floating waves-effect waves-light cyan"
+                                                <a class="btn-floating waves-effect waves-light cyan" *ngIf="OrderDeliveryService.formData.ID>0"
                                                     (click)="onOrderDeliveryFileAdd()"><i
                                                         class="material-icons">cloud_upload</i></a>
                                             </div>
@@ -538,8 +538,47 @@
                                         <div class="col s12 m12 l12">
                                             <h4><b>Phát hàng</b></h4>
                                             <hr />
+                                            <a title="Thêm mới" (click)="onOrderDeliveryHistoryAdd(0)" *ngIf="OrderDeliveryService.formData.ID>0"
+                                                class="btn-floating waves-effect waves-light green darken-1"><i
+                                                    class="material-icons">add</i></a>&nbsp;&nbsp;&nbsp;
                                         </div>
-                                        <div class="KhungOverflow">                                          
+                                        <div class="KhungOverflow">
+                                            <mat-table [dataSource]="dataSourceHistory" matSort>
+                                                <ng-container matColumnDef="DateCreated">
+                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Ngày tạo
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let element">{{element.DateCreated |
+                                                        date:'yyyy-MM-dd HH:mm:ss'}}</mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="ShipperFullName">
+                                                    <mat-header-cell *matHeaderCellDef mat-sort-header>ShipperFullName
+                                                    </mat-header-cell>
+                                                    <mat-cell *matCellDef="let element" style="margin-right: 10px;">
+                                                        {{element.ShipperFullName}}
+                                                    </mat-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="loading">
+                                                    <mat-footer-cell *matFooterCellDef colspan="4">
+                                                        Đang tải dữ liệu...
+                                                    </mat-footer-cell>
+                                                </ng-container>
+                                                <ng-container matColumnDef="noData">
+                                                    <mat-footer-cell *matFooterCellDef colspan="4">
+                                                        Chưa có dữ liệu.
+                                                    </mat-footer-cell>
+                                                </ng-container>
+                                                <mat-header-row
+                                                    *matHeaderRowDef="displayColumnsHistory"></mat-header-row>
+                                                <mat-row
+                                                    *matRowDef="let row; columns: displayColumnsHistory;"></mat-row>
+                                                <mat-footer-row *matFooterRowDef="['loading']"
+                                                    [ngClass]="{'hide':dataSourceHistory!=null}"></mat-footer-row>
+                                                <mat-footer-row *matFooterRowDef="['noData']"
+                                                    [ngClass]="{'hide':!(dataSourceHistory!=null && dataSourceHistory.data.length==0)}">
+                                                </mat-footer-row>
+                                            </mat-table>
+                                            <!-- <mat-paginator [pageSizeOptions]="[10,20,50,100]" [pageSize]="10"
+                                                [showFirstLastButtons]></mat-paginator>                            -->
                                         </div>
                                     </div>
                                     <div class="col s12 m12 l6">

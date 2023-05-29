@@ -65,7 +65,12 @@
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element"><a target="_blank"
                                                 href="{{URLSub}}/{{element.ID}}"><b>{{element.Name}}</b></a></mat-cell>
-                                    </ng-container>                                    
+                                    </ng-container>                       
+                                    <ng-container matColumnDef="Note">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Ghi chú
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">{{element.Note}}</mat-cell>
+                                    </ng-container>     
                                     <ng-container matColumnDef="loading">
                                         <mat-footer-cell *matFooterCellDef colspan="4">
                                             Đang tải dữ liệu...

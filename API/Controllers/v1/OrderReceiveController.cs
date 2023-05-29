@@ -21,6 +21,16 @@
             var result = await _orderReceiveBusiness.GetByYearAndMonthAndDayAndSearchStringToLisAsync(year, month, day, searchString);
             return result;
         }
+        [HttpPost]
+        [Route("GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync")]
+        public virtual async Task<List<OrderReceive>> GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync()
+        {
+            DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
+            DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
+            string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
+            var result = await _orderReceiveBusiness.GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(dateTimeBegin, dateTimeEnd, searchString);
+            return result;
+        }
         [HttpGet]
         [Route("GetByIDStringAsync")]
         public async Task<OrderReceive> GetByIDStringAsync(string ID)

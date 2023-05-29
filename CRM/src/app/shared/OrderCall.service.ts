@@ -81,5 +81,31 @@ export class OrderCallService {
         formUpload.append('searchString', searchString);
         return this.httpClient.post(url, formUpload);
     }
+    GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync';             
+        const formUpload: FormData = new FormData();
+        formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
+        formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));        
+        formUpload.append('searchString', searchString);
+        return this.httpClient.post(url, formUpload);
+    }
+    GetByOrderReceiveIDToListAsync(orderReceiveID: number) {
+        let url = this.aPIURL + this.controller + '/GetByOrderReceiveIDToListAsync';
+        const uploadData = JSON.stringify(orderReceiveID);
+        const formUpload: FormData = new FormData();
+        formUpload.append('data', uploadData);
+        return this.httpClient.post(url, formUpload);
+    }
+    UpdateByIDAndActiveAndOrderReceiveIDAsync(ID: number, active: boolean, orderReceiveID: number) {
+        let url = this.aPIURL + this.controller + '/UpdateByIDAndActiveAndOrderReceiveIDAsync';
+        const IDData = JSON.stringify(ID);
+        const activeData = JSON.stringify(active);
+        const orderReceiveIDData = JSON.stringify(orderReceiveID);
+        const formUpload: FormData = new FormData();
+        formUpload.append('ID', IDData);
+        formUpload.append('active', activeData);
+        formUpload.append('orderReceiveID', orderReceiveIDData);        
+        return this.httpClient.post(url, formUpload);
+    }
 }
 

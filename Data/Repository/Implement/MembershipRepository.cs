@@ -6,6 +6,14 @@
         public MembershipRepository(GiaoNgayContext context) : base(context)
         {
             _context = context;            
-        }        
+        }
+        public async Task<List<Membership>> GetByTotalDebtGreaterThanZeroToListAsync()
+        {
+            List<Membership> list = new List<Membership>();
+           
+            DataTable dt = await SQLHelper.FillDataTableAsync(GlobalHelper.SQLServerConectionString, "sp_MembershipGetByTotalDebtGreaterThanZero");
+            list = SQLHelper.ToList<Membership>(dt);
+            return list;
+        }
     }
 }

@@ -2,10 +2,10 @@
 {
 	public class OrderDeliveryFileBusiness : BaseBusiness<OrderDeliveryFile, IOrderDeliveryFileRepository>, IOrderDeliveryFileBusiness
     {
-		private readonly IOrderDeliveryFileRepository _OrderDeliveryFileRepository;
-		public OrderDeliveryFileBusiness(IOrderDeliveryFileRepository OrderDeliveryFileRepository) : base(OrderDeliveryFileRepository)
+		private readonly IOrderDeliveryFileRepository _orderDeliveryFileRepository;
+		public OrderDeliveryFileBusiness(IOrderDeliveryFileRepository orderDeliveryFileRepository) : base(orderDeliveryFileRepository)
 		{
-            _OrderDeliveryFileRepository = OrderDeliveryFileRepository;
+            _orderDeliveryFileRepository = orderDeliveryFileRepository;
 		}		
 	}
 }

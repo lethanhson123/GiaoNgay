@@ -34,5 +34,33 @@
             var result = await _orderCallBusiness.GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync(membershipID, year, month, day, searchString);
             return result;
         }
+        [HttpPost]
+        [Route("GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync")]
+        public virtual async Task<List<OrderCall>> GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync()
+        {
+            DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
+            DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
+            string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
+            var result = await _orderCallBusiness.GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(dateTimeBegin, dateTimeEnd, searchString);
+            return result;
+        }
+        [HttpPost]
+        [Route("GetByOrderReceiveIDToListAsync")]
+        public virtual async Task<List<OrderCall>> GetByOrderReceiveIDToListAsync()
+        {
+            long orderReceiveID = JsonConvert.DeserializeObject<long>(Request.Form["data"]);
+            var result = await _orderCallBusiness.GetByOrderReceiveIDToListAsync(orderReceiveID);
+            return result;
+        }
+        [HttpPost]
+        [Route("UpdateByIDAndActiveAndOrderReceiveIDAsync")]
+        public virtual async Task<string> UpdateByIDAndActiveAndOrderReceiveIDAsync()
+        {
+            long ID = JsonConvert.DeserializeObject<long>(Request.Form["ID"]);
+            bool active = JsonConvert.DeserializeObject<bool>(Request.Form["active"]);
+            long orderReceiveID = JsonConvert.DeserializeObject<long>(Request.Form["orderReceiveID"]);
+            var result = await _orderCallBusiness.UpdateByIDAndActiveAndOrderReceiveIDAsync(ID, active, orderReceiveID);
+            return result;
+        }
     }
 }

@@ -81,6 +81,14 @@ export class OrderReceiveService {
         formUpload.append('searchString', searchString);
         return this.httpClient.post(url, formUpload);
     }
+    GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync';             
+        const formUpload: FormData = new FormData();
+        formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
+        formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));        
+        formUpload.append('searchString', searchString);
+        return this.httpClient.post(url, formUpload);
+    }
     GetByIDStringAsync(ID: string) {
         let url = this.aPIURL + this.controller + '/GetByIDStringAsync';
         const params = new HttpParams()

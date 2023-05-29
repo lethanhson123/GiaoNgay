@@ -11,6 +11,8 @@ import { OrderDeliveryReturn } from 'src/app/shared/OrderDeliveryReturn.model';
 import { OrderDeliveryReturnService } from 'src/app/shared/OrderDeliveryReturn.service';
 import { OrderDeliveryFile } from 'src/app/shared/OrderDeliveryFile.model';
 import { OrderDeliveryFileService } from 'src/app/shared/OrderDeliveryFile.service';
+import { OrderDeliveryHistory } from 'src/app/shared/OrderDeliveryHistory.model';
+import { OrderDeliveryHistoryService } from 'src/app/shared/OrderDeliveryHistory.service';
 import { CategoryOrderStatus } from 'src/app/shared/CategoryOrderStatus.model';
 import { CategoryOrderStatusService } from 'src/app/shared/CategoryOrderStatus.service';
 import { OrderDeliveryPaymentHistory } from 'src/app/shared/OrderDeliveryPaymentHistory.model';
@@ -30,6 +32,7 @@ import { DownloadService } from 'src/app/shared/Download.service';
 import { OrderDeliveryPaymentHistoryDetailComponent } from 'src/app/order-delivery-payment-history/order-delivery-payment-history-detail/order-delivery-payment-history-detail.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MailService } from 'src/app/shared/Mail.service';
+import { OrderDeliveryHistoryDetailComponent } from 'src/app/order-delivery-history/order-delivery-history-detail/order-delivery-history-detail.component';
 
 @Component({
   selector: 'app-order-delivery-info',
@@ -56,6 +59,10 @@ export class OrderDeliveryInfoComponent implements OnInit {
   dataSourceReturn: MatTableDataSource<any>;
   displayColumnsReturn: string[] = ['Name', 'Quantity', 'Active'];
 
+  dataSourceHistory: MatTableDataSource<any>;
+  displayColumnsHistory: string[] = ['DateCreated', 'ShipperFullName'];
+
+
   fileToUpload: any;
   fileToUpload0: File = null;
 
@@ -68,6 +75,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
     public OrderDeliveryDetailService: OrderDeliveryDetailService,
     public OrderDeliveryReturnService: OrderDeliveryReturnService,
     public OrderDeliveryFileService: OrderDeliveryFileService,
+    public OrderDeliveryHistoryService: OrderDeliveryHistoryService,
     public CategoryOrderStatusService: CategoryOrderStatusService,
     public OrderDeliveryPaymentHistoryService: OrderDeliveryPaymentHistoryService,
     public WardService: WardService,
@@ -95,6 +103,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
         this.GetOrderDeliveryDetailByParentIDToListAsync();
         this.GetOrderDeliveryReturnByParentIDToListAsync();
         this.GetOrderDeliveryFileByParentIDToListAsync();
+        this.GetOrderDeliveryHistoryByParentIDToListAsync();
         this.GetOrderDeliveryPaymentHistoryByParentIDToListAsync();
         this.getShopToList();
         this.getShipperToList();
@@ -112,6 +121,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
         this.GetOrderDeliveryDetailByParentIDToListAsync();
         this.GetOrderDeliveryReturnByParentIDToListAsync();
         this.GetOrderDeliveryFileByParentIDToListAsync();
+        this.GetOrderDeliveryHistoryByParentIDToListAsync();
         this.GetOrderDeliveryPaymentHistoryByParentIDToListAsync();
       }
       this.isShowLoading = false;
@@ -343,7 +353,21 @@ export class OrderDeliveryInfoComponent implements OnInit {
       }
     );
   }
- 
+  GetOrderDeliveryHistoryByParentIDToListAsync() {
+    this.isShowLoading = true;
+    this.OrderDeliveryHistoryService.GetByParentIDToListAsync(this.OrderDeliveryService.formData.ID).subscribe(
+      res => {
+        this.OrderDeliveryHistoryService.list = res as OrderDeliveryHistory[];
+        this.dataSourceHistory = new MatTableDataSource(this.OrderDeliveryHistoryService.list.sort((a, b) => (a.DateCreated > b.DateCreated ? 1 : -1)));
+        this.dataSourceHistory.sort = this.sort;
+        this.dataSourceHistory.paginator = this.paginator;
+        this.isShowLoading = false;
+      },
+      err => {
+        this.isShowLoading = false;
+      }
+    );
+  }
   onOrderDeliveryFileAdd() {
     this.OrderDeliveryFileService.SaveAndUploadFiles(this.OrderDeliveryService.formData.ID, this.fileToUpload).subscribe(
       res => {
@@ -423,6 +447,27 @@ export class OrderDeliveryInfoComponent implements OnInit {
       },
       err => {
         this.notificationService.warn(environment.SaveNotSuccess);
+      }
+    );
+  }
+  onOrderDeliveryHistoryAdd(ID: any) {
+    this.OrderDeliveryHistoryService.GetByIDAsync(ID).subscribe(
+      res => {
+        this.OrderDeliveryHistoryService.formData = res as OrderDeliveryHistory;
+        if (this.OrderDeliveryHistoryService.formData) {
+          this.OrderDeliveryHistoryService.formData.ParentID = this.OrderDeliveryService.formData.ID;
+        }
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.width = environment.DialogConfigWidth;
+        dialogConfig.data = { ID: ID };
+        const dialog = this.dialog.open(OrderDeliveryHistoryDetailComponent, dialogConfig);
+        dialog.afterClosed().subscribe(() => {
+          this.GetByQueryString001();
+        });
+      },
+      err => {
       }
     );
   }

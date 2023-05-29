@@ -100,6 +100,10 @@ export class OrderCallDetailComponent implements OnInit {
       this.fileToUpload = files;
     }
   }
+
+  onChangeDateCreated(value) {
+    this.OrderCallService.formData.DateCreated = new Date(value);
+  }
   GetOrderCallFileByParentIDToListAsync() {
     this.isShowLoading = true;
     this.OrderCallFileService.GetByParentIDToListAsync(this.OrderCallService.formData.ID).subscribe(

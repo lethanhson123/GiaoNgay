@@ -7,11 +7,20 @@ namespace Business.Implement
     {
         private readonly IMembershipRepository _membershipRepository;
         private readonly IMembershipAuthenticationTokenBusiness _membershipAuthenticationTokenBusiness;
+        private readonly IProvinceRepository _provinceRepository;
+        private readonly IDistrictRepository _districtRepository;
+        private readonly IWardRepository _wardRepository;
         public MembershipBusiness(IMembershipRepository membershipRepository
-            , IMembershipAuthenticationTokenBusiness membershipAuthenticationTokenBusiness) : base(membershipRepository)
+            , IMembershipAuthenticationTokenBusiness membershipAuthenticationTokenBusiness
+            , IProvinceRepository provinceRepository
+            , IDistrictRepository districtRepository
+            , IWardRepository wardRepository) : base(membershipRepository)
         {
             _membershipRepository = membershipRepository;
             _membershipAuthenticationTokenBusiness = membershipAuthenticationTokenBusiness;
+            _provinceRepository = provinceRepository;
+            _districtRepository = districtRepository;
+            _wardRepository = wardRepository;
         }
         public override void Initialization(Membership model)
         {
@@ -30,6 +39,18 @@ namespace Business.Implement
             if (string.IsNullOrEmpty(model.Code))
             {
                 model.Code = GlobalHelper.InitializationGUICode;
+            }
+            if (string.IsNullOrEmpty(model.Description))
+            {
+                model.Description = model.Address + " " + model.AddressLegal;
+                if (model.WardID != null)
+                {
+                    Ward ward = _wardRepository.GetByID(model.WardID.Value);
+                    if (ward != null)
+                    {
+                        model.Description = model.Description + ", " + ward.Display + ", " + ward.Note + ", " + ward.Description;
+                    }
+                }
             }
             model.Display = model.FullName + "-" + model.Phone;
             EncryptPassword(model);
@@ -123,5 +144,11 @@ namespace Business.Implement
             }
             return result;
         }
+        public async Task<List<Membership>> GetByTotalDebtGreaterThanZeroToListAsync()
+        {
+            List<Membership> result = await _membershipRepository.GetByTotalDebtGreaterThanZeroToListAsync();
+            return result;
+        }
     }
+   
 }

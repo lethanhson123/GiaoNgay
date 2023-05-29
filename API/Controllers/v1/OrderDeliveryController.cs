@@ -118,5 +118,22 @@ namespace API.Controllers.v1
             var result = await _orderDeliveryBusiness.UpdateByIDAndActiveAndOrderReceiveIDAsync(ID, active, orderReceiveID);
             return result;
         }
+        [HttpGet]
+        [Route("GetCRMByShopIDAndIsCompleteShopListAsync")]
+        public async Task<List<OrderDelivery>> GetCRMByShopIDAndIsCompleteShopListAsync(string shopID)
+        {
+            List<OrderDelivery> result = new List<OrderDelivery>();
+            try
+            {
+                shopID = shopID.Split('.')[0];
+                shopID = shopID.Split('/')[shopID.Split('/').Length - 1];
+                result = await _orderDeliveryBusiness.GetCRMByShopIDAndIsCompleteShopListAsync(long.Parse(shopID),false);
+            }
+            catch (Exception e)
+            {
+                string mes = e.Message;
+            }
+            return result;
+        }
     }
 }

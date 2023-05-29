@@ -22,6 +22,7 @@
         public long? WardID { get; set; }
         public string? AccountNumber { get; set; }
         public long? BankID { get; set; }
+        public decimal? TotalDebt { get; set; }
         public Membership()
         {
         }

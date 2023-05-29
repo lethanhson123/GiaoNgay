@@ -9,7 +9,7 @@
         public MembershipController(IMembershipBusiness membershipBusiness) : base(membershipBusiness)
         {
             _membershipBusiness = membershipBusiness;
-        }       
+        }
         [HttpPost]
         [Route("Authentication")]
         public virtual Membership Authentication()
@@ -17,6 +17,12 @@
             Membership result = JsonConvert.DeserializeObject<Membership>(Request.Form["data"]);
             result = _membershipBusiness.Authentication(result);
             return result;
+        }
+        [HttpPost]
+        [Route("GetByTotalDebtGreaterThanZeroToListAsync")]
+        public virtual async Task<List<Membership>> GetByTotalDebtGreaterThanZeroToListAsync()
+        {
+            return await _membershipBusiness.GetByTotalDebtGreaterThanZeroToListAsync();
         }
     }
 }

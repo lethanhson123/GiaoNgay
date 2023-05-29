@@ -1,0 +1,50 @@
+<form autocomplete="off" class="row" #form="ngForm" (submit)="onSubmit(form)">
+    <div class="col s12 m12 l9">
+        <h5 class="card-title"><b>Lịch sử giao hàng</b></h5>
+    </div>
+    <div class="col s12 m12 l3">
+        <button title="Lưu thay đổi" type="submit" class="btn-floating waves-effect waves-light cyan"><i
+                class="material-icons">save</i></button>&nbsp;&nbsp;&nbsp;
+        <a title="Đóng" class="btn-floating waves-effect waves-light purple lightrn-1" (click)="onClose()">
+            <i class="material-icons">close</i>
+        </a>
+    </div>
+    <input name="ID" [(ngModel)]="OrderDeliveryHistoryService.formData.ID" type="hidden">    
+    <input name="ParentID" [(ngModel)]="OrderDeliveryHistoryService.formData.ParentID" type="hidden">    
+    <div class="col s12 m12 l6">        
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="DateCreated">Ngày giao</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input name="DateCreated"
+                style="text-align: right; font-weight: bold; width: 100%;"
+                [ngModel]="OrderDeliveryHistoryService.formData.DateCreated | date:'yyyy-MM-dd HH:mm'"
+                (ngModelChange)="onChangeDateCreated($event)"
+                [ngModelOptions]="{ updateOn: 'blur' }" type="datetime-local">
+            </div>
+        </div>         
+    </div>
+    <div class="col s12 m12 l6">  
+        <div class="col s12 m12 l4">
+            <div class="input-field">
+                <label for="ShipperID">Shipper</label>
+            </div>
+        </div>
+        <div class="col s12 m12 l8">
+            <div class="input-field">
+                <mat-select
+                    style="padding-top:20px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
+                    name="ShipperID" class="browser-default"
+                    [(ngModel)]="OrderDeliveryHistoryService.formData.ShipperID">
+                    <mat-option *ngFor="let item of MembershipService.listShipper"
+                        [value]="item.ID">
+                        {{item.Display}}
+                    </mat-option>
+                </mat-select>
+            </div>
+        </div>                  
+    </div>
+</form>

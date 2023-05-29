@@ -76,6 +76,12 @@ export class OrderDeliveryService {
             .set('ID', ID)
         return this.httpClient.get(url, { params }).toPromise();
     }
+    GetCRMByShopIDAndIsCompleteShopListAsync(shopID: string) {
+        let url = this.aPIURL + this.controller + '/GetCRMByShopIDAndIsCompleteShopListAsync';
+        const params = new HttpParams()
+            .set('shopID', shopID)
+        return this.httpClient.get(url, { params }).toPromise();
+    }
     GetAllToList() {
         let url = this.aPIURL + this.controller + '/GetAllToList';
         const formUpload: FormData = new FormData();

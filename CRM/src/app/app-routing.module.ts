@@ -23,6 +23,8 @@ import { OrderShipperLiveComponent } from './order-shipper-live/order-shipper-li
 import { OrderCallComponent } from './order-call/order-call.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { QuickAccessComponent } from './quick-access/quick-access.component';
+import { MembershipTotalDebtInfoComponent } from './membership-total-debt/membership-total-debt-info/membership-total-debt-info.component';
+import { MembershipTotalDebtComponent } from './membership-total-debt/membership-total-debt.component';
 
 const routes: Routes = [  
   { path: '', redirectTo: '/Homepage', pathMatch: 'full' },
@@ -37,6 +39,12 @@ const routes: Routes = [
   },
   {
     path: 'OrderShipperLive', component: OrderShipperLiveComponent,
+  },
+  {
+    path: 'MembershipTotalDebt', component: MembershipTotalDebtComponent,
+  },
+  {
+    path: 'MembershipTotalDebtInfo/:ID', component: MembershipTotalDebtInfoComponent,
   },
   {
     path: 'OrderShipper', component: OrderShipperComponent,

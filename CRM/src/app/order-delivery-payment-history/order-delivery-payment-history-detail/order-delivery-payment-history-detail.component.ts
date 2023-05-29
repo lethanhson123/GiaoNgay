@@ -26,6 +26,9 @@ export class OrderDeliveryPaymentHistoryDetailComponent implements OnInit {
   onClose() {
     this.dialogRef.close();
   }
+  onChangePaymentDate(value) {
+    this.OrderDeliveryPaymentHistoryService.formData.PaymentDate = new Date(value);
+  }
   onSubmit(form: NgForm) {
     this.OrderDeliveryPaymentHistoryService.SaveAsync(form.value).subscribe(
       res => {
