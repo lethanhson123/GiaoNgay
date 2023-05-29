@@ -42,15 +42,22 @@ namespace Business.Implement
             {
                 model.IsPrepayment = false;
             }
-            if (model.IsComplete == null)
+            if (model.IsCompleteShop == null)
             {
-                model.IsComplete = false;
+                model.IsCompleteShop = false;
+            }
+            if (model.IsCompleteShipper == null)
+            {
+                model.IsCompleteShipper = false;
             }
             if (model.DeliveryProvinceID == null)
             {
                 model.DeliveryProvinceID = 1;
             }
-
+            if (model.CategoryOrderStatusID == null)
+            {
+                model.CategoryOrderStatusID = 1;
+            }
             if (string.IsNullOrEmpty(model.Barcode))
             {
                 string pathBarcode = Path.Combine(webRootPath, GlobalHelper.Barcode);
@@ -73,7 +80,7 @@ namespace Business.Implement
                     OrderDelivery modelExist = await _orderDeliveryRepository.GetByIDAsync(model.ID);
                     if (modelExist != null)
                     {
-                        modelExist.IsComplete = model.IsComplete;
+                        modelExist.IsCompleteShop = model.IsCompleteShop;
                         model.RowVersion = await _orderDeliveryRepository.UpdateAsync(modelExist);
                         if (model.RowVersion > 0)
                         {
@@ -150,7 +157,8 @@ namespace Business.Implement
                         modelExist.DeliveryDistrictID = model.DeliveryDistrictID;
                         modelExist.DeliveryWardID = model.DeliveryWardID;
                         modelExist.IsExpress = model.IsExpress;
-                        modelExist.IsComplete = model.IsComplete;
+                        modelExist.IsCompleteShop = model.IsCompleteShop;
+                        modelExist.IsCompleteShipper = model.IsCompleteShipper;
                         modelExist.IsShopPayment = model.IsShopPayment;
                         modelExist.IsPrepayment = model.IsPrepayment;
                         modelExist.DateCreated = model.DateCreated;
@@ -210,49 +218,8 @@ namespace Business.Implement
             }
             return result;
         }
-        public async Task<List<OrderDelivery>> Get01ByYearAndMonthAndDayAndSearchStringToLisAsync(int year, int month, int day, string searchString)
-        {
-            List<OrderDelivery> result = new List<OrderDelivery>();
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                result = await GetBySearchStringToLisAsync(searchString);
-            }
-            else
-            {
-                try
-                {
-                    result = await _orderDeliveryRepository.GetByCondition(item => item.IsComplete != true && (item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day)).ToListAsync();
-                }
-                catch (Exception ex)
-                {
-                    string message = ex.Message;
-                }
-            }
-            return result;
-        }
-        public async Task<List<OrderDelivery>> Get02ByYearAndMonthAndDayAndSearchStringToLisAsync(int year, int month, int day, string searchString)
-        {
-            List<OrderDelivery> result = new List<OrderDelivery>();
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                result = await GetBySearchStringToLisAsync(searchString);
-            }
-            else
-            {
-                try
-                {
 
-                    List<long> listCategoryOrderStatusID = new List<long> { 2, 3, 4, 5, 7 };
-                    result = await _orderDeliveryRepository.GetByCondition(item => item.ShipperID != null && item.IsComplete != true && (item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day)).ToListAsync();
-                }
-                catch (Exception ex)
-                {
-                    string message = ex.Message;
-                }
-            }
-            return result;
-        }
-        public async Task<List<OrderDelivery>> Get03ByYearAndMonthAndDayAndSearchStringToLisAsync(int year, int month, int day, string searchString)
+        public async Task<List<OrderDelivery>> GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString)
         {
             List<OrderDelivery> result = new List<OrderDelivery>();
             if (!string.IsNullOrEmpty(searchString))
@@ -263,29 +230,9 @@ namespace Business.Implement
             {
                 try
                 {
-
-                    List<long> listCategoryOrderStatusID = new List<long> { 2, 3, 4, 5, 7 };
-                    result = await _orderDeliveryRepository.GetByCondition(item => item.ReceiveID != null && item.IsComplete != true && (item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day)).ToListAsync();
-                }
-                catch (Exception ex)
-                {
-                    string message = ex.Message;
-                }
-            }
-            return result;
-        }
-        public async Task<List<OrderDelivery>> Get04ByYearAndMonthAndDayAndSearchStringToLisAsync(int year, int month, int day, string searchString)
-        {
-            List<OrderDelivery> result = new List<OrderDelivery>();
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                result = await GetBySearchStringToLisAsync(searchString);
-            }
-            else
-            {
-                try
-                {
-                    result = await _orderDeliveryRepository.GetByCondition(item => item.IsComplete == true && (item.DateCreated.Value.Year == year && item.DateCreated.Value.Month == month && item.DateCreated.Value.Day == day)).ToListAsync();
+                    dateTimeBegin = new DateTime(dateTimeBegin.Year, dateTimeBegin.Month, dateTimeBegin.Day, 0, 0, 0);
+                    dateTimeEnd = new DateTime(dateTimeEnd.Year, dateTimeEnd.Month, dateTimeEnd.Day, 23, 59, 59);
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.DateCreated >= dateTimeBegin && item.DateCreated <= dateTimeEnd).ToListAsync();
                 }
                 catch (Exception ex)
                 {

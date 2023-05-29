@@ -42,7 +42,7 @@
                                         <input name="ID" [(ngModel)]="OrderShipperService.formData.ID" type="hidden">
                                         <input name="Name" [(ngModel)]="OrderShipperService.formData.Name"
                                             type="hidden">
-                                        <div class="col s12 m12 l5">
+                                        <div class="col s12 m12 l4">
                                             <div class="col s12 m12 l4">
                                                 <div class="input-field">
                                                     <label for="DateCreated">Ngày tạo</label>
@@ -74,8 +74,19 @@
                                                     </mat-select>
                                                 </div>
                                             </div>
+                                            <div class="col s12 m12 l4">
+                                                <div class="input-field">
+                                                    <label for="Note">Ghi chú</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s12 m12 l8">
+                                                <div class="input-field">
+                                                    <input placeholder="Ghi chú" name="Note"
+                                                        [(ngModel)]="OrderShipperService.formData.Note" type="text">
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col s12 m12 l7">
+                                        <div class="col s12 m12 l8">
                                             <div class="KhungOverflow">
                                                 <mat-table [dataSource]="dataSource" matSort>
                                                     <ng-container matColumnDef="Active">
@@ -107,6 +118,12 @@
                                                         </mat-header-cell>
                                                         <mat-cell
                                                             *matCellDef="let element">{{element.ShopFullName}}</mat-cell>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="CustomerAddress">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Địa chỉ
+                                                        </mat-header-cell>
+                                                        <mat-cell
+                                                            *matCellDef="let element">{{element.CustomerAddress}}</mat-cell>
                                                     </ng-container>
                                                     <ng-container matColumnDef="Save">
                                                         <mat-header-cell *matHeaderCellDef mat-sort-header>

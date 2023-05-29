@@ -86,54 +86,15 @@ export class OrderDeliveryService {
         const formUpload: FormData = new FormData();
         return this.httpClient.post(url, formUpload);
     }
-    Get01ByYearAndMonthAndDayAndSearchStringToLisAsync(year: number, month: number, day: number, searchString: string) {
-        let url = this.aPIURL + this.controller + '/Get01ByYearAndMonthAndDayAndSearchStringToLisAsync';
-        const yearData = JSON.stringify(year);
-        const monthData = JSON.stringify(month);
-        const dayData = JSON.stringify(day);
+    GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync';             
         const formUpload: FormData = new FormData();
-        formUpload.append('year', yearData);
-        formUpload.append('month', monthData);
-        formUpload.append('day', dayData);
+        formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
+        formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));        
         formUpload.append('searchString', searchString);
         return this.httpClient.post(url, formUpload);
     }
-    Get02ByYearAndMonthAndDayAndSearchStringToLisAsync(year: number, month: number, day: number, searchString: string) {
-        let url = this.aPIURL + this.controller + '/Get02ByYearAndMonthAndDayAndSearchStringToLisAsync';
-        const yearData = JSON.stringify(year);
-        const monthData = JSON.stringify(month);
-        const dayData = JSON.stringify(day);
-        const formUpload: FormData = new FormData();
-        formUpload.append('year', yearData);
-        formUpload.append('month', monthData);
-        formUpload.append('day', dayData);
-        formUpload.append('searchString', searchString);
-        return this.httpClient.post(url, formUpload);
-    }
-    Get03ByYearAndMonthAndDayAndSearchStringToLisAsync(year: number, month: number, day: number, searchString: string) {
-        let url = this.aPIURL + this.controller + '/Get03ByYearAndMonthAndDayAndSearchStringToLisAsync';
-        const yearData = JSON.stringify(year);
-        const monthData = JSON.stringify(month);
-        const dayData = JSON.stringify(day);
-        const formUpload: FormData = new FormData();
-        formUpload.append('year', yearData);
-        formUpload.append('month', monthData);
-        formUpload.append('day', dayData);
-        formUpload.append('searchString', searchString);
-        return this.httpClient.post(url, formUpload);
-    }
-    Get04ByYearAndMonthAndDayAndSearchStringToLisAsync(year: number, month: number, day: number, searchString: string) {
-        let url = this.aPIURL + this.controller + '/Get04ByYearAndMonthAndDayAndSearchStringToLisAsync';
-        const yearData = JSON.stringify(year);
-        const monthData = JSON.stringify(month);
-        const dayData = JSON.stringify(day);
-        const formUpload: FormData = new FormData();
-        formUpload.append('year', yearData);
-        formUpload.append('month', monthData);
-        formUpload.append('day', dayData);
-        formUpload.append('searchString', searchString);
-        return this.httpClient.post(url, formUpload);
-    }
+    
     GetByOrderShipperIDToListAsync(orderShipperID: number) {
         let url = this.aPIURL + this.controller + '/GetByOrderShipperIDToListAsync';
         const uploadData = JSON.stringify(orderShipperID);

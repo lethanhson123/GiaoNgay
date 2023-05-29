@@ -1,8 +1,8 @@
 <form autocomplete="off" class="row" #form="ngForm" (submit)="onSubmit(form)">
-    <div class="col s6 m6 l9">
+    <div class="col s12 m12 l9">
         <h5 class="card-title"><b>Shipper: {{MembershipService.formData.FullName}}</b></h5>
     </div>
-    <div class="col s6 m6 l3">
+    <div class="col s12 m12 l3">
         <button [disabled]="!MembershipService.formData.UserName" title="Lưu thay đổi" type="submit"
             class="btn-floating waves-effect waves-light cyan"><i
                 class="material-icons">save</i></button>&nbsp;&nbsp;&nbsp;
@@ -14,7 +14,7 @@
     <input name="ID" [(ngModel)]="MembershipService.formData.ID" type="hidden">
     <input name="ParentID" [(ngModel)]="MembershipService.formData.ParentID" type="hidden">
     <input name="ProvinceID" [(ngModel)]="MembershipService.formData.ProvinceID" type="hidden">
-    <div class="col s6 m6 l6">
+    <div class="col s12 m12 l6">
         <div class="col s4 m4 l4">
             <div class="input-field">
                 <label for="FullName">Shipper</label>
@@ -104,7 +104,7 @@
             </div>
         </div>
         <div class="col s12 m12 l12">
-            <div class="col s6 m6 l3">
+            <div class="col s12 m12 l3">
                 <div class="input-field">
                     <p>
                         <label>
@@ -117,7 +117,7 @@
             </div>
         </div>
     </div>
-    <div class="col s6 m6 l6">
+    <div class="col s12 m12 l6">
         <div class="col s4 m4 l4">
             <div class="input-field">
                 <label for="AccountNumber">Số tài khoản</label>
@@ -129,12 +129,12 @@
                     [(ngModel)]="MembershipService.formData.AccountNumber" type="text">
             </div>
         </div>
-        <div class="col s6 m6 l4">
+        <div class="col s12 m12 l4">
             <div class="input-field">
                 <label for="BankID">Ngân hàng</label>
             </div>
         </div>
-        <div class="col s6 m6 l8">
+        <div class="col s12 m12 l8">
             <mat-select
                 style="padding-top:30px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
                 name="BankID" class="browser-default" [(ngModel)]="MembershipService.formData.BankID">
@@ -145,12 +145,12 @@
             <br />
             <br />
         </div>
-        <div class="col s6 m6 l4">
+        <div class="col s12 m12 l4">
             <div class="input-field">
                 <label for="DistrictID">Quận huyện</label>
             </div>
         </div>
-        <div class="col s6 m6 l8">
+        <div class="col s12 m12 l8">
             <mat-select (selectionChange)="onChangeDistrictID($event)"
                 style="padding-top:30px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
                 name="DistrictID" class="browser-default"
@@ -162,12 +162,12 @@
             <br />
             <br />
         </div>
-        <div class="col s6 m6 l4">
+        <div class="col s12 m12 l4">
             <div class="input-field">
                 <label for="WardID">Phường xã</label>
             </div>
         </div>
-        <div class="col s6 m6 l8">
+        <div class="col s12 m12 l8">
             <mat-select
                 style="padding-top:30px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
                 name="WardID" class="browser-default" [(ngModel)]="MembershipService.formData.WardID">

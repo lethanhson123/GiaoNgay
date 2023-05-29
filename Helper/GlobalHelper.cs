@@ -1,4 +1,6 @@
-﻿namespace Helper
+﻿using System;
+
+namespace Helper
 {
     public class GlobalHelper
     {
@@ -22,6 +24,20 @@
             get
             {
                 return DateTime.Now;
+            }
+        }
+        public static DateTime DateTimeBegin
+        {
+            get
+            {
+                return new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
+            }
+        }
+        public static DateTime DateTimeEnd
+        {
+            get
+            {
+                return new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 59, 59);
             }
         }
         public static string InitializationGUICode
@@ -54,6 +70,14 @@
         }
         #endregion
         #region AppSettings 
+        public static string Unknown
+        {
+            get
+            {
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                return builder.Build().GetSection("AppSettings").GetSection("Unknown").Value;
+            }
+        }
         public static string SMTPServer
         {
             get
@@ -109,7 +133,7 @@
                 var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
                 return builder.Build().GetSection("AppSettings").GetSection("MasterEmailDisplays").Value;
             }
-        }       
+        }
         public static string QRcode
         {
             get

@@ -24,12 +24,12 @@
             <div class="section section-data-tables">
                 <div class="card">
                     <div class="card-content">
-                        <div class="col s6 m6 l9">
+                        <div class="col s12 m12 l9">
                             <input matInput [(ngModel)]="searchString" placeholder="Tìm ..."
                                 class="mat-input-element mat-form-field-autofill-control" autocomplete="off"
                                 (keyup.enter)="onSearch()">
                         </div>
-                        <div class="col s6 m6 l3">
+                        <div class="col s12 m12 l3">
                             <a title="Tìm" (click)="onSearch()"
                                 class="btn-floating waves-effect waves-light green darken-1"><i
                                     class="material-icons">search</i></a>&nbsp;&nbsp;&nbsp;
@@ -48,7 +48,12 @@
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Hiển thị
                                     </mat-header-cell>
                                     <mat-cell *matCellDef="let element"><a style="cursor: pointer;" (click)="onAdd(element.ID)"><b>{{element.Display}}</b></a></mat-cell>
-                                </ng-container>                                   
+                                </ng-container>                     
+                                <ng-container matColumnDef="SortOrder">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Sắp xếp
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">{{element.SortOrder}}</mat-cell>
+                                </ng-container>                
                                 <ng-container matColumnDef="Active">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header>Kích hoạt
                                     </mat-header-cell>

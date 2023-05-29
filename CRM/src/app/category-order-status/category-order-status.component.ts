@@ -18,7 +18,7 @@ import { CategoryOrderStatusDetailComponent } from './category-order-status-deta
 export class CategoryOrderStatusComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'Display', 'Active'];
+  displayColumns: string[] = ['ID', 'Display', 'SortOrder', 'Active'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;

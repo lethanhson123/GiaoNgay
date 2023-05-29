@@ -1,8 +1,8 @@
 <form autocomplete="off" class="row" #form="ngForm" (submit)="onSubmit(form)">
-    <div class="col s6 m6 l9">
+    <div class="col s12 m12 l9">
         <h5 class="card-title"><b>Công ty: {{CompanyService.formData.FullName}}</b></h5>
     </div>
-    <div class="col s6 m6 l3">
+    <div class="col s12 m12 l3">
         <button [disabled]="!CompanyService.formData.FullName" title="Lưu thay đổi" type="submit" class="btn-floating waves-effect waves-light cyan"><i
                 class="material-icons">save</i></button>&nbsp;&nbsp;&nbsp;
         <a title="Đóng" class="btn-floating waves-effect waves-light purple lightrn-1" (click)="onClose()">
@@ -10,7 +10,7 @@
         </a>
     </div>
     <input name="ID" [(ngModel)]="CompanyService.formData.ID" type="hidden">    
-    <div class="col s6 m6 l6">        
+    <div class="col s12 m12 l6">        
         <div class="col s4 m4 l4">
             <div class="input-field">
                 <label for="FullName">Công ty</label>
@@ -41,12 +41,12 @@
                 <input placeholder="Tài khoản ngân hàng" name="AccountNumber" [(ngModel)]="CompanyService.formData.AccountNumber" type="text">
             </div>
         </div>  
-        <div class="col s6 m6 l4">
+        <div class="col s12 m12 l4">
             <div class="input-field">
                 <label for="BankID">Ngân hàng</label>
             </div>
         </div>
-        <div class="col s6 m6 l8">
+        <div class="col s12 m12 l8">
             <mat-select
                 style="padding-top:30px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
                 name="BankID" class="browser-default"
@@ -60,9 +60,9 @@
             <br />
         </div> 
     </div>
-    <div class="col s6 m6 l6">            
+    <div class="col s12 m12 l6">            
         <div class="col s12 m12 l12">
-            <div class="col s6 m6 l3">
+            <div class="col s12 m12 l3">
                 <div class="input-field">
                     <p>
                         <label>
@@ -74,7 +74,7 @@
                 </div>
             </div>           
         </div>
-        <div class="col s6 m6 l12">           
+        <div class="col s12 m12 l12">           
             <div class="input-field col s12 m12 l4">
                 <input type="file" accept="image/*"
                     (change)="changeImage($event.target.files)">

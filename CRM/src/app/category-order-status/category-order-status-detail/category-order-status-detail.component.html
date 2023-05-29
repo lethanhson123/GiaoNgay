@@ -1,8 +1,8 @@
 <form autocomplete="off" class="row" #form="ngForm" (submit)="onSubmit(form)">
-    <div class="col s6 m6 l9">
+    <div class="col s12 m12 l9">
         <h5 class="card-title"><b>Trạng thái: {{CategoryOrderStatusService.formData.Display}}</b></h5>
     </div>
-    <div class="col s6 m6 l3">
+    <div class="col s12 m12 l3">
         <button [disabled]="!CategoryOrderStatusService.formData.Display" title="Lưu thay đổi" type="submit" class="btn-floating waves-effect waves-light cyan"><i
                 class="material-icons">save</i></button>&nbsp;&nbsp;&nbsp;
         <a title="Đóng" class="btn-floating waves-effect waves-light purple lightrn-1" (click)="onClose()">
@@ -10,7 +10,7 @@
         </a>
     </div>
     <input name="ID" [(ngModel)]="CategoryOrderStatusService.formData.ID" type="hidden">    
-    <div class="col s6 m6 l6">        
+    <div class="col s12 m12 l6">        
         <div class="col s4 m4 l4">
             <div class="input-field">
                 <label for="Display">Hiển thị</label>
@@ -20,11 +20,21 @@
             <div class="input-field">
                 <input placeholder="Hiển thị" name="Display" [(ngModel)]="CategoryOrderStatusService.formData.Display" type="text">
             </div>
-        </div>          
+        </div>       
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="SortOrder">Sắp xếp</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Sắp xếp" name="SortOrder" [(ngModel)]="CategoryOrderStatusService.formData.SortOrder" type="number">
+            </div>
+        </div>       
     </div>
-    <div class="col s6 m6 l6">        
+    <div class="col s12 m12 l6">        
         <div class="col s12 m12 l12">
-            <div class="col s6 m6 l3">
+            <div class="col s12 m12 l3">
                 <div class="input-field">
                     <p>
                         <label>

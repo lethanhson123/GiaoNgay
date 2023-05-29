@@ -74,14 +74,16 @@ namespace Data.Model
         public bool? IsExpress { get; set; }
         public bool? IsShopPayment { get; set; }
         public bool? IsPrepayment { get; set; }
-        public bool? IsComplete { get; set; }
+        public bool? IsCompleteShop { get; set; }
+        public bool? IsCompleteShipper { get; set; }
         public OrderDelivery()
         {            
             Active = true;
             IsExpress = false;
             IsShopPayment = false;
             IsPrepayment = false;
-            IsComplete = false;            
+            IsCompleteShop = false;
+            IsCompleteShipper = false;
             DeliveryProvinceID = 1;
             TotalBeforeTax = 0;
             DateCreated = GlobalHelper.InitializationDateTime;

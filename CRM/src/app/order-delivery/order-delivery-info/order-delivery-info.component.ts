@@ -11,12 +11,16 @@ import { OrderDeliveryReturn } from 'src/app/shared/OrderDeliveryReturn.model';
 import { OrderDeliveryReturnService } from 'src/app/shared/OrderDeliveryReturn.service';
 import { OrderDeliveryFile } from 'src/app/shared/OrderDeliveryFile.model';
 import { OrderDeliveryFileService } from 'src/app/shared/OrderDeliveryFile.service';
+import { CategoryOrderStatus } from 'src/app/shared/CategoryOrderStatus.model';
+import { CategoryOrderStatusService } from 'src/app/shared/CategoryOrderStatus.service';
 import { OrderDeliveryPaymentHistory } from 'src/app/shared/OrderDeliveryPaymentHistory.model';
 import { OrderDeliveryPaymentHistoryService } from 'src/app/shared/OrderDeliveryPaymentHistory.service';
 import { Ward } from 'src/app/shared/Ward.model';
 import { WardService } from 'src/app/shared/Ward.service';
 import { District } from 'src/app/shared/District.model';
 import { DistrictService } from 'src/app/shared/District.service';
+import { Province } from 'src/app/shared/Province.model';
+import { ProvinceService } from 'src/app/shared/Province.service';
 import { Membership } from 'src/app/shared/Membership.model';
 import { MembershipService } from 'src/app/shared/Membership.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -64,9 +68,11 @@ export class OrderDeliveryInfoComponent implements OnInit {
     public OrderDeliveryDetailService: OrderDeliveryDetailService,
     public OrderDeliveryReturnService: OrderDeliveryReturnService,
     public OrderDeliveryFileService: OrderDeliveryFileService,
+    public CategoryOrderStatusService: CategoryOrderStatusService,
     public OrderDeliveryPaymentHistoryService: OrderDeliveryPaymentHistoryService,
     public WardService: WardService,
     public DistrictService: DistrictService,
+    public ProvinceService: ProvinceService,
     public MembershipService: MembershipService,
     public MailService: MailService,
     public notificationService: NotificationService,
@@ -88,11 +94,12 @@ export class OrderDeliveryInfoComponent implements OnInit {
       if (this.OrderDeliveryService.formData) {
         this.GetOrderDeliveryDetailByParentIDToListAsync();
         this.GetOrderDeliveryReturnByParentIDToListAsync();
-        this.GetOrderDeliveryFileByParentIDToListAsync();        
+        this.GetOrderDeliveryFileByParentIDToListAsync();
         this.GetOrderDeliveryPaymentHistoryByParentIDToListAsync();
         this.getShopToList();
         this.getShipperToList();
-        this.getDistrictToList();
+        this.getCategoryOrderStatusToList();
+        this.GetProvinceToList();
       }
       this.isShowLoading = false;
     });
@@ -143,8 +150,41 @@ export class OrderDeliveryInfoComponent implements OnInit {
       }
     );
   }
+  getCategoryOrderStatusToList() {
+    this.CategoryOrderStatusService.GetAllToListAsync().subscribe(
+      res => {
+        this.CategoryOrderStatusService.list = (res as CategoryOrderStatus[]).sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1));
+        if (this.CategoryOrderStatusService.list) {
+          if (this.CategoryOrderStatusService.list.length > 0) {
+            if (this.OrderDeliveryService.formData.ID == 0) {
+              this.OrderDeliveryService.formData.CategoryOrderStatusID = this.CategoryOrderStatusService.list[0].ID;
+            }
+          }
+        }
+      },
+      err => {
+      }
+    );
+  }
+  GetProvinceToList() {
+    this.ProvinceService.GetAllToListAsync().subscribe(
+      res => {
+        this.ProvinceService.list = (res as Province[]).sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1));
+        if (this.ProvinceService.list) {
+          if (this.ProvinceService.list.length > 0) {
+            if (this.OrderDeliveryService.formData.ID == 0) {
+              this.OrderDeliveryService.formData.DeliveryProvinceID = this.ProvinceService.list[0].ID;
+            }
+          }
+        }
+        this.getDistrictToList();
+      },
+      err => {
+      }
+    );
+  }
   getDistrictToList() {
-    this.DistrictService.GetByParentIDToListAsync(1).subscribe(
+    this.DistrictService.GetByParentIDToListAsync(this.OrderDeliveryService.formData.DeliveryProvinceID).subscribe(
       res => {
         this.DistrictService.list = (res as District[]).sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1));
         if (this.DistrictService.list) {
@@ -206,6 +246,12 @@ export class OrderDeliveryInfoComponent implements OnInit {
       }
     );
   }
+  onChangeDateCreated(value) {
+    this.OrderDeliveryService.formData.DateCreated = new Date(value);
+  }
+  onChangeProvinceID($event) {
+    this.getDistrictToList();
+  }
   onChangeDistrictID($event) {
     this.getWardToList();
   }
@@ -216,16 +262,16 @@ export class OrderDeliveryInfoComponent implements OnInit {
         if (this.OrderDeliveryService.formData.ID == 0) {
           this.OrderDeliveryService.formData = res as OrderDelivery;
           this.MailService.SendMailWhenOrderDeliveryCreate(this.OrderDeliveryService.formData.ID).then(
-            res => {                            
+            res => {
             }
           );
           let url = this.URLSub + "/" + this.OrderDeliveryService.formData.ID;
-          window.location.href = this.URLSub + "/" + this.OrderDeliveryService.formData.ID;         
+          window.location.href = this.URLSub + "/" + this.OrderDeliveryService.formData.ID;
         }
         else {
-          if (this.OrderDeliveryService.formData.IsComplete == true) {
+          if (this.OrderDeliveryService.formData.IsCompleteShop == true) {
             this.MailService.SendMailWhenOrderDeliveryComplete(this.OrderDeliveryService.formData.ID).then(
-              res => {                
+              res => {
               }
             );
           }
@@ -297,6 +343,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
       }
     );
   }
+ 
   onOrderDeliveryFileAdd() {
     this.OrderDeliveryFileService.SaveAndUploadFiles(this.OrderDeliveryService.formData.ID, this.fileToUpload).subscribe(
       res => {

@@ -25,7 +25,7 @@ export class OrderShipperInfoComponent implements OnInit {
   isShowLoading: boolean = false;
   queryString: string = environment.InitializationString;
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['Active', 'ShipperFullName', 'Barcode', 'ShopFullName'];
+  displayColumns: string[] = ['Active', 'ShipperFullName', 'Barcode', 'ShopFullName', 'CustomerAddress'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(

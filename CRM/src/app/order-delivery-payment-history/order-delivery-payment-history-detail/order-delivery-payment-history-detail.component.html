@@ -1,8 +1,8 @@
 <form autocomplete="off" class="row" #form="ngForm" (submit)="onSubmit(form)">
-    <div class="col s6 m6 l9">
+    <div class="col s12 m12 l9">
         <h5 class="card-title"><b>Thanh toán</b></h5>
     </div>
-    <div class="col s6 m6 l3">
+    <div class="col s12 m12 l3">
         <button title="Lưu thay đổi" type="submit" class="btn-floating waves-effect waves-light cyan"><i
                 class="material-icons">save</i></button>&nbsp;&nbsp;&nbsp;
         <a title="Đóng" class="btn-floating waves-effect waves-light purple lightrn-1" (click)="onClose()">
@@ -11,7 +11,7 @@
     </div>
     <input name="ID" [(ngModel)]="OrderDeliveryPaymentHistoryService.formData.ID" type="hidden">    
     <input name="ParentID" [(ngModel)]="OrderDeliveryPaymentHistoryService.formData.ParentID" type="hidden">    
-    <div class="col s6 m6 l6">        
+    <div class="col s12 m12 l6">        
         <div class="col s4 m4 l4">
             <div class="input-field">
                 <label for="PaymentDate">Ngày thanh toán</label>
@@ -23,7 +23,7 @@
             </div>
         </div>         
     </div>
-    <div class="col s6 m6 l6">
+    <div class="col s12 m12 l6">
         <div class="col s4 m4 l4">
             <div class="input-field">
                 <label for="PaymentAmount">Thanh toán</label>

@@ -25,9 +25,8 @@ export class OrderShipperComponent implements OnInit {
   isShowLoading: boolean = false;
   searchString: string = environment.InitializationString;
 
-  year: number = new Date().getFullYear();
-  month: number = new Date().getMonth() + 1;
-  day: number = new Date().getUTCDate();
+  dateTimeBegin: Date = new Date();
+  dateTimeEnd: Date = new Date();
   id: any;
   constructor(
     public OrderShipperService: OrderShipperService,
@@ -35,10 +34,7 @@ export class OrderShipperComponent implements OnInit {
     public NotificationService: NotificationService,    
   ) { }
 
-  ngOnInit(): void {
-    this.GetYear();
-    this.GetMonth();
-    this.GetDay();
+  ngOnInit(): void {   
     this.onSearch();   
   }
   ngOnDestroy() {
@@ -46,45 +42,16 @@ export class OrderShipperComponent implements OnInit {
       clearInterval(this.id);
     }
   }
-  GetYear() {
-    this.isShowLoading = true;
-    this.DownloadService.GetYear().subscribe(
-      res => {
-        this.DownloadService.listYear = res as DateHelper[];
-        this.isShowLoading = false;
-      },
-      err => {
-        this.isShowLoading = false;
-      }
-    );
+ 
+  onChangeDateTimeBegin(value) {
+    this.dateTimeBegin = new Date(value);
   }
-  GetMonth() {
-    this.isShowLoading = true;
-    this.DownloadService.GetMonth().subscribe(
-      res => {
-        this.DownloadService.listMonth = res as DateHelper[];
-        this.isShowLoading = false;
-      },
-      err => {
-        this.isShowLoading = false;
-      }
-    );
-  }
-  GetDay() {
-    this.isShowLoading = true;
-    this.DownloadService.GetDay().subscribe(
-      res => {
-        this.DownloadService.listDay = res as DateHelper[];        
-        this.isShowLoading = false;
-      },
-      err => {
-        this.isShowLoading = false;
-      }
-    );
+  onChangeDateTimeEnd(value) {
+    this.dateTimeEnd = new Date(value);
   }
   getToList() {
     this.isShowLoading = true;
-    this.OrderShipperService.GetByYearAndMonthAndDayAndSearchStringToLisAsync(this.year, this.month, this.day, this.searchString).subscribe(
+    this.OrderShipperService.GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
       res => {        
         this.OrderShipperService.list = res as OrderShipper[];        
         this.dataSource = new MatTableDataSource(this.OrderShipperService.list.sort((a, b) => (a.DateCreated < b.DateCreated ? 1 : -1)));
