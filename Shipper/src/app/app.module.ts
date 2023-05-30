@@ -19,6 +19,7 @@ import { OrderDeliveryInfoComponent } from './order-delivery/order-delivery-info
 import { OrderCallComponent } from './order-call/order-call.component';
 import { OrderCallDetailComponent } from './order-call/order-call-detail/order-call-detail.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { MembershipTotalDebtComponent } from './membership-total-debt/membership-total-debt.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { HomepageComponent } from './homepage/homepage.component';
     OrderCallComponent,
     OrderCallDetailComponent,
     HomepageComponent,
+    MembershipTotalDebtComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

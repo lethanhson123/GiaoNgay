@@ -8,7 +8,7 @@ import { OrderDelivery } from 'src/app/shared/OrderDelivery.model';
 import { OrderDeliveryService } from 'src/app/shared/OrderDelivery.service';
 import { DateHelper } from 'src/app/shared/DateHelper.model';
 import { DownloadService } from 'src/app/shared/Download.service';
-
+import { MembershipService } from 'src/app/shared/Membership.service';
 @Component({
   selector: 'app-order-delivery',
   templateUrl: './order-delivery.component.html',
@@ -19,9 +19,8 @@ export class OrderDeliveryComponent implements OnInit {
   URLSub: string = environment.DomainDestination + "OrderDeliveryInfo";
   isShowLoading: boolean = false;
   searchString: string = environment.InitializationString;
-  year: number = new Date().getFullYear();
-  month: number = new Date().getMonth() + 1;
-  day: number = new Date().getUTCDate();
+  dateTimeBegin: Date = new Date();
+  dateTimeEnd: Date = new Date();
   id: any;
   dataSource: MatTableDataSource<any>;
   displayColumns: string[] = ['Barcode'];
@@ -30,63 +29,31 @@ export class OrderDeliveryComponent implements OnInit {
   constructor(
     public OrderDeliveryService: OrderDeliveryService,
     public DownloadService: DownloadService,
+    public MembershipService: MembershipService,
     public NotificationService: NotificationService,
   ) {
 
   }
-
+  onChangeDateTimeBegin(value) {
+    this.dateTimeBegin = new Date(value);
+  }
+  onChangeDateTimeEnd(value) {
+    this.dateTimeEnd = new Date(value);
+  }
   ngOnInit(): void {
-    this.GetYear();
-    this.GetMonth();
-    this.GetDay();
+   
     this.onSearch();
     this.id = setInterval(() => {
       this.onSearch();
     }, 60000);
   }
-  GetYear() {
-    this.isShowLoading = true;
-    this.DownloadService.GetYear().subscribe(
-      res => {
-        this.DownloadService.listYear = res as DateHelper[];
-        this.isShowLoading = false;
-      },
-      err => {
-        this.isShowLoading = false;
-      }
-    );
-  }
-  GetMonth() {
-    this.isShowLoading = true;
-    this.DownloadService.GetMonth().subscribe(
-      res => {
-        this.DownloadService.listMonth = res as DateHelper[];
-        this.isShowLoading = false;
-      },
-      err => {
-        this.isShowLoading = false;
-      }
-    );
-  }
-  GetDay() {
-    this.isShowLoading = true;
-    this.DownloadService.GetDay().subscribe(
-      res => {
-        this.DownloadService.listDay = res as DateHelper[];
-        this.isShowLoading = false;
-      },
-      err => {
-        this.isShowLoading = false;
-      }
-    );
-  }
+  
   onSearch() {
     this.getToList();
   }
   getToList() {
-    this.isShowLoading = true;
-    let membershipID = localStorage.getItem(environment.MembershipID);
-    this.OrderDeliveryService.GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync(Number(membershipID), this.year, this.month, this.day, this.searchString).subscribe(
+    this.isShowLoading = true;   
+    this.OrderDeliveryService.GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.MembershipService.MembershipID, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
       res => {
         this.OrderDeliveryService.list = res as OrderDelivery[];
         console.log(this.OrderDeliveryService.list);

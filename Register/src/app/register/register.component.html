@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col s12">
+        <div class="container">
+            <div id="login-page" class="row">
+                <div class="col s12 m6 l4 z-depth-4 card-panel border-radius-6 login-card bg-opacity-8">
+                    <form autocomplete="off" class="login-form" #form="ngForm" (submit)="onSubmit(form)">
+                        <div class="row">
+                            <div class="input-field col s12" style="text-align: center; padding-top: 5px;">
+                                <img width="300" height="150" src="https://crm.giaongay.com.vn/image/logo.png"
+                                    title="Hệ sinh thái số Giao Ngay" alt="Hệ sinh thái số Giao Ngay">
+                            </div>
+                        </div>
+                        <input name="ID" [(ngModel)]="MembershipService.formData.ID" type="hidden">
+                        <input name="ParentID" [(ngModel)]="MembershipService.formData.ParentID" type="hidden">
+                        <div class="row margin">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix pt-2">account_circle</i>
+                                <input placeholder="Shop" name="FullName"
+                                    [(ngModel)]="MembershipService.formData.FullName">
+                            </div>
+                        </div>
+                        <div class="row margin">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix pt-2">local_phone</i>
+                                <input placeholder="Điện thoại" name="Phone"
+                                    [(ngModel)]="MembershipService.formData.Phone">
+                            </div>
+                        </div>
+                        <div class="row margin">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix pt-2">lock_outline</i>
+                                <input placeholder="Mật khẩu" name="Password"
+                                    [(ngModel)]="MembershipService.formData.Password" type="password">
+                            </div>
+                        </div>
+                        <div class="row margin">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix pt-2">email</i>
+                                <input placeholder="Email" name="Email" [(ngModel)]="MembershipService.formData.Email">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <button type="submit"
+                                    [disabled]="!MembershipService.formData.Phone || !MembershipService.formData.Password"
+                                    class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12">Đăng
+                                    ký</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6 m6 l6">
+                                <p class="margin medium-small"><a target="_blank" href="tel:0936179626"
+                                        title="Hotline: 0904 040 496">Hotline: 0936 179 626</a>
+                                </p>
+                            </div>
+                            <div class="input-field col s6 m6 l6">
+                                <p class="margin right-align medium-small"><a href="{{loginURL}}"
+                                        title="Đăng nhập">Đăng nhập</a>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="isShowLoading"></app-loading>

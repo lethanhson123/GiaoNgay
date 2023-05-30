@@ -17,58 +17,58 @@ export class OrderCallService {
         this.formData = {
         }
     }
-    Save(formData: OrderCall) {        
+    Save(formData: OrderCall) {
         let url = this.aPIURL + this.controller + '/Save';
         const uploadData = JSON.stringify(formData);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    }  
-    SaveAsync(formData: OrderCall) {        
+    }
+    SaveAsync(formData: OrderCall) {
         let url = this.aPIURL + this.controller + '/SaveAsync';
         const uploadData = JSON.stringify(formData);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    }  
-    Remove(ID: number) {        
+    }
+    Remove(ID: number) {
         let url = this.aPIURL + this.controller + '/Remove';
         const uploadData = JSON.stringify(ID);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    }  
-    RemoveAsync(ID: number) {        
+    }
+    RemoveAsync(ID: number) {
         let url = this.aPIURL + this.controller + '/RemoveAsync';
         const uploadData = JSON.stringify(ID);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    }  
-    GetByID(ID: number) {        
+    }
+    GetByID(ID: number) {
         let url = this.aPIURL + this.controller + '/GetByID';
         const uploadData = JSON.stringify(ID);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    }  
-    GetByIDAsync(ID: number) {        
+    }
+    GetByIDAsync(ID: number) {
         let url = this.aPIURL + this.controller + '/GetByIDAsync';
         const uploadData = JSON.stringify(ID);
         const formUpload: FormData = new FormData();
-        formUpload.append('data', uploadData);        
+        formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
-    } 
-    GetAllToList() {        
-        let url = this.aPIURL + this.controller + '/GetAllToList';     
-        const formUpload: FormData = new FormData();   
+    }
+    GetAllToList() {
+        let url = this.aPIURL + this.controller + '/GetAllToList';
+        const formUpload: FormData = new FormData();
         return this.httpClient.post(url, formUpload);
-    }  
-    GetAllToListAsync() {        
-        let url = this.aPIURL + this.controller + '/GetAllToListAsync';        
-        const formUpload: FormData = new FormData();        
+    }
+    GetAllToListAsync() {
+        let url = this.aPIURL + this.controller + '/GetAllToListAsync';
+        const formUpload: FormData = new FormData();
         return this.httpClient.post(url, formUpload);
-    } 
+    }
     GetByYearAndMonthAndDayAndSearchStringToLisAsync(year: number, month: number, day: number, searchString: string) {
         let url = this.aPIURL + this.controller + '/GetByYearAndMonthAndDayAndSearchStringToLisAsync';
         const yearData = JSON.stringify(year);
@@ -81,7 +81,7 @@ export class OrderCallService {
         formUpload.append('searchString', searchString);
         return this.httpClient.post(url, formUpload);
     }
-    GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync(membershipID:number, year: number, month: number, day: number, searchString: string) {
+    GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync(membershipID: number, year: number, month: number, day: number, searchString: string) {
         let url = this.aPIURL + this.controller + '/GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync';
         const membershipIDData = JSON.stringify(membershipID);
         const yearData = JSON.stringify(year);
@@ -92,6 +92,15 @@ export class OrderCallService {
         formUpload.append('year', yearData);
         formUpload.append('month', monthData);
         formUpload.append('day', dayData);
+        formUpload.append('searchString', searchString);
+        return this.httpClient.post(url, formUpload);
+    }
+    GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync(membershipID: number, dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync';
+        const formUpload: FormData = new FormData();
+        formUpload.append('membershipID', JSON.stringify(membershipID));
+        formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
+        formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));
         formUpload.append('searchString', searchString);
         return this.httpClient.post(url, formUpload);
     }

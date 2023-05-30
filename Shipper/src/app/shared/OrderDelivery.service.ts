@@ -191,5 +191,20 @@ export class OrderDeliveryService {
         formUpload.append('orderReceiveID', orderReceiveIDData);        
         return this.httpClient.post(url, formUpload);
     }
+    GetByShipperIDAndIsCompleteShipperListAsync(shopID: number) {
+        let url = this.aPIURL + this.controller + '/GetByShipperIDAndIsCompleteShipperListAsync';
+        const params = new HttpParams()
+            .set('shopID', JSON.stringify(shopID))
+        return this.httpClient.get(url, { params }).toPromise();
+    }
+    GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(membershipID: Number, dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync';
+        const formUpload: FormData = new FormData();
+        formUpload.append('membershipID', JSON.stringify(membershipID));
+        formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
+        formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));
+        formUpload.append('searchString', searchString);
+        return this.httpClient.post(url, formUpload);
+    }
 }
 

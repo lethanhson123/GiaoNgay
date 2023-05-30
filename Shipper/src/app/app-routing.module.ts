@@ -5,6 +5,7 @@ import { OrderDeliveryComponent } from './order-delivery/order-delivery.componen
 import { OrderDeliveryInfoComponent } from './order-delivery/order-delivery-info/order-delivery-info.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { OrderCallComponent } from './order-call/order-call.component';
+import { MembershipTotalDebtComponent } from './membership-total-debt/membership-total-debt.component';
 
 
 
@@ -12,6 +13,9 @@ const routes: Routes = [
   { path: '', redirectTo: '/Homepage', pathMatch: 'full' },
   {
     path: 'Homepage', component: HomepageComponent,
+  },
+  {
+    path: 'MembershipTotalDebt', component: MembershipTotalDebtComponent,
   },
   {
     path: 'OrderCall', component: OrderCallComponent,

@@ -15,6 +15,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { DownloadService } from 'src/app/shared/Download.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MailService } from 'src/app/shared/Mail.service';
+import { CategoryOrderStatus } from 'src/app/shared/CategoryOrderStatus.model';
+import { CategoryOrderStatusService } from 'src/app/shared/CategoryOrderStatus.service';
 
 @Component({
   selector: 'app-order-delivery-info',
@@ -48,6 +50,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
     public OrderDeliveryFileService: OrderDeliveryFileService,
     public MailService: MailService,
     public notificationService: NotificationService,
+    public CategoryOrderStatusService: CategoryOrderStatusService,
     private dialog: MatDialog
   ) {
     this.router.events.forEach((event) => {
@@ -59,17 +62,36 @@ export class OrderDeliveryInfoComponent implements OnInit {
   }
   ngOnInit(): void {
   }
+  getCategoryOrderStatusToList() {
+    this.CategoryOrderStatusService.GetAllToListAsync().subscribe(
+      res => {
+        this.CategoryOrderStatusService.list = (res as CategoryOrderStatus[]).sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1));
+        if (this.CategoryOrderStatusService.list) {
+          if (this.CategoryOrderStatusService.list.length > 0) {
+            if (this.OrderDeliveryService.formData.ID == 0) {
+              this.OrderDeliveryService.formData.CategoryOrderStatusID = this.CategoryOrderStatusService.list[0].ID;
+            }
+          }
+        }
+      },
+      err => {
+      }
+    );
+  }
   getByQueryString() {
     this.isShowLoading = true;
     this.OrderDeliveryService.GetByIDStringAsync(this.queryString).then(res => {
       this.OrderDeliveryService.formData = res as OrderDelivery;
       if (this.OrderDeliveryService.formData) {
-        this.GetOrderDeliveryDetailByParentIDToListAsync();
-        this.GetOrderDeliveryFileByParentIDToListAsync();       
+        if (this.OrderDeliveryService.formData.ID > 0) {
+          this.GetOrderDeliveryDetailByParentIDToListAsync();
+          this.GetOrderDeliveryFileByParentIDToListAsync();          
+        }
+        this.getCategoryOrderStatusToList();
       }
       this.isShowLoading = false;
     });
-  }  
+  }
   GetOrderDeliveryDetailByParentIDToListAsync() {
     this.isShowLoading = true;
     this.OrderDeliveryDetailService.GetByParentIDToListAsync(this.OrderDeliveryService.formData.ID).subscribe(
@@ -84,7 +106,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
         this.isShowLoading = false;
       }
     );
-  } 
+  }
   onSubmit(form: NgForm) {
     this.OrderDeliveryService.SaveMembershipAsync(form.value).subscribe(
       res => {
@@ -92,16 +114,16 @@ export class OrderDeliveryInfoComponent implements OnInit {
         if (this.OrderDeliveryService.formData.ID == 0) {
           this.OrderDeliveryService.formData = res as OrderDelivery;
           this.MailService.SendMailWhenOrderDeliveryCreate(this.OrderDeliveryService.formData.ID).then(
-            res => {                            
+            res => {
             }
           );
           let url = this.URLSub + "/" + this.OrderDeliveryService.formData.ID;
           window.location.href = this.URLSub + "/" + this.OrderDeliveryService.formData.ID;
         }
         else {
-          if (this.OrderDeliveryService.formData.IsComplete == true) {
+          if (this.OrderDeliveryService.formData.IsCompleteShop == true) {
             this.MailService.SendMailWhenOrderDeliveryComplete(this.OrderDeliveryService.formData.ID).then(
-              res => {                
+              res => {
               }
             );
           }
@@ -111,7 +133,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
         this.notificationService.warn(environment.SaveNotSuccess);
       }
     );
-  } 
+  }
   changeImage(files: FileList) {
     if (files) {
       this.fileToUpload = files;

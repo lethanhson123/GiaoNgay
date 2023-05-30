@@ -26,9 +26,8 @@ export class OrderCallComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
   searchString: string = environment.InitializationString;
-  year: number = new Date().getFullYear();
-  month: number = new Date().getMonth() + 1;
-  day: number = new Date().getUTCDate();
+  dateTimeBegin: Date = new Date();
+  dateTimeEnd: Date = new Date();
   id: any;
   constructor(
     public OrderCallService: OrderCallService,
@@ -38,54 +37,21 @@ export class OrderCallComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
-  ngOnInit(): void {
-    this.GetYear();
-    this.GetMonth();
-    this.GetDay();
+  ngOnInit(): void {   
     this.onSearch();
     this.id = setInterval(() => {
       this.onSearch();
     }, 60000);
+  }  
+  onChangeDateTimeBegin(value) {
+    this.dateTimeBegin = new Date(value);
   }
-  GetYear() {
-    this.isShowLoading = true;
-    this.DownloadService.GetYear().subscribe(
-      res => {
-        this.DownloadService.listYear = res as DateHelper[];
-        this.isShowLoading = false;
-      },
-      err => {
-        this.isShowLoading = false;
-      }
-    );
-  }
-  GetMonth() {
-    this.isShowLoading = true;
-    this.DownloadService.GetMonth().subscribe(
-      res => {
-        this.DownloadService.listMonth = res as DateHelper[];
-        this.isShowLoading = false;
-      },
-      err => {
-        this.isShowLoading = false;
-      }
-    );
-  }
-  GetDay() {
-    this.isShowLoading = true;
-    this.DownloadService.GetDay().subscribe(
-      res => {
-        this.DownloadService.listDay = res as DateHelper[];
-        this.isShowLoading = false;
-      },
-      err => {
-        this.isShowLoading = false;
-      }
-    );
+  onChangeDateTimeEnd(value) {
+    this.dateTimeEnd = new Date(value);
   }
   getToList() {
     this.isShowLoading = true;
-    this.OrderCallService.GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync(this.MembershipService.MembershipID, this.year, this.month, this.day, this.searchString).subscribe(
+    this.OrderCallService.GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync(this.MembershipService.MembershipID, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
       res => {
         this.OrderCallService.list = res as OrderCall[];
         this.dataSource = new MatTableDataSource(this.OrderCallService.list.sort((a, b) => (a.ShopFullName > b.ShopFullName ? 1 : -1)));

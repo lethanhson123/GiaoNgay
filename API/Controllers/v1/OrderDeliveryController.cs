@@ -161,5 +161,20 @@ namespace API.Controllers.v1
             }
             return result;
         }
+        [HttpGet]
+        [Route("GetByShipperIDAndIsCompleteShipperListAsync")]
+        public async Task<List<OrderDelivery>> GetByShipperIDAndIsCompleteShipperListAsync(long shipperID)
+        {
+            List<OrderDelivery> result = new List<OrderDelivery>();
+            try
+            {
+                result = await _orderDeliveryBusiness.GetByShipperIDAndIsCompleteShipperListAsync(shipperID, false);
+            }
+            catch (Exception e)
+            {
+                string mes = e.Message;
+            }
+            return result;
+        }
     }
 }

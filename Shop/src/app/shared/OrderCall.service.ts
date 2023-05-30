@@ -95,5 +95,14 @@ export class OrderCallService {
         formUpload.append('searchString', searchString);
         return this.httpClient.post(url, formUpload);
     }
+    GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync(membershipID: number, dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync';
+        const formUpload: FormData = new FormData();
+        formUpload.append('membershipID', JSON.stringify(membershipID));
+        formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
+        formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));
+        formUpload.append('searchString', searchString);
+        return this.httpClient.post(url, formUpload);
+    }
 }
 

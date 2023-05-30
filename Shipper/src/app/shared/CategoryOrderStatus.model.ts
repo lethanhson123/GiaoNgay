@@ -12,5 +12,6 @@ export class CategoryOrderStatus {
     Description?: string;    
     Note?: string;    
     Active?: boolean;     
+    SortOrder?: number;    
 }
 

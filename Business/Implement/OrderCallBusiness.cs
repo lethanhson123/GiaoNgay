@@ -121,6 +121,28 @@
             }
             return result;
         }
+        public async Task<List<OrderCall>> GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync(long membershipID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString)
+        {
+            List<OrderCall> result = new List<OrderCall>();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                result = await GetByMembershipIDAndSearchStringToLisAsync(membershipID, searchString);
+            }
+            else
+            {
+                try
+                {
+                    dateTimeBegin = new DateTime(dateTimeBegin.Year, dateTimeBegin.Month, dateTimeBegin.Day, 0, 0, 0);
+                    dateTimeEnd = new DateTime(dateTimeEnd.Year, dateTimeEnd.Month, dateTimeEnd.Day, 23, 59, 59);
+                    result = await _olrderCallRepository.GetByCondition(item => (item.ShopID == membershipID || item.ShipperID == membershipID) && (item.DateCreated >= dateTimeBegin && item.DateCreated <= dateTimeEnd)).ToListAsync();
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                }
+            }
+            return result;
+        }
         public async Task<List<OrderCall>> GetByOrderReceiveIDToListAsync(long orderReceiveID)
         {
             List<OrderCall> result = await _olrderCallRepository.GetByOrderReceiveIDToListAsync(orderReceiveID);

@@ -45,6 +45,17 @@
             return result;
         }
         [HttpPost]
+        [Route("GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync")]
+        public virtual async Task<List<OrderCall>> GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync()
+        {
+            long membershipID = JsonConvert.DeserializeObject<long>(Request.Form["membershipID"]);
+            DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
+            DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
+            string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
+            var result = await _orderCallBusiness.GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync(membershipID, dateTimeBegin, dateTimeEnd, searchString);
+            return result;
+        }
+        [HttpPost]
         [Route("GetByOrderReceiveIDToListAsync")]
         public virtual async Task<List<OrderCall>> GetByOrderReceiveIDToListAsync()
         {

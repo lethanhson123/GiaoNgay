@@ -32,6 +32,10 @@ namespace Business.Implement
             {
                 model.ProvinceID = 1;
             }
+            if (string.IsNullOrEmpty(model.UserName))
+            {
+                model.UserName = model.Phone;
+            }
             if (string.IsNullOrEmpty(model.Password))
             {
                 model.Password = "0";

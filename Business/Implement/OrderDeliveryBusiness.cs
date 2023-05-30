@@ -80,7 +80,7 @@ namespace Business.Implement
                     OrderDelivery modelExist = await _orderDeliveryRepository.GetByIDAsync(model.ID);
                     if (modelExist != null)
                     {
-                        modelExist.IsCompleteShop = model.IsCompleteShop;
+                        modelExist.CategoryOrderStatusID = model.CategoryOrderStatusID;
                         model.RowVersion = await _orderDeliveryRepository.UpdateAsync(modelExist);
                         if (model.RowVersion > 0)
                         {
@@ -323,6 +323,20 @@ namespace Business.Implement
             try
             {
                 result = await _orderDeliveryRepository.GetByCondition(item => item.ShopID == shopID && item.IsCompleteShop != true).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+            }
+
+            return result;
+        }
+        public async Task<List<OrderDelivery>> GetByShipperIDAndIsCompleteShipperListAsync(long shipperID, bool isCompleteShipper)
+        {
+            List<OrderDelivery> result = new List<OrderDelivery>();
+            try
+            {
+                result = await _orderDeliveryRepository.GetByCondition(item => item.ShipperID == shipperID && item.IsCompleteShipper != true).ToListAsync();
             }
             catch (Exception ex)
             {

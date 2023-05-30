@@ -27,45 +27,22 @@
                 <div class="card">                    
                     <div id="1">
                         <div class="card-content">
-                            <div class="col s4 m4 l2">
-                                <mat-select
-                                    style="padding-top:14px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
-                                    name="year" class="browser-default" [(ngModel)]="year">
-                                    <mat-option *ngFor="let item of DownloadService.listYear" [value]="item.Value">
-                                        {{item.Value}}
-                                    </mat-option>
-                                </mat-select>
+                            <div class="col s12 m12 l3">
+                                <input matInput [ngModel]="dateTimeBegin | date:'yyyy-MM-dd'" (ngModelChange)="onChangeDateTimeBegin($event)" [ngModelOptions]="{ updateOn: 'blur' }" type="date"
+                                    class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
-                            <div class="col s4 m4 l2">
-                                <mat-select
-                                    style="padding-top:14px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
-                                    name="month" class="browser-default" [(ngModel)]="month">
-                                    <mat-option *ngFor="let item of DownloadService.listMonth" [value]="item.Value">
-                                        {{item.Value}}
-                                    </mat-option>
-                                </mat-select>
+                            <div class="col s12 m12 l3">
+                                <input matInput [ngModel]="dateTimeEnd | date:'yyyy-MM-dd'" (ngModelChange)="onChangeDateTimeEnd($event)" [ngModelOptions]="{ updateOn: 'blur' }" type="date"
+                                    class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
-                            <div class="col s4 m4 l2">
-                                <mat-select
-                                    style="padding-top:14px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
-                                    name="day" class="browser-default" [(ngModel)]="day">
-                                    <mat-option *ngFor="let item of DownloadService.listDay" [value]="item.Value">
-                                        {{item.Value}}
-                                    </mat-option>
-                                </mat-select>
-                            </div>
-                            <div class="col s6 m6 l4">
+                            <div class="col s12 m12 l3">
                                 <input matInput [(ngModel)]="searchString" placeholder="Tìm ..."
-                                    class="mat-input-element mat-form-field-autofill-control" autocomplete="off"
-                                    (keyup.enter)="onSearch()">
+                                    class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
-                            <div class="col s6 m6 l2">
+                            <div class="col s12 m12 l3">
                                 <a title="Tìm" (click)="onSearch()" style="margin-top: 5px;"
                                     class="btn-floating waves-effect waves-light green darken-1"><i
-                                        class="material-icons">search</i></a>&nbsp;&nbsp;&nbsp;
-                                <a title="Thêm mới" target="_blank" href="{{URLSub}}/0" style="margin-top: 5px;"
-                                    class="btn-floating waves-effect waves-light green darken-1"><i
-                                        class="material-icons">add</i></a>&nbsp;&nbsp;&nbsp;
+                                        class="material-icons">search</i></a>&nbsp;&nbsp;&nbsp;                               
                             </div>
                             <div class="KhungOverflow">
                                 <mat-table [dataSource]="dataSource" matSort>
