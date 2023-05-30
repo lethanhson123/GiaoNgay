@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m6 l6">
-                    <h5 class="breadcrumbs-title mt-0 mb-0" style="color: #ffffff;">Đơn hàng (Điện thoại) <span
+                    <h5 class="breadcrumbs-title mt-0 mb-0" style="color: #ffffff;">Đơn hàng <span
                             *ngIf="OrderDeliveryService.list">({{OrderDeliveryService.list.length}} items)</span>
                     </h5>
                 </div>
@@ -14,7 +14,7 @@
                         </li>
                         <li class="breadcrumb-item"><a href="#" style="color: #ffffff;">Hệ thống</a>
                         </li>
-                        <li class="breadcrumb-item active" style="color: #ffffff;">Đơn hàng (Điện thoại)
+                        <li class="breadcrumb-item active" style="color: #ffffff;">Đơn hàng
                         </li>
                     </ol>
                 </div>
@@ -52,22 +52,44 @@
                             </div>
                             <div class="KhungOverflow">
                                 <mat-table [dataSource]="dataSource" matSort>
+                                    <ng-container matColumnDef="DateCreated">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Ngày tạo
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">{{element.DateCreated |
+                                            date:'yyyy-MM-dd HH:mm:ss'}}</mat-cell>
+                                    </ng-container>
                                     <ng-container matColumnDef="Barcode">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Đơn hàng
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element"><a target="_blank"
                                                 href="{{URLSub}}/{{element.ID}}"><b>{{element.Barcode}}</b></a></mat-cell>
+                                    </ng-container>                                                                        
+                                    <ng-container matColumnDef="CustomerFullName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Khách hàng
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">{{element.CustomerFullName}}</mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="CustomerAddress">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Địa chỉ
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">{{element.CustomerAddress}}</mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="TotalBeforeTax">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Thành tiền
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element">
-                                            <p style="text-align: right; color: #000000; font-weight: bold;">
+                                            <p
+                                                style="text-align: right; color: #000000; font-weight: bold; font-size: 20px;">
                                                 {{element.TotalBeforeTax | number:
                                                 '1.0-0'}}
                                             </p>
                                         </mat-cell>
-                                    </ng-container>
+                                    </ng-container>     
+                                    <ng-container matColumnDef="IsCompleteShop">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Thanh toán shop
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">{{element.IsCompleteShop}}</mat-cell>
+                                    </ng-container>                             
                                     <ng-container matColumnDef="Save">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>
                                         </mat-header-cell>

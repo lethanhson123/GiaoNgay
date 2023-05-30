@@ -20,6 +20,10 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { OrderCallComponent } from './order-call/order-call.component';
 import { OrderCallDetailComponent } from './order-call/order-call-detail/order-call-detail.component';
 import { UploadComponent } from './upload/upload.component';
+import { OrderDeliveryDesktopComponent } from './order-delivery-desktop/order-delivery-desktop.component';
+import { MembershipTotalDebtComponent } from './membership-total-debt/membership-total-debt.component';
+import { OrderShipperComponent } from './order-shipper/order-shipper.component';
+import { OrderShipperInfoComponent } from './order-shipper/order-shipper-info/order-shipper-info.component';
 
 
 @NgModule({
@@ -33,6 +37,10 @@ import { UploadComponent } from './upload/upload.component';
     OrderCallComponent,
     OrderCallDetailComponent,
     UploadComponent,
+    OrderDeliveryDesktopComponent,
+    MembershipTotalDebtComponent,
+    OrderShipperComponent,
+    OrderShipperInfoComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

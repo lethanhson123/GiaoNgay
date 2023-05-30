@@ -15,6 +15,8 @@ import { Ward } from 'src/app/shared/Ward.model';
 import { WardService } from 'src/app/shared/Ward.service';
 import { District } from 'src/app/shared/District.model';
 import { DistrictService } from 'src/app/shared/District.service';
+import { Province } from 'src/app/shared/Province.model';
+import { ProvinceService } from 'src/app/shared/Province.service';
 import { Membership } from 'src/app/shared/Membership.model';
 import { MembershipService } from 'src/app/shared/Membership.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -60,6 +62,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
     public OrderDeliveryFileService: OrderDeliveryFileService,
     public WardService: WardService,
     public DistrictService: DistrictService,
+    public ProvinceService: ProvinceService,
     public MembershipService: MembershipService,
     public MailService: MailService,
     public notificationService: NotificationService,
@@ -74,6 +77,12 @@ export class OrderDeliveryInfoComponent implements OnInit {
   }
   ngOnInit(): void {
   }
+  onChangeDateCreated(value) {
+    this.OrderDeliveryService.formData.DateCreated = new Date(value);
+  }
+  onChangeProvinceID($event) {
+    this.getDistrictToList();
+  }
   getByQueryString() {
     this.isShowLoading = true;
     this.OrderDeliveryService.GetByIDStringAsync(this.queryString).then(res => {
@@ -81,10 +90,12 @@ export class OrderDeliveryInfoComponent implements OnInit {
       if (this.OrderDeliveryService.formData) {
         let membershipID = localStorage.getItem(environment.MembershipID);
         this.OrderDeliveryService.formData.ShopID = Number(membershipID);
-        this.GetOrderDeliveryDetailByParentIDToListAsync();
-        this.GetOrderDeliveryReturnByParentIDToListAsync();
-        this.GetOrderDeliveryFileByParentIDToListAsync();       
-        this.getDistrictToList();
+        if (this.OrderDeliveryService.formData.ID > 0) {
+          this.GetOrderDeliveryDetailByParentIDToListAsync();
+          this.GetOrderDeliveryReturnByParentIDToListAsync();
+          this.GetOrderDeliveryFileByParentIDToListAsync();
+        }
+        this.GetProvinceToList();
       }
       this.isShowLoading = false;
     });
@@ -94,13 +105,32 @@ export class OrderDeliveryInfoComponent implements OnInit {
     this.OrderDeliveryService.GetByIDStringAsync(this.queryString).then(res => {
       this.OrderDeliveryService.formData = res as OrderDelivery;
       if (this.OrderDeliveryService.formData) {
-        this.GetOrderDeliveryDetailByParentIDToListAsync();
-        this.GetOrderDeliveryReturnByParentIDToListAsync();
-        this.GetOrderDeliveryFileByParentIDToListAsync();
+        if (this.OrderDeliveryService.formData.ID > 0) {
+          this.GetOrderDeliveryDetailByParentIDToListAsync();
+          this.GetOrderDeliveryReturnByParentIDToListAsync();
+          this.GetOrderDeliveryFileByParentIDToListAsync();
+        }
       }
       this.isShowLoading = false;
     });
-  }  
+  }
+  GetProvinceToList() {
+    this.ProvinceService.GetAllToListAsync().subscribe(
+      res => {
+        this.ProvinceService.list = (res as Province[]).sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1));
+        if (this.ProvinceService.list) {
+          if (this.ProvinceService.list.length > 0) {
+            if (this.OrderDeliveryService.formData.ID == 0) {
+              this.OrderDeliveryService.formData.DeliveryProvinceID = this.ProvinceService.list[0].ID;
+            }
+          }
+        }
+        this.getDistrictToList();
+      },
+      err => {
+      }
+    );
+  }
   getDistrictToList() {
     this.DistrictService.GetByParentIDToListAsync(1).subscribe(
       res => {
@@ -148,6 +178,16 @@ export class OrderDeliveryInfoComponent implements OnInit {
         this.isShowLoading = false;
       }
     );
+    this.OrderDeliveryDetailService.GetByIDAsync(0).subscribe(
+      res => {
+        this.OrderDeliveryDetailService.formData = res as OrderDeliveryDetail;
+        console.log(this.OrderDeliveryDetailService.formData);
+        this.isShowLoading = false;
+      },
+      err => {
+        this.isShowLoading = false;
+      }
+    );
   }
   onChangeDistrictID($event) {
     this.getWardToList();
@@ -155,26 +195,21 @@ export class OrderDeliveryInfoComponent implements OnInit {
   onSubmit(form: NgForm) {
     let membershipID = localStorage.getItem(environment.MembershipID);
     this.OrderDeliveryService.formData.ShopID = Number(membershipID);
-    alert(this.OrderDeliveryService.formData.ShopID);
     this.OrderDeliveryService.SaveShopAsync(form.value).subscribe(
       res => {
         this.notificationService.success(environment.SaveSuccess);
         if (this.OrderDeliveryService.formData.ID == 0) {
           this.OrderDeliveryService.formData = res as OrderDelivery;
           this.MailService.SendMailWhenOrderDeliveryCreate(this.OrderDeliveryService.formData.ID).then(
-            res => {                            
+            res => {
             }
           );
           let url = this.URLSub + "/" + this.OrderDeliveryService.formData.ID;
           window.location.href = this.URLSub + "/" + this.OrderDeliveryService.formData.ID;
         }
         else {
-          if (this.OrderDeliveryService.formData.IsComplete == true) {
-            this.MailService.SendMailWhenOrderDeliveryComplete(this.OrderDeliveryService.formData.ID).then(
-              res => {                
-              }
-            );
-          }
+          this.OrderDeliveryDetailService.formData.ParentID = this.OrderDeliveryService.formData.ID;
+          this.onOrderDeliveryDetailSave(this.OrderDeliveryDetailService.formData);
         }
       },
       err => {

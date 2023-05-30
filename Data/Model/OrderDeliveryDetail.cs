@@ -8,6 +8,8 @@
         public decimal? Total { get; set; }
         public OrderDeliveryDetail()
         {
+            Quantity = 1;
+            Price = 0;
         }
     }
 }

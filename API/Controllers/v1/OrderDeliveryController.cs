@@ -21,12 +21,12 @@ namespace API.Controllers.v1
         public virtual async Task<List<OrderDelivery>> GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync()
         {
             DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
-            DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);            
+            DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
             string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
             var result = await _orderDeliveryBusiness.GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(dateTimeBegin, dateTimeEnd, searchString);
             return result;
         }
-       
+
         [HttpPost]
         [Route("GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync")]
         public virtual async Task<List<OrderDelivery>> GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync()
@@ -37,6 +37,17 @@ namespace API.Controllers.v1
             int day = JsonConvert.DeserializeObject<int>(Request.Form["day"]);
             string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
             var result = await _orderDeliveryBusiness.GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync(membershipID, year, month, day, searchString);
+            return result;
+        }
+        [HttpPost]
+        [Route("GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync")]
+        public virtual async Task<List<OrderDelivery>> GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync()
+        {
+            long membershipID = JsonConvert.DeserializeObject<long>(Request.Form["membershipID"]);
+            DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
+            DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
+            string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
+            var result = await _orderDeliveryBusiness.GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(membershipID, dateTimeBegin, dateTimeEnd, searchString);
             return result;
         }
         [HttpPost]
@@ -61,7 +72,7 @@ namespace API.Controllers.v1
         [Route("SaveMembershipAsync")]
         public virtual async Task<OrderDelivery> SaveMembershipAsync()
         {
-            OrderDelivery result = JsonConvert.DeserializeObject<OrderDelivery>(Request.Form["data"]);            
+            OrderDelivery result = JsonConvert.DeserializeObject<OrderDelivery>(Request.Form["data"]);
             await _orderDeliveryBusiness.SaveMembershipAsync(result);
             return result;
         }
@@ -127,7 +138,22 @@ namespace API.Controllers.v1
             {
                 shopID = shopID.Split('.')[0];
                 shopID = shopID.Split('/')[shopID.Split('/').Length - 1];
-                result = await _orderDeliveryBusiness.GetCRMByShopIDAndIsCompleteShopListAsync(long.Parse(shopID),false);
+                result = await _orderDeliveryBusiness.GetCRMByShopIDAndIsCompleteShopListAsync(long.Parse(shopID), false);
+            }
+            catch (Exception e)
+            {
+                string mes = e.Message;
+            }
+            return result;
+        }
+        [HttpGet]
+        [Route("GetShopByShopIDAndIsCompleteShopListAsync")]
+        public async Task<List<OrderDelivery>> GetShopByShopIDAndIsCompleteShopListAsync(long shopID)
+        {
+            List<OrderDelivery> result = new List<OrderDelivery>();
+            try
+            {               
+                result = await _orderDeliveryBusiness.GetCRMByShopIDAndIsCompleteShopListAsync(shopID, false);
             }
             catch (Exception e)
             {

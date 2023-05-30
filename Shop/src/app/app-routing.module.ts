@@ -5,6 +5,10 @@ import { OrderDeliveryComponent } from './order-delivery/order-delivery.componen
 import { OrderDeliveryInfoComponent } from './order-delivery/order-delivery-info/order-delivery-info.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { OrderCallComponent } from './order-call/order-call.component';
+import { OrderDeliveryDesktopComponent } from './order-delivery-desktop/order-delivery-desktop.component';
+import { MembershipTotalDebtComponent } from './membership-total-debt/membership-total-debt.component';
+import { OrderShipperComponent } from './order-shipper/order-shipper.component';
+import { OrderShipperInfoComponent } from './order-shipper/order-shipper-info/order-shipper-info.component';
 
 
 
@@ -14,10 +18,22 @@ const routes: Routes = [
     path: 'Homepage', component: HomepageComponent,
   },
   {
+    path: 'OrderShipper', component: OrderShipperComponent,
+  },
+  {
+    path: 'OrderShipperInfo/:ID', component: OrderShipperInfoComponent,
+  },
+  {
+    path: 'MembershipTotalDebt', component: MembershipTotalDebtComponent,
+  },
+  {
     path: 'OrderCall', component: OrderCallComponent,
   },
   {
     path: 'Membership', component: MembershipComponent,
+  },
+  {
+    path: 'OrderDeliveryDesktop', component: OrderDeliveryDesktopComponent,
   },
   {
     path: 'OrderDelivery', component: OrderDeliveryComponent,

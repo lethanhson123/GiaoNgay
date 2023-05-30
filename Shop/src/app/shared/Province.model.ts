@@ -11,6 +11,7 @@ export class Province {
     Display?: string;    
     Description?: string;    
     Note?: string;    
-    Active?: boolean;     
+    Active?: boolean;   
+    SortOrder?: number;      
 }
 

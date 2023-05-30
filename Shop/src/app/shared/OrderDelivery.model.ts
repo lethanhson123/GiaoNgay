@@ -19,7 +19,6 @@ export class OrderDelivery {
     QRcodeFile?: string;  
     ShopID?: number;  
     ShopFullName?: string;  
-    ShopAddress?: string;  
     ShopPhone?: string;  
     ShopZalo?: string;  
     ShopEmail?: string;  
@@ -82,6 +81,7 @@ export class OrderDelivery {
     IsExpress?: boolean;     
     IsShopPayment?: boolean;   
     IsPrepayment?: boolean;  
-    IsComplete?: boolean; 
+    IsCompleteShop?: boolean; 
+    IsCompleteShipper?: boolean; 
 }
 

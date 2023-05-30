@@ -13,11 +13,11 @@ import { MembershipService } from 'src/app/shared/Membership.service';
 import { UploadComponent } from '../upload/upload.component';
 
 @Component({
-  selector: 'app-order-delivery',
-  templateUrl: './order-delivery.component.html',
-  styleUrls: ['./order-delivery.component.css']
+  selector: 'app-order-delivery-desktop',
+  templateUrl: './order-delivery-desktop.component.html',
+  styleUrls: ['./order-delivery-desktop.component.css']
 })
-export class OrderDeliveryComponent implements OnInit {
+export class OrderDeliveryDesktopComponent implements OnInit {
 
   URLSub: string = environment.DomainDestination + "OrderDeliveryInfo";
   isShowLoading: boolean = false;
@@ -26,7 +26,7 @@ export class OrderDeliveryComponent implements OnInit {
   dateTimeEnd: Date = new Date();
   id: any;
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['Barcode', 'TotalBeforeTax', 'Save'];
+  displayColumns: string[] = ['DateCreated', 'Barcode', 'CustomerFullName', 'CustomerAddress', 'TotalBeforeTax', 'IsCompleteShop', 'Save'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
@@ -39,7 +39,7 @@ export class OrderDeliveryComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {   
+  ngOnInit(): void {
     this.onSearch();
     this.id = setInterval(() => {
       this.onSearch();
@@ -55,7 +55,7 @@ export class OrderDeliveryComponent implements OnInit {
     this.getToList();
   }
   getToList() {
-    this.isShowLoading = true;    
+    this.isShowLoading = true;
     this.OrderDeliveryService.GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.MembershipService.MembershipID, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
       res => {
         this.OrderDeliveryService.list = res as OrderDelivery[];
