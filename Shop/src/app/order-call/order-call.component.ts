@@ -12,7 +12,6 @@ import { DateHelper } from 'src/app/shared/DateHelper.model';
 import { DownloadService } from 'src/app/shared/Download.service';
 import { MembershipService } from 'src/app/shared/Membership.service';
 
-
 @Component({
   selector: 'app-order-call',
   templateUrl: './order-call.component.html',
@@ -21,7 +20,7 @@ import { MembershipService } from 'src/app/shared/Membership.service';
 export class OrderCallComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'DateCreated', 'ShopFullName', 'ShipperFullName', 'Quantity'];
+  displayColumns: string[] = ['ID', 'DateCreated', 'ShopFullName', 'ShipperFullName', 'Quantity', 'Save'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
@@ -93,5 +92,17 @@ export class OrderCallComponent implements OnInit {
       err => {
       }
     );
+  }
+  onDelete(element: OrderCall) {
+    if (confirm(environment.DeleteConfirm)) {
+      this.OrderCallService.RemoveAsync(element.ID).subscribe(
+        res => {
+          this.onSearch();
+        },
+        err => {
+          this.NotificationService.warn(environment.SaveNotSuccess);
+        }
+      );
+    }
   }
 }

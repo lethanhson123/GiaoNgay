@@ -17,7 +17,7 @@ import { ProvinceDetailComponent } from './province-detail/province-detail.compo
 export class ProvinceComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'Display', 'Active'];
+  displayColumns: string[] = ['ID', 'Display', 'SortOrder', 'Active'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;

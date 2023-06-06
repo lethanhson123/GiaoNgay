@@ -3,14 +3,15 @@
         <h5 class="card-title"><b>Bảng giá: {{CategoryOrderDetailService.formData.Display}}</b></h5>
     </div>
     <div class="col s12 m12 l3">
-        <button [disabled]="!CategoryOrderDetailService.formData.Name" title="Lưu thay đổi" type="submit" class="btn-floating waves-effect waves-light cyan"><i
+        <button [disabled]="!CategoryOrderDetailService.formData.Name" title="Lưu thay đổi" type="submit"
+            class="btn-floating waves-effect waves-light cyan"><i
                 class="material-icons">save</i></button>&nbsp;&nbsp;&nbsp;
         <a title="Đóng" class="btn-floating waves-effect waves-light purple lightrn-1" (click)="onClose()">
             <i class="material-icons">close</i>
         </a>
     </div>
-    <input name="ID" [(ngModel)]="CategoryOrderDetailService.formData.ID" type="hidden">    
-    <div class="col s12 m12 l6">        
+    <input name="ID" [(ngModel)]="CategoryOrderDetailService.formData.ID" type="hidden">
+    <div class="col s12 m12 l6">
         <div class="col s4 m4 l4">
             <div class="input-field">
                 <label for="Name">Bảng giá</label>
@@ -18,9 +19,21 @@
         </div>
         <div class="col s8 m8 l8">
             <div class="input-field">
-                <input placeholder="Bảng giá" name="Name" [(ngModel)]="CategoryOrderDetailService.formData.Name" type="text">
+                <input placeholder="Bảng giá" name="Name" [(ngModel)]="CategoryOrderDetailService.formData.Name"
+                    type="text">
             </div>
-        </div>    
+        </div>
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="Price">Giá</label>
+            </div>
+        </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input placeholder="Giá" name="Price" [(ngModel)]="CategoryOrderDetailService.formData.Price"
+                    type="number">
+            </div>
+        </div>
         <div class="col s12 m12 l12">
             <div class="col s12 m12 l3">
                 <div class="input-field">
@@ -32,29 +45,59 @@
                         </label>
                     </p>
                 </div>
-            </div>           
-        </div>      
+            </div>
+        </div>
     </div>
     <div class="col s12 m12 l6">
-        <div class="col s4 m4 l4">
+        <div class="col s12 m12 l4">
             <div class="input-field">
-                <label for="Price">Giá</label>
+                <label for="ProvinceID">Tỉnh thành</label>
             </div>
         </div>
-        <div class="col s8 m8 l8">
+        <div class="col s12 m12 l8">
             <div class="input-field">
-                <input placeholder="Giá" name="Price" [(ngModel)]="CategoryOrderDetailService.formData.Price" type="number">
-            </div>
-        </div>          
-        <div class="col s4 m4 l4">
-            <div class="input-field">
-                <label for="Quantity">Km</label>
-            </div>
-        </div>
-        <div class="col s8 m8 l8">
-            <div class="input-field">
-                <input placeholder="Km" name="Quantity" [(ngModel)]="CategoryOrderDetailService.formData.Quantity" type="number">
+                <mat-select (selectionChange)="onChangeProvinceID($event)"
+                    style="padding-top:20px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
+                    name="ProvinceID" class="browser-default"
+                    [(ngModel)]="CategoryOrderDetailService.formData.ProvinceID">
+                    <mat-option *ngFor="let item of ProvinceService.list" [value]="item.ID">
+                        {{item.Display}}
+                    </mat-option>
+                </mat-select>
             </div>
         </div>
-    </div>
+        <div class="col s12 m12 l4">
+            <div class="input-field">
+                <label for="DistrictID">Quận huyện</label>
+            </div>
+        </div>
+        <div class="col s12 m12 l8">
+            <div class="input-field">
+                <mat-select (selectionChange)="onChangeDistrictID($event)"
+                    style="padding-top:20px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
+                    name="DistrictID" class="browser-default"
+                    [(ngModel)]="CategoryOrderDetailService.formData.DistrictID">
+                    <mat-option *ngFor="let item of DistrictService.list" [value]="item.ID">
+                        {{item.Display}}
+                    </mat-option>
+                </mat-select>
+            </div>
+        </div>
+        <div class="col s12 m12 l4">
+            <div class="input-field">
+                <label for="WardID">Phường xã</label>
+            </div>
+        </div>
+        <div class="col s12 m12 l8">
+            <div class="input-field">
+                <mat-select
+                    style="padding-top:20px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
+                    name="WardID" class="browser-default" [(ngModel)]="CategoryOrderDetailService.formData.WardID">
+                    <mat-option *ngFor="let item of WardService.list" [value]="item.ID">
+                        {{item.Display}}
+                    </mat-option>
+                </mat-select>
+            </div>
+        </div>
+    </div>    
 </form>

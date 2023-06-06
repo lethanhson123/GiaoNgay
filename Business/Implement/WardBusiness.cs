@@ -74,5 +74,16 @@
             result.AddRange(await _wardRepository.GetByParentIDToListAsync(parentID));
             return result;
         }
+        public override async Task<List<Ward>> GetAllToListAsync()
+        {
+            List<Ward> result = new List<Ward>();
+            Ward unknown = new Ward();
+            unknown.ID = GlobalHelper.InitializationNumber;
+            unknown.SortOrder = GlobalHelper.InitializationNumber;
+            unknown.Display = GlobalHelper.Unknown;
+            result.Add(unknown);
+            result.AddRange(await _wardRepository.GetAllToListAsync());
+            return result;
+        }
     }
 }

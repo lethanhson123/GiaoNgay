@@ -28,11 +28,15 @@
                     <div id="1">
                         <div class="card-content">
                             <div class="col s12 m12 l3">
-                                <input matInput [ngModel]="dateTimeBegin | date:'yyyy-MM-dd'" (ngModelChange)="onChangeDateTimeBegin($event)" [ngModelOptions]="{ updateOn: 'blur' }" type="date"
+                                <input matInput [ngModel]="dateTimeBegin | date:'yyyy-MM-dd'"
+                                    (ngModelChange)="onChangeDateTimeBegin($event)"
+                                    [ngModelOptions]="{ updateOn: 'blur' }" type="date"
                                     class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
                             <div class="col s12 m12 l3">
-                                <input matInput [ngModel]="dateTimeEnd | date:'yyyy-MM-dd'" (ngModelChange)="onChangeDateTimeEnd($event)" [ngModelOptions]="{ updateOn: 'blur' }" type="date"
+                                <input matInput [ngModel]="dateTimeEnd | date:'yyyy-MM-dd'"
+                                    (ngModelChange)="onChangeDateTimeEnd($event)"
+                                    [ngModelOptions]="{ updateOn: 'blur' }" type="date"
                                     class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
                             <div class="col s12 m12 l3">
@@ -80,17 +84,20 @@
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Thành tiền
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element">
-                                            <p
-                                                style="text-align: right; color: #000000; font-weight: bold; font-size: 20px;">
-                                                {{element.TotalBeforeTax | number:
-                                                '1.0-0'}}
-                                            </p>
+                                            {{element.TotalBeforeTax | number:
+                                            '1.0-0'}}
                                         </mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="CategoryOrderStatusID">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">{{element.CategoryOrderStatusID}}</mat-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <div *ngFor="let item of CategoryOrderStatusService.list">
+                                                <div *ngIf="element.CategoryOrderStatusID==item.ID">
+                                                    {{item.Display}}
+                                                </div>
+                                            </div>
+                                        </mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="Save">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -98,7 +105,11 @@
                                         <mat-cell *matCellDef="let element">
                                             <a title="In đơn hàng"
                                                 class="btn-floating waves-effect waves-light green darken-1"
-                                                (click)="onPrint(element.ID)"><i class="material-icons">print</i></a>
+                                                (click)="onPrint(element.ID)"><i
+                                                    class="material-icons">print</i></a>&nbsp;&nbsp;&nbsp;
+                                            <a (click)="onDelete(element)"
+                                                class="btn-floating waves-effect waves-light red"><i
+                                                    class="material-icons">delete_outline</i></a>
                                         </mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="loading">

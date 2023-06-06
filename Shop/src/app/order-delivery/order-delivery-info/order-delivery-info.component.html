@@ -70,7 +70,7 @@
                                                         [(ngModel)]="OrderDeliveryService.formData.Barcode" type="text">
                                                 </div>
                                             </div>
-                                            <div class="col s12 m12 l4">
+                                            <!-- <div class="col s12 m12 l4">
                                                 <div class="input-field">
                                                     <label for="TotalBeforeTax">Thành tiền</label>
                                                 </div>
@@ -82,7 +82,7 @@
                                                         [(ngModel)]="OrderDeliveryService.formData.TotalBeforeTax"
                                                         type="number">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="col s12 m12 l12">
                                                 <div class="input-field">
                                                     <p>
@@ -94,18 +94,7 @@
                                                         </label>
                                                     </p>
                                                 </div>
-                                            </div>
-                                            <div class="col s12 m12 l12">
-                                                <div class="input-field">
-                                                    <p>
-                                                        <label>
-                                                            <input type="checkbox" class="filled-in" name="IsExpress"
-                                                                [(ngModel)]="OrderDeliveryService.formData.IsExpress" />
-                                                            <span>Hoả tốc</span>
-                                                        </label>
-                                                    </p>
-                                                </div>
-                                            </div>
+                                            </div>                                           
                                             <div class="col s12 m12 l12">
                                                 <div class="input-field">
                                                     <p>
@@ -261,7 +250,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col s12 m12 l12">
+                                        <div class="col s12 m12 l12" style="display: none;">
                                             <div class="KhungOverflow">
                                                 <mat-table [dataSource]="dataSource" matSort>
                                                     <ng-container matColumnDef="Name">

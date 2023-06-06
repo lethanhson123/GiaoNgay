@@ -13,6 +13,7 @@ import { NotificationService } from 'src/app/shared/notification.service';
 })
 export class LoginComponent implements OnInit {
 
+  registerURL: string = environment.RegisterURL;
   isShowLoading: boolean = false;
   queryString: string = '0';
   email: string = environment.InitializationString;
@@ -46,6 +47,7 @@ export class LoginComponent implements OnInit {
       res => {
         this.isShowLoading = false;
         this.MembershipService.formData = res as Membership;
+        console.log(this.MembershipService.formData);
         if (this.MembershipService.formData) {
           if (this.MembershipService.formData.Code) {
             if (this.MembershipService.formData.Description) {

@@ -90,4 +90,17 @@ export class OrderDeliveryDesktopComponent implements OnInit {
       this.onSearch();
     });
   }
+  onDelete(element: OrderDelivery) {
+    if (confirm(environment.DeleteConfirm)) {
+      element.Active = false;
+      this.OrderDeliveryService.RemoveAsync(element.ID).subscribe(
+        res => {
+          this.onSearch();
+        },
+        err => {
+          this.NotificationService.warn(environment.SaveNotSuccess);
+        }
+      );
+    }
+  }
 }

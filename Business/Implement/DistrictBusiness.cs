@@ -46,5 +46,16 @@ namespace Business.Implement
             result.AddRange(await _districtRepository.GetByParentIDToListAsync(parentID));
             return result;
         }
+        public override async Task<List<District>> GetAllToListAsync()
+        {
+            List<District> result = new List<District>();
+            District unknown = new District();
+            unknown.ID = GlobalHelper.InitializationNumber;
+            unknown.SortOrder = GlobalHelper.InitializationNumber;
+            unknown.Display = GlobalHelper.Unknown;
+            result.Add(unknown);
+            result.AddRange(await _districtRepository.GetAllToListAsync());
+            return result;
+        }
     }
 }

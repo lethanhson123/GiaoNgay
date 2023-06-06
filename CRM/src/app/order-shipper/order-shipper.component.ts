@@ -19,7 +19,7 @@ export class OrderShipperComponent implements OnInit {
 
   URLSub: string = environment.DomainDestination + "OrderShipperInfo";
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'DateCreated', 'Name', 'Note'];
+  displayColumns: string[] = ['ID', 'DateCreated', 'Name', 'Note', 'Save'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
@@ -31,18 +31,18 @@ export class OrderShipperComponent implements OnInit {
   constructor(
     public OrderShipperService: OrderShipperService,
     public DownloadService: DownloadService,
-    public NotificationService: NotificationService,    
+    public NotificationService: NotificationService,
   ) { }
 
-  ngOnInit(): void {   
-    this.onSearch();   
+  ngOnInit(): void {
+    this.onSearch();
   }
   ngOnDestroy() {
     if (this.id) {
       clearInterval(this.id);
     }
   }
- 
+
   onChangeDateTimeBegin(value) {
     this.dateTimeBegin = new Date(value);
   }
@@ -52,8 +52,8 @@ export class OrderShipperComponent implements OnInit {
   getToList() {
     this.isShowLoading = true;
     this.OrderShipperService.GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
-      res => {        
-        this.OrderShipperService.list = res as OrderShipper[];        
+      res => {
+        this.OrderShipperService.list = res as OrderShipper[];
         this.dataSource = new MatTableDataSource(this.OrderShipperService.list.sort((a, b) => (a.DateCreated < b.DateCreated ? 1 : -1)));
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -65,6 +65,24 @@ export class OrderShipperComponent implements OnInit {
     );
   }
   onSearch() {
-    this.getToList();
+    if (this.searchString.length > 0) {
+      this.dataSource.filter = this.searchString.toLowerCase();
+    }
+    else {
+      this.getToList();
+    }
+  }
+  onDelete(element: OrderShipper) {
+    if (confirm(environment.DeleteConfirm)) {
+      element.Active = false;
+      this.OrderShipperService.RemoveAsync(element.ID).subscribe(
+        res => {
+          this.onSearch();
+        },
+        err => {
+          this.NotificationService.warn(environment.SaveNotSuccess);
+        }
+      );
+    }
   }
 }

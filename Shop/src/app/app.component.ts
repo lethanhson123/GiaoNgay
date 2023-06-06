@@ -12,6 +12,7 @@ import { MembershipService } from 'src/app/shared/Membership.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   domainName = environment.DomainDestination;
   queryString: string = environment.InitializationString;
   authenticationToken: string = environment.InitializationString;
@@ -39,19 +40,36 @@ export class AppComponent {
   }
   checkAuthenticationToken() {
     let authenticationToken = localStorage.getItem(environment.AuthenticationToken);
-
     if (authenticationToken == null) {
       this.onNavigationToLogin();
     }
-    else {
+    else {      
       this.MembershipAuthenticationTokenService.GetByAuthenticationToken(authenticationToken).subscribe(
         res => {
           this.MembershipAuthenticationTokenService.formData = res as MembershipAuthenticationToken;
-          console.log(this.MembershipAuthenticationTokenService.formData);
           if (this.MembershipAuthenticationTokenService.formData != null) {
             if (this.MembershipAuthenticationTokenService.formData.ParentID > 0) {
               localStorage.setItem(environment.MembershipID, this.MembershipAuthenticationTokenService.formData.ParentID.toString());
+              this.MembershipService.GetByIDAsync(this.MembershipAuthenticationTokenService.formData.ParentID).subscribe(
+                res => {
+                  this.MembershipService.formData = res as Membership;
+                  if (this.MembershipService.formData) {
+                  }
+                  else {
+                    this.onNavigationToLogin();
+                  }
+                },
+                err => {
+                  this.onNavigationToLogin();
+                }
+              );
             }
+            else {
+              this.onNavigationToLogin();
+            }
+          }
+          else {
+            this.onNavigationToLogin();
           }
         },
         err => {
@@ -59,5 +77,20 @@ export class AppComponent {
         }
       );
     }
+  }
+  onLogout() {
+    this.MembershipService.GetByIDAsync(0).subscribe(
+      res => {
+        this.MembershipService.formData = res as Membership;
+        if (this.MembershipService.formData) {
+          localStorage.setItem(environment.AuthenticationToken, environment.InitializationString);
+          localStorage.setItem(environment.MembershipID, environment.InitializationString);
+          this.onNavigationToLogin();
+        }
+      },
+      err => {
+        this.onNavigationToLogin();
+      }
+    );
   }
 }

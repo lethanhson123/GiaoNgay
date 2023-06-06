@@ -64,6 +64,24 @@ export class OrderReceiveComponent implements OnInit {
     );
   }
   onSearch() {
-    this.getToList();
+    if (this.searchString.length > 0) {
+      this.dataSource.filter = this.searchString.toLowerCase();
+    }
+    else {
+      this.getToList();
+    }
+  }
+  onDelete(element: OrderReceive) {
+    if (confirm(environment.DeleteConfirm)) {
+      element.Active = false;
+      this.OrderReceiveService.RemoveAsync(element.ID).subscribe(
+        res => {
+          this.onSearch();
+        },
+        err => {
+          this.NotificationService.warn(environment.SaveNotSuccess);
+        }
+      );
+    }
   }
 }

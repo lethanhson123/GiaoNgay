@@ -28,11 +28,15 @@
                     <div id="1">
                         <div class="card-content">
                             <div class="col s12 m12 l3">
-                                <input matInput [ngModel]="dateTimeBegin | date:'yyyy-MM-dd'" (ngModelChange)="onChangeDateTimeBegin($event)" [ngModelOptions]="{ updateOn: 'blur' }" type="date"
+                                <input matInput [ngModel]="dateTimeBegin | date:'yyyy-MM-dd'"
+                                    (ngModelChange)="onChangeDateTimeBegin($event)"
+                                    [ngModelOptions]="{ updateOn: 'blur' }" type="date"
                                     class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
                             <div class="col s12 m12 l3">
-                                <input matInput [ngModel]="dateTimeEnd | date:'yyyy-MM-dd'" (ngModelChange)="onChangeDateTimeEnd($event)" [ngModelOptions]="{ updateOn: 'blur' }" type="date"
+                                <input matInput [ngModel]="dateTimeEnd | date:'yyyy-MM-dd'"
+                                    (ngModelChange)="onChangeDateTimeEnd($event)"
+                                    [ngModelOptions]="{ updateOn: 'blur' }" type="date"
                                     class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
                             <div class="col s12 m12 l3">
@@ -47,8 +51,8 @@
                                     class="btn-floating waves-effect waves-light green darken-1"><i
                                         class="material-icons">add</i></a>&nbsp;&nbsp;&nbsp;
                                 <a title="Upload bằng excel" (click)="onAdd(0)" style="margin-top: 5px;"
-                                        class="btn-floating waves-effect waves-light green darken-1"><i
-                                            class="material-icons">cloud_upload</i></a>&nbsp;&nbsp;&nbsp;
+                                    class="btn-floating waves-effect waves-light green darken-1"><i
+                                        class="material-icons">cloud_upload</i></a>&nbsp;&nbsp;&nbsp;
                             </div>
                             <div class="KhungOverflow">
                                 <mat-table [dataSource]="dataSource" matSort>
@@ -63,7 +67,7 @@
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element"><a target="_blank"
                                                 href="{{URLSub}}/{{element.ID}}"><b>{{element.Barcode}}</b></a></mat-cell>
-                                    </ng-container>                                                                        
+                                    </ng-container>
                                     <ng-container matColumnDef="CustomerFullName">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Khách hàng
                                         </mat-header-cell>
@@ -84,12 +88,12 @@
                                                 '1.0-0'}}
                                             </p>
                                         </mat-cell>
-                                    </ng-container>     
+                                    </ng-container>
                                     <ng-container matColumnDef="IsCompleteShop">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Thanh toán shop
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element">{{element.IsCompleteShop}}</mat-cell>
-                                    </ng-container>                             
+                                    </ng-container>
                                     <ng-container matColumnDef="Save">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>
                                         </mat-header-cell>
@@ -97,6 +101,10 @@
                                             <a title="In đơn hàng"
                                                 class="btn-floating waves-effect waves-light green darken-1"
                                                 (click)="onPrint(element.ID)"><i class="material-icons">print</i></a>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <a (click)="onDelete(element)"
+                                                class="btn-floating waves-effect waves-light red"><i
+                                                    class="material-icons">delete_outline</i></a>
                                         </mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="loading">

@@ -91,7 +91,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
         let membershipID = localStorage.getItem(environment.MembershipID);
         this.OrderDeliveryService.formData.ShopID = Number(membershipID);
         if (this.OrderDeliveryService.formData.ID > 0) {
-          this.GetOrderDeliveryDetailByParentIDToListAsync();
+          //this.GetOrderDeliveryDetailByParentIDToListAsync();
           this.GetOrderDeliveryReturnByParentIDToListAsync();
           this.GetOrderDeliveryFileByParentIDToListAsync();
         }
@@ -106,7 +106,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
       this.OrderDeliveryService.formData = res as OrderDelivery;
       if (this.OrderDeliveryService.formData) {
         if (this.OrderDeliveryService.formData.ID > 0) {
-          this.GetOrderDeliveryDetailByParentIDToListAsync();
+          //this.GetOrderDeliveryDetailByParentIDToListAsync();
           this.GetOrderDeliveryReturnByParentIDToListAsync();
           this.GetOrderDeliveryFileByParentIDToListAsync();
         }

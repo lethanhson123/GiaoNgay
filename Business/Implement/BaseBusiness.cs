@@ -11,6 +11,10 @@
         }
         public virtual void Initialization(T model)
         {
+            if (model.Active == null)
+            {
+                model.Active = true;
+            }
         }
         public virtual T Save(T model)
         {

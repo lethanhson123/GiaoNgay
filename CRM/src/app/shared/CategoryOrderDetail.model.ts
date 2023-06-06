@@ -14,5 +14,8 @@ export class CategoryOrderDetail {
     Active?: boolean;     
     Price?: number;    
     Quantity?: number;    
+    ProvinceID?: number;    
+    DistrictID?: number;    
+    WardID?: number;    
 }
 

@@ -83,7 +83,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
     public ProvinceService: ProvinceService,
     public MembershipService: MembershipService,
     public MailService: MailService,
-    public notificationService: NotificationService,
+    public NotificationService: NotificationService,
     private dialog: MatDialog
   ) {
     this.router.events.forEach((event) => {
@@ -268,7 +268,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.OrderDeliveryService.Save01Async(form.value).subscribe(
       res => {
-        this.notificationService.success(environment.SaveSuccess);
+        this.NotificationService.success(environment.SaveSuccess);
         if (this.OrderDeliveryService.formData.ID == 0) {
           this.OrderDeliveryService.formData = res as OrderDelivery;
           this.MailService.SendMailWhenOrderDeliveryCreate(this.OrderDeliveryService.formData.ID).then(
@@ -288,7 +288,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
         }
       },
       err => {
-        this.notificationService.warn(environment.SaveNotSuccess);
+        this.NotificationService.warn(environment.SaveNotSuccess);
       }
     );
   }
@@ -298,7 +298,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
         this.GetByQueryString001();
       },
       err => {
-        this.notificationService.warn(environment.SaveNotSuccess);
+        this.NotificationService.warn(environment.SaveNotSuccess);
       }
     );
   }
@@ -309,7 +309,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
           this.GetByQueryString001();
         },
         err => {
-          this.notificationService.warn(environment.SaveNotSuccess);
+          this.NotificationService.warn(environment.SaveNotSuccess);
         }
       );
     }
@@ -320,7 +320,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
         this.GetByQueryString001();
       },
       err => {
-        this.notificationService.warn(environment.SaveNotSuccess);
+        this.NotificationService.warn(environment.SaveNotSuccess);
       }
     );
   }
@@ -371,11 +371,11 @@ export class OrderDeliveryInfoComponent implements OnInit {
   onOrderDeliveryFileAdd() {
     this.OrderDeliveryFileService.SaveAndUploadFiles(this.OrderDeliveryService.formData.ID, this.fileToUpload).subscribe(
       res => {
-        this.notificationService.success(environment.SaveSuccess);
+        this.NotificationService.success(environment.SaveSuccess);
         this.GetOrderDeliveryFileByParentIDToListAsync();
       },
       err => {
-        this.notificationService.warn(environment.SaveNotSuccess);
+        this.NotificationService.warn(environment.SaveNotSuccess);
       }
     );
   }
@@ -386,7 +386,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
           this.GetOrderDeliveryFileByParentIDToListAsync();
         },
         err => {
-          this.notificationService.warn(environment.SaveNotSuccess);
+          this.NotificationService.warn(environment.SaveNotSuccess);
         }
       );
     }
@@ -413,7 +413,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
           this.GetOrderDeliveryPaymentHistoryByParentIDToListAsync();
         },
         err => {
-          this.notificationService.warn(environment.SaveNotSuccess);
+          this.NotificationService.warn(environment.SaveNotSuccess);
         }
       );
     }
@@ -442,11 +442,11 @@ export class OrderDeliveryInfoComponent implements OnInit {
   onOrderDeliveryReturnActiveChange(element: OrderDeliveryReturn) {
     this.OrderDeliveryReturnService.SaveAsync(element).subscribe(
       res => {
-        this.notificationService.warn(environment.SaveSuccess);
+        this.NotificationService.warn(environment.SaveSuccess);
         this.GetOrderDeliveryReturnByParentIDToListAsync();
       },
       err => {
-        this.notificationService.warn(environment.SaveNotSuccess);
+        this.NotificationService.warn(environment.SaveNotSuccess);
       }
     );
   }

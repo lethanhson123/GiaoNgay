@@ -5,7 +5,8 @@
             <div class="row">
                 <div class="col s12 m6 l6">
                     <h5 class="breadcrumbs-title mt-0 mb-0" style="color: #ffffff;">Bảng giá <span
-                            *ngIf="CategoryOrderDetailService.list">({{CategoryOrderDetailService.list.length}} items)</span></h5>
+                            *ngIf="CategoryOrderDetailService.list">({{CategoryOrderDetailService.list.length}}
+                            items)</span></h5>
                 </div>
                 <div class="col s12 m6 l6 right-align-md">
                     <ol class="breadcrumbs mb-0">
@@ -56,15 +57,47 @@
                                     </mat-header-cell>
                                     <mat-cell *matCellDef="let element">{{element.Price}}</mat-cell>
                                 </ng-container>
-                                <ng-container matColumnDef="Quantity">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Km
+                                <ng-container matColumnDef="ProvinceID">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Tỉnh thành
                                     </mat-header-cell>
-                                    <mat-cell *matCellDef="let element">{{element.Quantity}}</mat-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <div *ngFor="let item of ProvinceService.list">
+                                            <div *ngIf="element.ProvinceID==item.ID">
+                                                {{item.Display}}
+                                            </div>
+                                        </div>
+                                    </mat-cell>
                                 </ng-container>
-                                <ng-container matColumnDef="Active">
-                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Kích hoạt
+                                <ng-container matColumnDef="DistrictID">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Quận huyện
                                     </mat-header-cell>
-                                    <mat-cell *matCellDef="let element">{{element.Active}}</mat-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <div *ngFor="let item of DistrictService.list">
+                                            <div *ngIf="element.DistrictID==item.ID">
+                                                {{item.Display}}
+                                            </div>
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="WardID">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Phường xã
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <div *ngFor="let item of WardService.list">
+                                            <div *ngIf="element.WardID==item.ID">
+                                                {{item.Display}}
+                                            </div>
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="Save">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    </mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <a (click)="onDelete(element)"
+                                            class="btn-floating waves-effect waves-light red"><i
+                                                class="material-icons">delete_outline</i></a>
+                                    </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="loading">
                                     <mat-footer-cell *matFooterCellDef colspan="4">

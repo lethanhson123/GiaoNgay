@@ -74,7 +74,17 @@
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Số lượng
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element">{{element.Quantity | number:'1.0-0'}}</mat-cell>
-                                    </ng-container>                
+                                    </ng-container>          
+                                    <ng-container matColumnDef="Save">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">                                          
+                                            <a style="margin-right: 5px;"                                                
+                                                (click)="onDelete(element)"
+                                                class="btn-floating waves-effect waves-light red"><i
+                                                    class="material-icons">delete_outline</i></a>                                            
+                                        </mat-cell>
+                                    </ng-container>      
                                     <ng-container matColumnDef="loading">
                                         <mat-footer-cell *matFooterCellDef colspan="4">
                                             Đang tải dữ liệu...

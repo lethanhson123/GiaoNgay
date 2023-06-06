@@ -10,6 +10,9 @@ import { OrderDeliveryService } from 'src/app/shared/OrderDelivery.service';
 import { OrderDeliveryDetailComponent } from './order-delivery-detail/order-delivery-detail.component';
 import { DateHelper } from 'src/app/shared/DateHelper.model';
 import { DownloadService } from 'src/app/shared/Download.service';
+import { CategoryOrderStatus } from 'src/app/shared/CategoryOrderStatus.model';
+import { CategoryOrderStatusService } from 'src/app/shared/CategoryOrderStatus.service';
+
 
 @Component({
   selector: 'app-order-delivery',
@@ -31,13 +34,14 @@ export class OrderDeliveryComponent implements OnInit {
   id: any;
   constructor(
     public OrderDeliveryService: OrderDeliveryService,
+    public CategoryOrderStatusService: CategoryOrderStatusService,
     public DownloadService: DownloadService,
     public NotificationService: NotificationService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-
+    this.GetCategoryOrderStatusToList();
     this.onSearch();
     this.id = setInterval(() => {
       this.onSearch();
@@ -55,7 +59,7 @@ export class OrderDeliveryComponent implements OnInit {
     this.dateTimeEnd = new Date(value);
   }
   GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync() {
-    this.isShowLoading = true;       
+    this.isShowLoading = true;
     this.OrderDeliveryService.GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
       res => {
         this.OrderDeliveryService.list = res as OrderDelivery[];
@@ -80,5 +84,27 @@ export class OrderDeliveryComponent implements OnInit {
         this.isShowLoading = false;
       }
     );
+  }
+  GetCategoryOrderStatusToList() {
+    this.CategoryOrderStatusService.GetAllToListAsync().subscribe(
+      res => {
+        this.CategoryOrderStatusService.list = (res as CategoryOrderStatus[]).sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1));
+      },
+      err => {
+      }
+    );
+  }
+  onDelete(element: OrderDelivery) {
+    if (confirm(environment.DeleteConfirm)) {
+      element.Active = false;
+      this.OrderDeliveryService.RemoveAsync(element.ID).subscribe(
+        res => {
+          this.onSearch();
+        },
+        err => {
+          this.NotificationService.warn(environment.SaveNotSuccess);
+        }
+      );
+    }
   }
 }
