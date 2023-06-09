@@ -20,10 +20,12 @@
         </div>
         <div class="col s12 m12 l8">
             <div class="input-field">
-                <input style="text-align: right; font-weight: bold; width: 100%;" placeholder="DateCreated"
-                    name="DateCreated" [(ngModel)]="OrderCallService.formData.DateCreated" type="datetime-local">
+                <input name="DateCreated" style="text-align: right; font-weight: bold; width: 100%;"
+                    [ngModel]="OrderCallService.formData.DateCreated | date:'yyyy-MM-dd HH:mm'"
+                    (ngModelChange)="onChangeDateCreated($event)" [ngModelOptions]="{ updateOn: 'blur' }"
+                    type="datetime-local">
             </div>
-        </div>        
+        </div>
         <div class="col s4 m4 l4">
             <div class="input-field">
                 <label for="Quantity">Số lượng</label>

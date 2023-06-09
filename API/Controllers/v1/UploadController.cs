@@ -10,6 +10,7 @@ namespace API.Controllers.v1
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IBankBusiness _bankBusiness;
         private readonly IDistrictBusiness _districtBusiness;
+        private readonly IProvinceBusiness _provinceBusiness;
         private readonly IWardBusiness _wardBusiness;
         private readonly IOrderDeliveryBusiness _orderDeliveryBusiness;
         private readonly IOrderDeliveryDetailBusiness _orderDeliveryDetailBusiness;
@@ -17,6 +18,7 @@ namespace API.Controllers.v1
             IWebHostEnvironment webHostEnvironment
             , IBankBusiness bankBusiness
             , IDistrictBusiness districtBusiness
+            , IProvinceBusiness provinceBusiness
             , IWardBusiness wardBusiness
             , IOrderDeliveryBusiness orderDeliveryBusiness
             , IOrderDeliveryDetailBusiness orderDeliveryDetailBusiness
@@ -24,6 +26,7 @@ namespace API.Controllers.v1
         {
             _webHostEnvironment = webHostEnvironment;
             _bankBusiness = bankBusiness;
+            _provinceBusiness = provinceBusiness;
             _districtBusiness = districtBusiness;
             _wardBusiness = wardBusiness;
             _orderDeliveryBusiness = orderDeliveryBusiness;
@@ -330,40 +333,53 @@ namespace API.Controllers.v1
                                                         }
                                                     }
                                                 }
+                                                if (workSheet.Cells[i, 6].Value != null)
+                                                {
+                                                    Province province = new Province();
+                                                    province.Display = workSheet.Cells[i, 6].Value.ToString().Trim();
+                                                    province = await _provinceBusiness.GetByCondition(item => item.Display.Contains(province.Display)).FirstOrDefaultAsync();
+                                                    if (province != null)
+                                                    {
+                                                        if (province.ID > 0)
+                                                        {
+                                                            orderDelivery.DeliveryProvinceID = province.ID;
+                                                        }
+                                                    }
+                                                }
                                                 orderDelivery = await _orderDeliveryBusiness.SaveShopAsync(orderDelivery, _webHostEnvironment.WebRootPath);
                                                 if (orderDelivery.ID > 0)
                                                 {
                                                     OrderDeliveryDetail orderDeliveryDetail = new OrderDeliveryDetail();
                                                     orderDeliveryDetail.ParentID = orderDelivery.ID;
-                                                    if (workSheet.Cells[i, 6].Value != null)
+                                                    if (workSheet.Cells[i, 7].Value != null)
                                                     {
-                                                        orderDeliveryDetail.Name = workSheet.Cells[i, 6].Value.ToString().Trim();
-                                                    }
-                                                    try
-                                                    {
-                                                        if (workSheet.Cells[i, 7].Value != null)
-                                                        {
-                                                            orderDeliveryDetail.Quantity = decimal.Parse(workSheet.Cells[i, 7].Value.ToString().Trim());
-                                                        }
-                                                    }
-                                                    catch (Exception ex)
-                                                    {
-                                                        string mes = ex.Message;
+                                                        orderDeliveryDetail.Name = workSheet.Cells[i, 7].Value.ToString().Trim();
                                                     }
                                                     try
                                                     {
                                                         if (workSheet.Cells[i, 8].Value != null)
                                                         {
-                                                            orderDeliveryDetail.Price = decimal.Parse(workSheet.Cells[i, 8].Value.ToString().Trim());
+                                                            orderDeliveryDetail.Quantity = decimal.Parse(workSheet.Cells[i, 8].Value.ToString().Trim());
                                                         }
                                                     }
                                                     catch (Exception ex)
                                                     {
                                                         string mes = ex.Message;
                                                     }
-                                                    if (workSheet.Cells[i, 9].Value != null)
+                                                    try
                                                     {
-                                                        orderDeliveryDetail.Note = workSheet.Cells[i, 9].Value.ToString().Trim();
+                                                        if (workSheet.Cells[i, 9].Value != null)
+                                                        {
+                                                            orderDeliveryDetail.Price = decimal.Parse(workSheet.Cells[i, 9].Value.ToString().Trim());
+                                                        }
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        string mes = ex.Message;
+                                                    }
+                                                    if (workSheet.Cells[i, 10].Value != null)
+                                                    {
+                                                        orderDeliveryDetail.Note = workSheet.Cells[i, 10].Value.ToString().Trim();
                                                     }
                                                     await _orderDeliveryDetailBusiness.AddAsync(orderDeliveryDetail);
                                                     list.Add(orderDelivery);

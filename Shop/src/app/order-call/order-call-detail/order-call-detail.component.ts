@@ -104,4 +104,7 @@ export class OrderCallDetailComponent implements OnInit {
       );
     }
   }
+  onChangeDateCreated(value) {
+    this.OrderCallService.formData.DateCreated = new Date(value);
+  }
 }
