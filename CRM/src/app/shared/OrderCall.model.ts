@@ -22,6 +22,7 @@ export class OrderCall {
     ShopFullName?: string;    
     ShopAddress?: string;    
     ShipperFullName?: string;    
-    ShipperAddress?: string;       
+    ShipperAddress?: string;  
+    CategoryOrderStatusID?: number;       
 }
 

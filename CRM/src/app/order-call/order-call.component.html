@@ -24,15 +24,19 @@
     <div class="col s12">
         <div class="container">
             <div class="section section-data-tables">
-                <div class="card">                    
+                <div class="card">
                     <div id="1">
                         <div class="card-content">
                             <div class="col s12 m12 l3">
-                                <input matInput [ngModel]="dateTimeBegin | date:'yyyy-MM-dd'" (ngModelChange)="onChangeDateTimeBegin($event)" [ngModelOptions]="{ updateOn: 'blur' }" type="date"
+                                <input matInput [ngModel]="dateTimeBegin | date:'yyyy-MM-dd'"
+                                    (ngModelChange)="onChangeDateTimeBegin($event)"
+                                    [ngModelOptions]="{ updateOn: 'blur' }" type="date"
                                     class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
                             <div class="col s12 m12 l3">
-                                <input matInput [ngModel]="dateTimeEnd | date:'yyyy-MM-dd'" (ngModelChange)="onChangeDateTimeEnd($event)" [ngModelOptions]="{ updateOn: 'blur' }" type="date"
+                                <input matInput [ngModel]="dateTimeEnd | date:'yyyy-MM-dd'"
+                                    (ngModelChange)="onChangeDateTimeEnd($event)"
+                                    [ngModelOptions]="{ updateOn: 'blur' }" type="date"
                                     class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
                             <div class="col s12 m12 l3">
@@ -49,51 +53,73 @@
                             </div>
                             <div class="KhungOverflow">
                                 <mat-table [dataSource]="dataSource" matSort>
-                                    <ng-container matColumnDef="ID">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>ID
-                                        </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">{{element.ID}}</mat-cell>
-                                    </ng-container>
                                     <ng-container matColumnDef="DateCreated">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Ngày tạo
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element">{{element.DateCreated |
                                             date:'yyyy-MM-dd HH:mm:ss'}}</mat-cell>
                                     </ng-container>
+                                    <ng-container matColumnDef="CategoryOrderStatusID">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <div *ngFor="let item of CategoryOrderStatusService.list">
+                                                <div *ngIf="element.CategoryOrderStatusID==item.ID">
+                                                    {{item.Display}}
+                                                </div>
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
                                     <ng-container matColumnDef="ShopFullName">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Shop
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element"><a style="cursor: pointer;" (click)="onAdd(element.ID)"><b>{{element.ShopFullName}}</b></a></mat-cell>
-                                    </ng-container>               
+                                        <mat-cell *matCellDef="let element"><a style="cursor: pointer;"
+                                                (click)="onAdd(element.ID)"><b>{{element.ShopFullName}}</b></a></mat-cell>
+                                    </ng-container>
                                     <ng-container matColumnDef="ShipperFullName">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Shipper
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">{{element.ShipperFullName}}</mat-cell>
-                                    </ng-container>             
+                                        <mat-cell *matCellDef="let element">
+                                            <mat-select
+                                                style="padding-top:10px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
+                                                name="ShipperID" class="browser-default"
+                                                [(ngModel)]="element.ShipperID">
+                                                <mat-option *ngFor="let item of MembershipService.listShipper"
+                                                    [value]="item.ID">
+                                                    {{item.Display}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-cell>
+                                    </ng-container>
                                     <ng-container matColumnDef="Quantity">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Số lượng
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">{{element.Quantity | number:'1.0-0'}}</mat-cell>
-                                    </ng-container>    
+                                        <mat-cell *matCellDef="let element" style="margin-left: 20px;">
+                                            {{element.Quantity | number:'1.0-0'}}
+                                        </mat-cell>
+                                    </ng-container>
                                     <ng-container matColumnDef="ShopAddress">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Địa chỉ
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element">{{element.ShopAddress}}</mat-cell>
-                                    </ng-container>                 
+                                    </ng-container>
                                     <ng-container matColumnDef="Note">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Ghi chú
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element">{{element.Note}}</mat-cell>
-                                    </ng-container>     
+                                    </ng-container>
                                     <ng-container matColumnDef="Save">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">                                          
+                                        <mat-cell *matCellDef="let element">
+                                            <a style="margin-right: 5px;" (click)="onSave(element)"
+                                                class="btn-floating waves-effect waves-light cyan"><i
+                                                    class="material-icons">save</i></a>
                                             <a (click)="onDelete(element)"
                                                 class="btn-floating waves-effect waves-light red"><i
                                                     class="material-icons">delete_outline</i></a>
                                         </mat-cell>
-                                    </ng-container>          
+                                    </ng-container>
                                     <ng-container matColumnDef="loading">
                                         <mat-footer-cell *matFooterCellDef colspan="4">
                                             Đang tải dữ liệu...
@@ -116,7 +142,7 @@
                                     [showFirstLastButtons]></mat-paginator>                            -->
                             </div>
                         </div>
-                    </div>                                
+                    </div>
                 </div>
             </div>
         </div>

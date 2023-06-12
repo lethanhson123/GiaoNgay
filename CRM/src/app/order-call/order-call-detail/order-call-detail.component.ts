@@ -12,6 +12,8 @@ import { OrderCallFileService } from 'src/app/shared/OrderCallFile.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { CategoryOrderStatus } from 'src/app/shared/CategoryOrderStatus.model';
+import { CategoryOrderStatusService } from 'src/app/shared/CategoryOrderStatus.service';
 
 @Component({
   selector: 'app-order-call-detail',
@@ -35,6 +37,7 @@ export class OrderCallDetailComponent implements OnInit {
   constructor(
     public OrderCallService: OrderCallService,
     public OrderCallFileService: OrderCallFileService,
+    public CategoryOrderStatusService: CategoryOrderStatusService,
     public MembershipService: MembershipService,
     public notificationService: NotificationService,
     public dialogRef: MatDialogRef<OrderCallDetailComponent>,
@@ -43,9 +46,26 @@ export class OrderCallDetailComponent implements OnInit {
     this.ID = data["ID"] as number;
   }
   ngOnInit(): void {
+    this.getCategoryOrderStatusToList();
     this.getShopToList();
     this.getShipperToList();
     this.GetOrderCallFileByParentIDToListAsync();
+  }
+  getCategoryOrderStatusToList() {
+    this.CategoryOrderStatusService.GetAllToListAsync().subscribe(
+      res => {
+        this.CategoryOrderStatusService.list = (res as CategoryOrderStatus[]).sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1));
+        if (this.CategoryOrderStatusService.list) {
+          if (this.CategoryOrderStatusService.list.length > 0) {
+            if (this.OrderCallService.formData.ID == 0) {
+              this.OrderCallService.formData.CategoryOrderStatusID = this.CategoryOrderStatusService.list[0].ID;
+            }
+          }
+        }
+      },
+      err => {
+      }
+    );
   }
   getShopToList() {
     this.MembershipService.GetByParentIDToListAsync(environment.ShopID).subscribe(

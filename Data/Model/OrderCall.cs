@@ -12,6 +12,7 @@
         public string? ShopAddress { get; set; }
         public string? ShipperFullName { get; set; }
         public string? ShipperAddress { get; set; }
+        public long? CategoryOrderStatusID { get; set; }
         public OrderCall()
         {
             DateCreated = GlobalHelper.InitializationDateTime;

@@ -43,7 +43,7 @@
                                 <a title="Tìm" (click)="onSearch()"
                                     class="btn-floating waves-effect waves-light green darken-1"><i
                                         class="material-icons">search</i></a>&nbsp;&nbsp;&nbsp;
-                                <a title="Thêm mới" target="_blank" href="{{URLSub}}/0"
+                                <a title="Thêm mới" href="{{URLSub}}/0"
                                     class="btn-floating waves-effect waves-light green darken-1"><i
                                         class="material-icons">add</i></a>&nbsp;&nbsp;&nbsp;
                             </div>
@@ -63,7 +63,7 @@
                                     <ng-container matColumnDef="Name">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Shipper
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element"><a target="_blank"
+                                        <mat-cell *matCellDef="let element"><a title="{{element.Name}}"
                                                 href="{{URLSub}}/{{element.ID}}"><b>{{element.Name}}</b></a></mat-cell>
                                     </ng-container>                       
                                     <ng-container matColumnDef="Note">

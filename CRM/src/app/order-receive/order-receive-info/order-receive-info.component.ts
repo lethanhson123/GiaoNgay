@@ -12,6 +12,7 @@ import { MembershipService } from 'src/app/shared/Membership.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-order-receive-info',
@@ -69,7 +70,6 @@ export class OrderReceiveInfoComponent implements OnInit {
     this.OrderCallService.GetByOrderReceiveIDToListAsync(this.OrderReceiveService.formData.ID).subscribe(
       res => {
         this.OrderCallService.list = res as OrderCall[];
-        console.log(this.OrderCallService.list);
         this.dataSource = new MatTableDataSource(this.OrderCallService.list.sort((a, b) => (a.ShopFullName < b.ShopFullName ? 1 : -1)));
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -114,5 +114,16 @@ export class OrderReceiveInfoComponent implements OnInit {
         this.notificationService.warn(environment.SaveNotSuccess);
       }
     );
+  }
+  onSelectAllChange(event: MatCheckboxChange) {
+    this.OrderCallService.list.forEach(item => {
+      this.OrderCallService.UpdateByIDAndActiveAndOrderReceiveIDAsync(item.ID, event.checked, this.OrderReceiveService.formData.ID).subscribe(
+        res => {
+          this.GetByOrderReceiveIDToListAsync();
+        },
+        err => {
+        }
+      );
+    });
   }
 }
