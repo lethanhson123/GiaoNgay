@@ -34,6 +34,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MailService } from 'src/app/shared/Mail.service';
 import { OrderDeliveryHistoryDetailComponent } from 'src/app/order-delivery-history/order-delivery-history-detail/order-delivery-history-detail.component';
 
+
 @Component({
   selector: 'app-order-delivery-info',
   templateUrl: './order-delivery-info.component.html',
@@ -314,7 +315,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
       );
     }
   }
-  onOrderDeliveryDetailSave(element: OrderDeliveryDetail) {
+  onOrderDeliveryDetailSave(element: OrderDeliveryDetail) {    
     this.OrderDeliveryDetailService.SaveAsync(element).subscribe(
       res => {
         this.GetByQueryString001();

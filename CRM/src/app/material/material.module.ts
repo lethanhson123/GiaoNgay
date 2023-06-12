@@ -18,6 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatNativeDateModule } from '@angular/material/core';
 
+
 const MaterialComponents = [
   CommonModule,
   MatToolbarModule,
@@ -27,7 +28,7 @@ const MaterialComponents = [
   MatRadioModule,
   MatSelectModule,
   MatCheckboxModule,
-  MatDatepickerModule,  
+  MatDatepickerModule,
   MatButtonModule,
   MatSnackBarModule,
   MatTableModule,
@@ -36,7 +37,7 @@ const MaterialComponents = [
   MatSortModule,
   MatDialogModule,
   NgxMatSelectSearchModule,
-  MatNativeDateModule,     
+  MatNativeDateModule,
 ];
 
 @NgModule({

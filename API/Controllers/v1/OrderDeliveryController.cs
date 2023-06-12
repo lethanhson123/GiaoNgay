@@ -26,7 +26,17 @@ namespace API.Controllers.v1
             var result = await _orderDeliveryBusiness.GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(dateTimeBegin, dateTimeEnd, searchString);
             return result;
         }
-
+        [HttpPost]
+        [Route("GetCRMByProvinceIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync")]
+        public virtual async Task<List<OrderDelivery>> GetCRMByProvinceIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync()
+        {
+            long provinceID = JsonConvert.DeserializeObject<long>(Request.Form["provinceID"]);
+            DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
+            DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
+            string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
+            var result = await _orderDeliveryBusiness.GetCRMByProvinceIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(provinceID, dateTimeBegin, dateTimeEnd, searchString);
+            return result;
+        }
         [HttpPost]
         [Route("GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync")]
         public virtual async Task<List<OrderDelivery>> GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync()
@@ -152,7 +162,7 @@ namespace API.Controllers.v1
         {
             List<OrderDelivery> result = new List<OrderDelivery>();
             try
-            {               
+            {
                 result = await _orderDeliveryBusiness.GetCRMByShopIDAndIsCompleteShopListAsync(shopID, false);
             }
             catch (Exception e)

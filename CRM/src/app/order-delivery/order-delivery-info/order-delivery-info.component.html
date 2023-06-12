@@ -254,10 +254,11 @@
                                             </div>
                                             <div class="col s12 m12 l8">
                                                 <div class="input-field">
-                                                    <input disabled placeholder="Thành tiền" name="TotalBeforeTax"
-                                                        style="text-align: right; color: #000000; font-weight: bold; font-size: 16px;"
-                                                        [(ngModel)]="OrderDeliveryService.formData.TotalBeforeTax"
-                                                        type="number">
+                                                    <div name="TotalBeforeTax"
+                                                        style="text-align: right; color: #000000; font-weight: bold; font-size: 16px;">
+                                                        {{OrderDeliveryService.formData.TotalBeforeTax | number:
+                                                        '1.0-0'}}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col s12 m12 l12">
@@ -283,7 +284,7 @@
                                                         </label>
                                                     </p>
                                                 </div>
-                                            </div>                                            
+                                            </div>
                                             <div class="col s12 m12 l12">
                                                 <div class="input-field">
                                                     <p>
@@ -328,9 +329,12 @@
                                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Giá
                                                         </mat-header-cell>
                                                         <mat-cell *matCellDef="let element" style="margin-right: 10px;">
-                                                            <input placeholder="0" name="Price{{element.ID}}"
-                                                                style="text-align: right;" [(ngModel)]="element.Price"
-                                                                type="number">
+                                                            <!-- <input placeholder="0" name="Price{{element.ID}}"
+                                                                style="text-align: right;" [(ngModel)]="element.Price" 
+                                                                type="number"> -->
+                                                            <wj-input-number name="Price{{element.ID}}"
+                                                                [(ngModel)]="element.Price"
+                                                                [format]="n0"></wj-input-number>
                                                         </mat-cell>
                                                     </ng-container>
                                                     <ng-container matColumnDef="Note">
@@ -402,7 +406,8 @@
                                         <div class="col s12 m12 l12">
                                             <h4><b>Thanh toán</b></h4>
                                             <hr />
-                                            <a title="Thêm mới" (click)="onPaymentAdd(0)" *ngIf="OrderDeliveryService.formData.ID>0"
+                                            <a title="Thêm mới" (click)="onPaymentAdd(0)"
+                                                *ngIf="OrderDeliveryService.formData.ID>0"
                                                 class="btn-floating waves-effect waves-light green darken-1"><i
                                                     class="material-icons">add</i></a>&nbsp;&nbsp;&nbsp;
                                         </div>
@@ -472,7 +477,8 @@
                                                 <input type="file" multiple (change)="changeImage($event.target.files)">
                                             </div>
                                             <div class="input-field col s4 m4 l4">
-                                                <a class="btn-floating waves-effect waves-light cyan" *ngIf="OrderDeliveryService.formData.ID>0"
+                                                <a class="btn-floating waves-effect waves-light cyan"
+                                                    *ngIf="OrderDeliveryService.formData.ID>0"
                                                     (click)="onOrderDeliveryFileAdd()"><i
                                                         class="material-icons">cloud_upload</i></a>
                                             </div>
@@ -527,7 +533,8 @@
                                         <div class="col s12 m12 l12">
                                             <h4><b>Phát hàng</b></h4>
                                             <hr />
-                                            <a title="Thêm mới" (click)="onOrderDeliveryHistoryAdd(0)" *ngIf="OrderDeliveryService.formData.ID>0"
+                                            <a title="Thêm mới" (click)="onOrderDeliveryHistoryAdd(0)"
+                                                *ngIf="OrderDeliveryService.formData.ID>0"
                                                 class="btn-floating waves-effect waves-light green darken-1"><i
                                                     class="material-icons">add</i></a>&nbsp;&nbsp;&nbsp;
                                         </div>

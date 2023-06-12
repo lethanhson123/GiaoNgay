@@ -101,7 +101,13 @@
 	<!-- BEGIN: Custom CSS-->
 	<link rel="stylesheet" type="text/css" href="https://crm.giaongay.com.vn/app-assets/css/custom/custom.css">
 	<link rel="stylesheet" type="text/css" href="https://crm.giaongay.com.vn/app-assets/css/pages/login.css">
-
+	<script>
+        // workaround to load 'rxjs/operators' from the rxjs bundle
+        System.import('rxjs').then(function (m) {
+            System.set(SystemJS.resolveSync('rxjs/operators'), System.newModule(m.operators));
+            System.import('https://www.grapecity.com/wijmo/demos/en/lib/angular/license.ts').then(function() {return System.import('./src/app.module')});
+        });
+    </script>
 	<style>
 		.KhungOverflow {
 			height: auto;

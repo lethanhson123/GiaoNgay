@@ -93,14 +93,22 @@ export class OrderDeliveryService {
         return this.httpClient.post(url, formUpload);
     }
     GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
-        let url = this.aPIURL + this.controller + '/GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync';             
+        let url = this.aPIURL + this.controller + '/GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync';
         const formUpload: FormData = new FormData();
         formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
-        formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));        
+        formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));
         formUpload.append('searchString', searchString);
         return this.httpClient.post(url, formUpload);
     }
-    
+    GetCRMByProvinceIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(provinceID: number, dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetCRMByProvinceIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync';
+        const formUpload: FormData = new FormData();
+        formUpload.append('provinceID', JSON.stringify(provinceID));
+        formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
+        formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));
+        formUpload.append('searchString', searchString);
+        return this.httpClient.post(url, formUpload);
+    }
     GetByOrderShipperIDToListAsync(orderShipperID: number) {
         let url = this.aPIURL + this.controller + '/GetByOrderShipperIDToListAsync';
         const uploadData = JSON.stringify(orderShipperID);
@@ -116,7 +124,7 @@ export class OrderDeliveryService {
         const formUpload: FormData = new FormData();
         formUpload.append('ID', IDData);
         formUpload.append('active', activeData);
-        formUpload.append('orderShipperID', orderShipperIDData);        
+        formUpload.append('orderShipperID', orderShipperIDData);
         return this.httpClient.post(url, formUpload);
     }
     GetByOrderReceiveIDToListAsync(orderReceiveID: number) {
@@ -134,7 +142,7 @@ export class OrderDeliveryService {
         const formUpload: FormData = new FormData();
         formUpload.append('ID', IDData);
         formUpload.append('active', activeData);
-        formUpload.append('orderReceiveID', orderReceiveIDData);        
+        formUpload.append('orderReceiveID', orderReceiveIDData);
         return this.httpClient.post(url, formUpload);
     }
 }

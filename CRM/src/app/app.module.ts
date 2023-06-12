@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -6,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { CKEditorModule } from 'ngx-ckeditor';
+import { WjInputModule } from '@grapecity/wijmo.angular2.input';
 import { NotificationService } from './shared/notification.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ChartsModule } from 'ng2-charts';
@@ -121,6 +123,7 @@ import { MembershipTotalDebtInfoComponent } from './membership-total-debt/member
     MaterialModule,
     ChartsModule,
     CKEditorModule,
+    WjInputModule,
   ],
   providers: [   
     CookieService,  

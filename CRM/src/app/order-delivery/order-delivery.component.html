@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m6 l6">
-                    <h5 class="breadcrumbs-title mt-0 mb-0" style="color: #ffffff;">Đơn hàng <span
+                    <h5 class="breadcrumbs-title mt-0 mb-0" style="color: #ffffff;">Kho <span
                             *ngIf="OrderDeliveryService.list">({{OrderDeliveryService.list.length}} items)</span>
                     </h5>
                 </div>
@@ -14,7 +14,7 @@
                         </li>
                         <li class="breadcrumb-item"><a href="#" style="color: #ffffff;">Hệ thống</a>
                         </li>
-                        <li class="breadcrumb-item active" style="color: #ffffff;">Đơn hàng
+                        <li class="breadcrumb-item active" style="color: #ffffff;">Kho
                         </li>
                     </ol>
                 </div>
@@ -27,37 +27,42 @@
                 <div class="card">
                     <div id="1">
                         <div class="card-content">
-                            <div class="col s12 m12 l3">
+                            <div class="col s12 m12 l2">
                                 <input matInput [ngModel]="dateTimeBegin | date:'yyyy-MM-dd'"
                                     (ngModelChange)="onChangeDateTimeBegin($event)"
                                     [ngModelOptions]="{ updateOn: 'blur' }" type="date"
                                     class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
-                            <div class="col s12 m12 l3">
+                            <div class="col s12 m12 l2">
                                 <input matInput [ngModel]="dateTimeEnd | date:'yyyy-MM-dd'"
                                     (ngModelChange)="onChangeDateTimeEnd($event)"
                                     [ngModelOptions]="{ updateOn: 'blur' }" type="date"
                                     class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
                             <div class="col s12 m12 l3">
+                                <mat-select
+                                    style="padding-top:14px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
+                                    name="ProvinceID" class="browser-default"
+                                    [(ngModel)]="provinceID">
+                                    <mat-option *ngFor="let item of ProvinceService.list" [value]="item.ID">
+                                        {{item.Display}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                            <div class="col s12 m12 l2">
                                 <input matInput [(ngModel)]="searchString" placeholder="Tìm ..."
                                     class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
-                            <div class="col s12 m12 l3">
+                            <div class="col s12 m12 l2">
                                 <a title="Tìm" (click)="onSearch()"
                                     class="btn-floating waves-effect waves-light green darken-1"><i
                                         class="material-icons">search</i></a>&nbsp;&nbsp;&nbsp;
-                                <a title="Thêm mới" href="{{URLSub}}/0"
+                                <a target="_blank" title="Thêm mới" href="{{URLSub}}/0"
                                     class="btn-floating waves-effect waves-light green darken-1"><i
                                         class="material-icons">add</i></a>&nbsp;&nbsp;&nbsp;
                             </div>
                             <div class="KhungOverflow">
-                                <mat-table [dataSource]="dataSource" matSort>
-                                    <ng-container matColumnDef="ID">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>ID
-                                        </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">{{element.ID}}</mat-cell>
-                                    </ng-container>
+                                <mat-table [dataSource]="dataSource" matSort>                                    
                                     <ng-container matColumnDef="DateCreated">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Ngày tạo
                                         </mat-header-cell>
@@ -67,7 +72,9 @@
                                     <ng-container matColumnDef="Barcode">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Đơn hàng
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element"><a title="{{element.Barcode}}" href="{{URLSub}}/{{element.ID}}"><b>{{element.Barcode}}</b></a></mat-cell>
+                                        <mat-cell *matCellDef="let element"><a target="_blank"
+                                                title="{{element.Barcode}}"
+                                                href="{{URLSub}}/{{element.ID}}"><b>{{element.Barcode}}</b></a></mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="ShopFullName">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Shop

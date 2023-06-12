@@ -3,6 +3,7 @@
 	public interface IOrderDeliveryBusiness : IBaseBusiness<OrderDelivery>
 	{
         Task<List<OrderDelivery>> GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString);
+        Task<List<OrderDelivery>> GetCRMByProvinceIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long provinceID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString);
         Task<OrderDelivery> Save01Async(OrderDelivery model, string webRootPath);
         Task<OrderDelivery> SaveMembershipAsync(OrderDelivery model);
         Task<OrderDelivery> SaveShopAsync(OrderDelivery model, string webRootPath);
