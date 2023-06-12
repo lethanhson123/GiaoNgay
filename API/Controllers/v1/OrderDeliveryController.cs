@@ -61,6 +61,18 @@ namespace API.Controllers.v1
             return result;
         }
         [HttpPost]
+        [Route("GetByMembershipIDAndProvinceIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync")]
+        public virtual async Task<List<OrderDelivery>> GetByMembershipIDAndProvinceIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync()
+        {
+            long provinceID = JsonConvert.DeserializeObject<long>(Request.Form["provinceID"]);
+            long membershipID = JsonConvert.DeserializeObject<long>(Request.Form["membershipID"]);
+            DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
+            DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
+            string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
+            var result = await _orderDeliveryBusiness.GetByMembershipIDAndProvinceIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(membershipID, provinceID, dateTimeBegin, dateTimeEnd, searchString);
+            return result;
+        }
+        [HttpPost]
         [Route("Save01Async")]
         public virtual async Task<OrderDelivery> Save01Async()
         {

@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="col s9 m9 l9">
+        <h5 class="card-title"><b>Ẩn hiện cột</b></h5>
+    </div>
+    <div class="col s3 m3 l3">
+        <a title="Đóng" class="btn-floating waves-effect waves-light purple lightrn-1" (click)="onClose()">
+            <i class="material-icons">close</i>
+        </a>
+    </div>
+    <div class="col s12 m12 l6">
+        <div class="col s12 m12 l12">
+            <div class="input-field">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" name="Active"
+                            [(ngModel)]="OrderDeliveryService.isShowDateCreated" />
+                        <span>Ngày tạo</span>
+                    </label>
+                </p>
+            </div>
+        </div>
+        <div class="col s12 m12 l12">
+            <div class="input-field">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" name="Active"
+                            [(ngModel)]="OrderDeliveryService.isShowShopFullName" />
+                        <span>Shop</span>
+                    </label>
+                </p>
+            </div>
+        </div>
+        <div class="col s12 m12 l12">
+            <div class="input-field">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" name="Active"
+                            [(ngModel)]="OrderDeliveryService.isShowReceiveFullName" />
+                        <span>Lấy hàng</span>
+                    </label>
+                </p>
+            </div>
+        </div>
+        <div class="col s12 m12 l12">
+            <div class="input-field">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" name="Active"
+                            [(ngModel)]="OrderDeliveryService.isShowShipperFullName" />
+                        <span>Giao hàng</span>
+                    </label>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m12 l6">
+        <div class="col s12 m12 l12">
+            <div class="input-field">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" name="Active"
+                            [(ngModel)]="OrderDeliveryService.isShowCustomerFullName" />
+                        <span>Khách hàng</span>
+                    </label>
+                </p>
+            </div>
+        </div>
+        <div class="col s12 m12 l12">
+            <div class="input-field">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" name="Active"
+                            [(ngModel)]="OrderDeliveryService.isShowCustomerAddress" />
+                        <span>Địa chỉ</span>
+                    </label>
+                </p>
+            </div>
+        </div>
+        <div class="col s12 m12 l12">
+            <div class="input-field">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" name="Active"
+                            [(ngModel)]="OrderDeliveryService.isShowCategoryOrderStatusID" />
+                        <span>Tình trạng</span>
+                    </label>
+                </p>
+            </div>
+        </div>
+        <div class="col s12 m12 l12">
+            <div class="input-field">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" name="Active"
+                            [(ngModel)]="OrderDeliveryService.isShowIsCompleteShop" />
+                        <span>Thanh toán shop</span>
+                    </label>
+                </p>
+            </div>
+        </div>
+        <div class="col s12 m12 l12">
+            <div class="input-field">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" name="Active"
+                            [(ngModel)]="OrderDeliveryService.isShowTotalBeforeTax" />
+                        <span>Thành tiền</span>
+                    </label>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

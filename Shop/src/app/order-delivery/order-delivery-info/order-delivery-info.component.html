@@ -70,6 +70,17 @@
                                                         [(ngModel)]="OrderDeliveryService.formData.Barcode" type="text">
                                                 </div>
                                             </div>
+                                            <div class="col s12 m12 l4">
+                                                <div class="input-field">
+                                                    <label for="Note">Ghi chú</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s12 m12 l8">
+                                                <div class="input-field">
+                                                    <input placeholder="Ghi chú" name="Note"
+                                                        [(ngModel)]="OrderDeliveryService.formData.Note" type="text">
+                                                </div>
+                                            </div>
                                             <!-- <div class="col s12 m12 l4">
                                                 <div class="input-field">
                                                     <label for="TotalBeforeTax">Thành tiền</label>
@@ -94,7 +105,7 @@
                                                         </label>
                                                     </p>
                                                 </div>
-                                            </div>                                           
+                                            </div>
                                             <div class="col s12 m12 l12">
                                                 <div class="input-field">
                                                     <p>
@@ -233,20 +244,52 @@
                                             </div>
                                             <div class="col s12 m12 l8">
                                                 <div class="input-field">
-                                                    <input placeholder="Giá trị" name="Price"
-                                                        [(ngModel)]="OrderDeliveryDetailService.formData.Price"
-                                                        type="number">
+                                                    <wj-input-number name="Price"
+                                                        [(ngModel)]="OrderDeliveryDetailService.formData.Price"></wj-input-number>
                                                 </div>
                                             </div>
                                             <div class="col s12 m12 l4">
                                                 <div class="input-field">
-                                                    <label for="Note">Ghi chú</label>
+                                                    <label for="Weight">Cân nặng (kg)</label>
                                                 </div>
                                             </div>
                                             <div class="col s12 m12 l8">
                                                 <div class="input-field">
-                                                    <input placeholder="Ghi chú" name="Note"
-                                                        [(ngModel)]="OrderDeliveryService.formData.Note" type="text">
+                                                    <wj-input-number name="Weight"
+                                                        [(ngModel)]="OrderDeliveryDetailService.formData.Weight"></wj-input-number>
+                                                </div>
+                                            </div>
+                                            <div class="col s12 m12 l4">
+                                                <div class="input-field">
+                                                    <label for="Length">Dài (cm)</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s12 m12 l8">
+                                                <div class="input-field">
+                                                    <wj-input-number name="Length"
+                                                    [(ngModel)]="OrderDeliveryDetailService.formData.Length"></wj-input-number>
+                                                </div>
+                                            </div>
+                                            <div class="col s12 m12 l4">
+                                                <div class="input-field">
+                                                    <label for="Width">Rộng (cm)</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s12 m12 l8">
+                                                <div class="input-field">
+                                                    <wj-input-number name="Width"
+                                                    [(ngModel)]="OrderDeliveryDetailService.formData.Width"></wj-input-number>
+                                                </div>
+                                            </div>
+                                            <div class="col s12 m12 l4">
+                                                <div class="input-field">
+                                                    <label for="Height">Cao (cm)</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s12 m12 l8">
+                                                <div class="input-field">
+                                                    <wj-input-number name="Height"
+                                                    [(ngModel)]="OrderDeliveryDetailService.formData.Height"></wj-input-number>
                                                 </div>
                                             </div>
                                         </div>

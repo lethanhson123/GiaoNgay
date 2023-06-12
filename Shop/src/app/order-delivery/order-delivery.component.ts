@@ -11,6 +11,7 @@ import { DateHelper } from 'src/app/shared/DateHelper.model';
 import { DownloadService } from 'src/app/shared/Download.service';
 import { MembershipService } from 'src/app/shared/Membership.service';
 import { UploadComponent } from '../upload/upload.component';
+import { OrderDeliveryDisplayColumnsComponent } from './order-delivery-display-columns/order-delivery-display-columns.component';
 
 @Component({
   selector: 'app-order-delivery',
@@ -26,7 +27,7 @@ export class OrderDeliveryComponent implements OnInit {
   dateTimeEnd: Date = new Date();
   id: any;
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['Barcode', 'TotalBeforeTax', 'Save'];
+  displayColumns: string[];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
@@ -59,7 +60,7 @@ export class OrderDeliveryComponent implements OnInit {
     this.OrderDeliveryService.GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.MembershipService.MembershipID, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
       res => {
         this.OrderDeliveryService.list = res as OrderDelivery[];
-        console.log(this.OrderDeliveryService.list);
+        this.displayColumns = this.OrderDeliveryService.displayColumns;
         this.dataSource = new MatTableDataSource(this.OrderDeliveryService.list.sort((a, b) => (a.DateCreated < b.DateCreated ? 1 : -1)));
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -102,5 +103,14 @@ export class OrderDeliveryComponent implements OnInit {
         }
       );
     }
+  }
+  onShowHidden() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = environment.DialogConfigWidth;    
+    const dialog = this.dialog.open(OrderDeliveryDisplayColumnsComponent, dialogConfig);
+    dialog.afterClosed().subscribe(() => {      
+    });
   }
 }

@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { CKEditorModule } from 'ngx-ckeditor';
+import { WjInputModule } from '@grapecity/wijmo.angular2.input';
 import { NotificationService } from './shared/notification.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ChartsModule } from 'ng2-charts';
@@ -24,6 +25,7 @@ import { OrderDeliveryDesktopComponent } from './order-delivery-desktop/order-de
 import { MembershipTotalDebtComponent } from './membership-total-debt/membership-total-debt.component';
 import { OrderShipperComponent } from './order-shipper/order-shipper.component';
 import { OrderShipperInfoComponent } from './order-shipper/order-shipper-info/order-shipper-info.component';
+import { OrderDeliveryDisplayColumnsComponent } from './order-delivery/order-delivery-display-columns/order-delivery-display-columns.component';
 
 
 @NgModule({
@@ -41,6 +43,7 @@ import { OrderShipperInfoComponent } from './order-shipper/order-shipper-info/or
     MembershipTotalDebtComponent,
     OrderShipperComponent,
     OrderShipperInfoComponent,
+    OrderDeliveryDisplayColumnsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -51,6 +54,7 @@ import { OrderShipperInfoComponent } from './order-shipper/order-shipper-info/or
     MaterialModule,
     ChartsModule,
     CKEditorModule,
+    WjInputModule,
   ],
   providers: [   
     CookieService,  

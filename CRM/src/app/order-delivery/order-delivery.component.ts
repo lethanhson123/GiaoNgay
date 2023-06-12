@@ -14,6 +14,7 @@ import { CategoryOrderStatus } from 'src/app/shared/CategoryOrderStatus.model';
 import { CategoryOrderStatusService } from 'src/app/shared/CategoryOrderStatus.service';
 import { Province } from 'src/app/shared/Province.model';
 import { ProvinceService } from 'src/app/shared/Province.service';
+import { OrderDeliveryDisplayColumnsComponent } from './order-delivery-display-columns/order-delivery-display-columns.component';
 
 @Component({
   selector: 'app-order-delivery',
@@ -25,11 +26,21 @@ export class OrderDeliveryComponent implements OnInit {
   provinceID: number = environment.InitializationNumber;
   URLSub: string = environment.DomainDestination + "OrderDeliveryInfo";
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['DateCreated', 'Barcode', 'ShopFullName', 'TotalBeforeTax', 'CategoryOrderStatusID', 'IsCompleteShop', 'Save'];
+  displayColumns: string[];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
   searchString: string = environment.InitializationString;
+
+  isShowDateCreated: boolean = true;
+  isShowShopFullName: boolean = true;
+  isShowReceiveFullName: boolean = true;
+  isShowShipperFullName: boolean = true;
+  isShowCustomerFullName: boolean = true;
+  isShowCustomerAddress: boolean = true;
+  isShowCategoryOrderStatusID: boolean = true;
+  isShowIsCompleteShop: boolean = true;
+  isShowTotalBeforeTax: boolean = true;
 
   dateTimeBegin: Date = new Date();
   dateTimeEnd: Date = new Date();
@@ -82,6 +93,7 @@ export class OrderDeliveryComponent implements OnInit {
     this.OrderDeliveryService.GetCRMByProvinceIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.provinceID, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
       res => {
         this.OrderDeliveryService.list = res as OrderDelivery[];
+        this.displayColumns = this.OrderDeliveryService.displayColumns;
         this.dataSource = new MatTableDataSource(this.OrderDeliveryService.list.sort((a, b) => (a.DateCreated < b.DateCreated ? 1 : -1)));
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -125,5 +137,14 @@ export class OrderDeliveryComponent implements OnInit {
         }
       );
     }
+  }
+  onShowHidden() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = environment.DialogConfigWidth;    
+    const dialog = this.dialog.open(OrderDeliveryDisplayColumnsComponent, dialogConfig);
+    dialog.afterClosed().subscribe(() => {      
+    });
   }
 }

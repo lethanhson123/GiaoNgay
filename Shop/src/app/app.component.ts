@@ -43,17 +43,25 @@ export class AppComponent {
     if (authenticationToken == null) {
       this.onNavigationToLogin();
     }
-    else {      
+    else {
       this.MembershipAuthenticationTokenService.GetByAuthenticationToken(authenticationToken).subscribe(
         res => {
           this.MembershipAuthenticationTokenService.formData = res as MembershipAuthenticationToken;
           if (this.MembershipAuthenticationTokenService.formData != null) {
             if (this.MembershipAuthenticationTokenService.formData.ParentID > 0) {
+              localStorage.setItem(environment.AuthenticationToken, authenticationToken);
               localStorage.setItem(environment.MembershipID, this.MembershipAuthenticationTokenService.formData.ParentID.toString());
               this.MembershipService.GetByIDAsync(this.MembershipAuthenticationTokenService.formData.ParentID).subscribe(
                 res => {
                   this.MembershipService.formData = res as Membership;
+                  console.log(this.MembershipService.formData);
                   if (this.MembershipService.formData) {
+                    if (this.MembershipService.formData.ID > 0) {
+                      localStorage.setItem(environment.MembershipID, this.MembershipService.formData.ID.toString());
+                    }
+                    else {
+                      this.onNavigationToLogin();
+                    }
                   }
                   else {
                     this.onNavigationToLogin();

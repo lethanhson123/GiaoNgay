@@ -6,6 +6,17 @@ import { OrderDelivery } from 'src/app/shared/OrderDelivery.model';
     providedIn: 'root'
 })
 export class OrderDeliveryService {
+    displayColumns: string[] = ['DateCreated', 'Barcode', 'ShopFullName', 'ReceiveFullName', 'ShipperFullName', 'CustomerFullName', 'CustomerAddress', 'CategoryOrderStatusID', 'IsCompleteShop', 'TotalBeforeTax', 'Save'];
+    isShowDateCreated: boolean = true;
+    isShowShopFullName: boolean = true;
+    isShowReceiveFullName: boolean = true;
+    isShowShipperFullName: boolean = true;
+    isShowCustomerFullName: boolean = true;
+    isShowCustomerAddress: boolean = true;
+    isShowCategoryOrderStatusID: boolean = true;
+    isShowIsCompleteShop: boolean = true;
+    isShowTotalBeforeTax: boolean = true;
+    
     list: OrderDelivery[] | undefined;
     list01: OrderDelivery[] | undefined;
     list02: OrderDelivery[] | undefined;

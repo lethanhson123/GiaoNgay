@@ -357,6 +357,42 @@
                                                             </p>
                                                         </mat-cell>
                                                     </ng-container>
+                                                    <ng-container matColumnDef="Weight">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Cân nặng
+                                                        </mat-header-cell>
+                                                        <mat-cell *matCellDef="let element">
+                                                            <p style="text-align: right; font-weight: bold;">
+                                                                {{element.Weight | number: '1.0-0'}}
+                                                            </p>
+                                                        </mat-cell>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="Length">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Dài
+                                                        </mat-header-cell>
+                                                        <mat-cell *matCellDef="let element">
+                                                            <p style="text-align: right; font-weight: bold;">
+                                                                {{element.Length | number: '1.0-0'}}
+                                                            </p>
+                                                        </mat-cell>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="Width">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Rộng
+                                                        </mat-header-cell>
+                                                        <mat-cell *matCellDef="let element">
+                                                            <p style="text-align: right; font-weight: bold;">
+                                                                {{element.Width | number: '1.0-0'}}
+                                                            </p>
+                                                        </mat-cell>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="Height">
+                                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Cao
+                                                        </mat-header-cell>
+                                                        <mat-cell *matCellDef="let element">
+                                                            <p style="text-align: right; font-weight: bold;">
+                                                                {{element.Height | number: '1.0-0'}}
+                                                            </p>
+                                                        </mat-cell>
+                                                    </ng-container>
                                                     <ng-container matColumnDef="Save">
                                                         <mat-header-cell *matHeaderCellDef mat-sort-header>
                                                         </mat-header-cell>

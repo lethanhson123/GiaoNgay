@@ -15,6 +15,10 @@ export class OrderDeliveryDetail {
     CategoryOrderDetailID?: number; 
     Quantity?: number; 
     Price?: number; 
-    Total?: number;    
+    Total?: number;   
+    Weight?: number; 
+    Height?: number; 
+    Width?: number; 
+    Length?: number;  
 }
 

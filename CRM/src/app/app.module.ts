@@ -61,6 +61,7 @@ import { OrderDeliveryHistoryComponent } from './order-delivery-history/order-de
 import { OrderDeliveryHistoryDetailComponent } from './order-delivery-history/order-delivery-history-detail/order-delivery-history-detail.component';
 import { MembershipTotalDebtComponent } from './membership-total-debt/membership-total-debt.component';
 import { MembershipTotalDebtInfoComponent } from './membership-total-debt/membership-total-debt-info/membership-total-debt-info.component';
+import { OrderDeliveryDisplayColumnsComponent } from './order-delivery/order-delivery-display-columns/order-delivery-display-columns.component';
 
 
 @NgModule({
@@ -112,7 +113,8 @@ import { MembershipTotalDebtInfoComponent } from './membership-total-debt/member
     OrderDeliveryHistoryComponent,
     OrderDeliveryHistoryDetailComponent,
     MembershipTotalDebtComponent,
-    MembershipTotalDebtInfoComponent    
+    MembershipTotalDebtInfoComponent,
+    OrderDeliveryDisplayColumnsComponent    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

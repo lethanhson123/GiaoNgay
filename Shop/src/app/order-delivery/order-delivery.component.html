@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m6 l6">
-                    <h5 class="breadcrumbs-title mt-0 mb-0" style="color: #ffffff;">Đơn hàng (Điện thoại) <span
+                    <h5 class="breadcrumbs-title mt-0 mb-0" style="color: #ffffff;">Lên đơn<span
                             *ngIf="OrderDeliveryService.list">({{OrderDeliveryService.list.length}} items)</span>
                     </h5>
                 </div>
@@ -14,7 +14,7 @@
                         </li>
                         <li class="breadcrumb-item"><a href="#" style="color: #ffffff;">Hệ thống</a>
                         </li>
-                        <li class="breadcrumb-item active" style="color: #ffffff;">Đơn hàng (Điện thoại)
+                        <li class="breadcrumb-item active" style="color: #ffffff;">Lên đơn
                         </li>
                     </ol>
                 </div>
@@ -27,49 +27,116 @@
                 <div class="card">
                     <div id="1">
                         <div class="card-content">
-                            <div class="col s12 m12 l3">
+                            <div class="col s12 m12 l2">
                                 <input matInput [ngModel]="dateTimeBegin | date:'yyyy-MM-dd'"
                                     (ngModelChange)="onChangeDateTimeBegin($event)"
                                     [ngModelOptions]="{ updateOn: 'blur' }" type="date"
                                     class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
-                            <div class="col s12 m12 l3">
+                            <div class="col s12 m12 l2">
                                 <input matInput [ngModel]="dateTimeEnd | date:'yyyy-MM-dd'"
                                     (ngModelChange)="onChangeDateTimeEnd($event)"
                                     [ngModelOptions]="{ updateOn: 'blur' }" type="date"
                                     class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
-                            <div class="col s12 m12 l3">
+                            <div class="col s12 m12 l2">
                                 <input matInput [(ngModel)]="searchString" placeholder="Tìm ..."
                                     class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
-                            <div class="col s12 m12 l3">
-                                <a title="Tìm" (click)="onSearch()" style="margin-top: 5px;"
+                            <div class="col s12 m12 l6">
+                                <a title="Tìm" (click)="onSearch()"
                                     class="btn-floating waves-effect waves-light green darken-1"><i
                                         class="material-icons">search</i></a>&nbsp;&nbsp;&nbsp;
-                                <a title="Thêm mới" href="{{URLSub}}/0" style="margin-top: 5px;"
+                                <a title="Ẩn hiện cột" (click)="onShowHidden()"
+                                    class="btn-floating waves-effect waves-light green darken-1"><i
+                                        class="material-icons">all_inclusive</i></a>&nbsp;&nbsp;&nbsp;
+                                <a target="_blank" title="Thêm mới" href="{{URLSub}}/0"
                                     class="btn-floating waves-effect waves-light green darken-1"><i
                                         class="material-icons">add</i></a>&nbsp;&nbsp;&nbsp;
-                                <a title="Upload bằng excel" (click)="onAdd(0)" style="margin-top: 5px;"
+                                <a title="Upload bằng excel" (click)="onAdd(0)"
                                     class="btn-floating waves-effect waves-light green darken-1"><i
                                         class="material-icons">cloud_upload</i></a>&nbsp;&nbsp;&nbsp;
                             </div>
                             <div class="KhungOverflow">
                                 <mat-table [dataSource]="dataSource" matSort>
+                                    <ng-container matColumnDef="DateCreated">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header
+                                            [hidden]="!OrderDeliveryService.isShowDateCreated">Ngày tạo
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element"
+                                            [hidden]="!OrderDeliveryService.isShowDateCreated">{{element.DateCreated |
+                                            date:'yyyy-MM-dd HH:mm:ss'}}</mat-cell>
+                                    </ng-container>
                                     <ng-container matColumnDef="Barcode">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Đơn hàng
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element"><a target="_blank"
+                                                title="{{element.Barcode}}"
                                                 href="{{URLSub}}/{{element.ID}}"><b>{{element.Barcode}}</b></a></mat-cell>
                                     </ng-container>
-                                    <ng-container matColumnDef="TotalBeforeTax">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Thành tiền
+                                    <ng-container matColumnDef="ShopFullName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header
+                                            [hidden]="!OrderDeliveryService.isShowShopFullName">Shop
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">
-                                            <p style="text-align: right; color: #000000; font-weight: bold;">
-                                                {{element.TotalBeforeTax | number:
-                                                '1.0-0'}}
-                                            </p>
+                                        <mat-cell *matCellDef="let element"
+                                            [hidden]="!OrderDeliveryService.isShowShopFullName">{{element.ShopFullName}}</mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="ReceiveFullName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header
+                                            [hidden]="!OrderDeliveryService.isShowReceiveFullName">Lấy hàng
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element"
+                                            [hidden]="!OrderDeliveryService.isShowReceiveFullName">{{element.ReceiveFullName}}</mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="ShipperFullName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header
+                                            [hidden]="!OrderDeliveryService.isShowShipperFullName">Phát hàng
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element"
+                                            [hidden]="!OrderDeliveryService.isShowShipperFullName">{{element.ShipperFullName}}</mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="CustomerFullName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header
+                                            [hidden]="!OrderDeliveryService.isShowCustomerFullName">Khách hàng
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element"
+                                            [hidden]="!OrderDeliveryService.isShowCustomerFullName">{{element.CustomerFullName}}</mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="CustomerAddress">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header
+                                            [hidden]="!OrderDeliveryService.isShowCustomerAddress">Địa chỉ
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element"
+                                            [hidden]="!OrderDeliveryService.isShowCustomerAddress">{{element.CustomerAddress}}</mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="CategoryOrderStatusID">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header
+                                            [hidden]="!OrderDeliveryService.isShowCategoryOrderStatusID">Trạng thái
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element"
+                                            [hidden]="!OrderDeliveryService.isShowCategoryOrderStatusID">
+                                            <div *ngFor="let item of CategoryOrderStatusService.list">
+                                                <div *ngIf="element.CategoryOrderStatusID==item.ID">
+                                                    {{item.Display}}
+                                                </div>
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="IsCompleteShop">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header
+                                            [hidden]="!OrderDeliveryService.isShowIsCompleteShop">Thanh toán shop
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element"
+                                            [hidden]="!OrderDeliveryService.isShowIsCompleteShop">{{element.IsCompleteShop}}</mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="TotalBeforeTax">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header
+                                            [hidden]="!OrderDeliveryService.isShowTotalBeforeTax">Thành tiền
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element"
+                                            [hidden]="!OrderDeliveryService.isShowTotalBeforeTax">
+                                            {{element.TotalBeforeTax | number:
+                                            '1.0-0'}}
                                         </mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="Save">
@@ -78,8 +145,8 @@
                                         <mat-cell *matCellDef="let element">
                                             <a title="In đơn hàng"
                                                 class="btn-floating waves-effect waves-light green darken-1"
-                                                (click)="onPrint(element.ID)"><i class="material-icons">print</i></a>
-                                            &nbsp;&nbsp;&nbsp;
+                                                (click)="onPrint(element.ID)"><i
+                                                    class="material-icons">print</i></a>&nbsp;&nbsp;&nbsp;
                                             <a (click)="onDelete(element)"
                                                 class="btn-floating waves-effect waves-light red"><i
                                                     class="material-icons">delete_outline</i></a>

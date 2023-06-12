@@ -346,40 +346,101 @@ namespace API.Controllers.v1
                                                         }
                                                     }
                                                 }
+                                                if (workSheet.Cells[i, 7].Value != null)
+                                                {
+                                                    orderDelivery.Note = workSheet.Cells[i, 7].Value.ToString().Trim();
+                                                    if (!string.IsNullOrEmpty(orderDelivery.Note))
+                                                    {
+                                                        orderDelivery.IsShopPayment = true;
+                                                    }
+                                                }
+
                                                 orderDelivery = await _orderDeliveryBusiness.SaveShopAsync(orderDelivery, _webHostEnvironment.WebRootPath);
                                                 if (orderDelivery.ID > 0)
                                                 {
                                                     OrderDeliveryDetail orderDeliveryDetail = new OrderDeliveryDetail();
                                                     orderDeliveryDetail.ParentID = orderDelivery.ID;
-                                                    if (workSheet.Cells[i, 7].Value != null)
+                                                    if (workSheet.Cells[i, 8].Value != null)
                                                     {
-                                                        orderDeliveryDetail.Name = workSheet.Cells[i, 7].Value.ToString().Trim();
-                                                    }
-                                                    try
-                                                    {
-                                                        if (workSheet.Cells[i, 8].Value != null)
-                                                        {
-                                                            orderDeliveryDetail.Quantity = decimal.Parse(workSheet.Cells[i, 8].Value.ToString().Trim());
-                                                        }
-                                                    }
-                                                    catch (Exception ex)
-                                                    {
-                                                        string mes = ex.Message;
+                                                        orderDeliveryDetail.Name = workSheet.Cells[i, 8].Value.ToString().Trim();
                                                     }
                                                     try
                                                     {
                                                         if (workSheet.Cells[i, 9].Value != null)
                                                         {
-                                                            orderDeliveryDetail.Price = decimal.Parse(workSheet.Cells[i, 9].Value.ToString().Trim());
+                                                            orderDeliveryDetail.Quantity = decimal.Parse(workSheet.Cells[i, 9].Value.ToString().Trim());
                                                         }
                                                     }
                                                     catch (Exception ex)
                                                     {
                                                         string mes = ex.Message;
                                                     }
-                                                    if (workSheet.Cells[i, 10].Value != null)
+                                                    try
                                                     {
-                                                        orderDeliveryDetail.Note = workSheet.Cells[i, 10].Value.ToString().Trim();
+                                                        if (workSheet.Cells[i, 10].Value != null)
+                                                        {
+                                                            orderDeliveryDetail.Total = decimal.Parse(workSheet.Cells[i, 10].Value.ToString().Trim());
+                                                            if (orderDeliveryDetail.Quantity > 0)
+                                                            {
+                                                                orderDeliveryDetail.Price = orderDeliveryDetail.Total / orderDeliveryDetail.Quantity;
+                                                            }
+                                                        }
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        string mes = ex.Message;
+                                                    }
+
+                                                    try
+                                                    {
+                                                        if (workSheet.Cells[i, 11].Value != null)
+                                                        {
+                                                            orderDeliveryDetail.Weight = decimal.Parse(workSheet.Cells[i, 11].Value.ToString().Trim());
+                                                        }
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        string mes = ex.Message;
+                                                    }
+
+                                                    try
+                                                    {
+                                                        if (workSheet.Cells[i, 12].Value != null)
+                                                        {
+                                                            orderDeliveryDetail.Length = decimal.Parse(workSheet.Cells[i, 12].Value.ToString().Trim());
+                                                        }
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        string mes = ex.Message;
+                                                    }
+
+                                                    try
+                                                    {
+                                                        if (workSheet.Cells[i, 13].Value != null)
+                                                        {
+                                                            orderDeliveryDetail.Width = decimal.Parse(workSheet.Cells[i, 13].Value.ToString().Trim());
+                                                        }
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        string mes = ex.Message;
+                                                    }
+
+                                                    try
+                                                    {
+                                                        if (workSheet.Cells[i, 14].Value != null)
+                                                        {
+                                                            orderDeliveryDetail.Height = decimal.Parse(workSheet.Cells[i, 14].Value.ToString().Trim());
+                                                        }
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        string mes = ex.Message;
+                                                    }
+                                                    if (workSheet.Cells[i, 15].Value != null)
+                                                    {
+                                                        orderDeliveryDetail.Note = workSheet.Cells[i, 15].Value.ToString().Trim();
                                                     }
                                                     await _orderDeliveryDetailBusiness.AddAsync(orderDeliveryDetail);
                                                     list.Add(orderDelivery);

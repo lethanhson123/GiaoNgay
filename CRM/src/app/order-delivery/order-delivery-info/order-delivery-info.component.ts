@@ -49,7 +49,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
   BarcodeURL: string = environment.APIRootURL + environment.Barcode;
   QRcodeURL: string = environment.APIRootURL + environment.QRcode;
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['Name', 'Quantity', 'Price', 'Note', 'Total', 'Save'];
+  displayColumns: string[] = ['Name', 'Quantity', 'Price', 'Note', 'Total','Weight','Length','Width','Height', 'Save'];
 
   dataSourceFile: MatTableDataSource<any>;
   displayColumnsFile: string[] = ['Note', 'actions'];

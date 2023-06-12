@@ -42,8 +42,7 @@
                             <div class="col s12 m12 l3">
                                 <mat-select
                                     style="padding-top:14px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
-                                    name="ProvinceID" class="browser-default"
-                                    [(ngModel)]="provinceID">
+                                    name="ProvinceID" class="browser-default" [(ngModel)]="provinceID">
                                     <mat-option *ngFor="let item of ProvinceService.list" [value]="item.ID">
                                         {{item.Display}}
                                     </mat-option>
@@ -57,16 +56,22 @@
                                 <a title="Tìm" (click)="onSearch()"
                                     class="btn-floating waves-effect waves-light green darken-1"><i
                                         class="material-icons">search</i></a>&nbsp;&nbsp;&nbsp;
+                                <a title="Ẩn hiện cột" (click)="onShowHidden()"
+                                    class="btn-floating waves-effect waves-light green darken-1"><i
+                                        class="material-icons">all_inclusive</i></a>&nbsp;&nbsp;&nbsp;
                                 <a target="_blank" title="Thêm mới" href="{{URLSub}}/0"
                                     class="btn-floating waves-effect waves-light green darken-1"><i
                                         class="material-icons">add</i></a>&nbsp;&nbsp;&nbsp;
+
                             </div>
                             <div class="KhungOverflow">
-                                <mat-table [dataSource]="dataSource" matSort>                                    
+                                <mat-table [dataSource]="dataSource" matSort>
                                     <ng-container matColumnDef="DateCreated">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Ngày tạo
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header
+                                            [hidden]="!OrderDeliveryService.isShowDateCreated">Ngày tạo
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">{{element.DateCreated |
+                                        <mat-cell *matCellDef="let element"
+                                            [hidden]="!OrderDeliveryService.isShowDateCreated">{{element.DateCreated |
                                             date:'yyyy-MM-dd HH:mm:ss'}}</mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="Barcode">
@@ -77,32 +82,52 @@
                                                 href="{{URLSub}}/{{element.ID}}"><b>{{element.Barcode}}</b></a></mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="ShopFullName">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Shop
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="!OrderDeliveryService.isShowShopFullName">Shop
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">{{element.ShopFullName}}</mat-cell>
+                                        <mat-cell *matCellDef="let element" [hidden]="!OrderDeliveryService.isShowShopFullName">{{element.ShopFullName}}</mat-cell>
                                     </ng-container>
-                                    <ng-container matColumnDef="IsCompleteShop">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Thanh toán shop
+                                    <ng-container matColumnDef="ReceiveFullName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="!OrderDeliveryService.isShowReceiveFullName">Lấy hàng
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">{{element.IsCompleteShop}}</mat-cell>
+                                        <mat-cell *matCellDef="let element" [hidden]="!OrderDeliveryService.isShowReceiveFullName">{{element.ReceiveFullName}}</mat-cell>
                                     </ng-container>
-                                    <ng-container matColumnDef="TotalBeforeTax">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Thành tiền
+                                    <ng-container matColumnDef="ShipperFullName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="!OrderDeliveryService.isShowShipperFullName">Phát hàng
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">
-                                            {{element.TotalBeforeTax | number:
-                                            '1.0-0'}}
-                                        </mat-cell>
+                                        <mat-cell *matCellDef="let element" [hidden]="!OrderDeliveryService.isShowShipperFullName">{{element.ShipperFullName}}</mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="CustomerFullName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="!OrderDeliveryService.isShowCustomerFullName">Khách hàng
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element" [hidden]="!OrderDeliveryService.isShowCustomerFullName">{{element.CustomerFullName}}</mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="CustomerAddress">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="!OrderDeliveryService.isShowCustomerAddress">Địa chỉ
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element" [hidden]="!OrderDeliveryService.isShowCustomerAddress">{{element.CustomerAddress}}</mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="CategoryOrderStatusID">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="!OrderDeliveryService.isShowCategoryOrderStatusID">Trạng thái
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">
+                                        <mat-cell *matCellDef="let element" [hidden]="!OrderDeliveryService.isShowCategoryOrderStatusID">
                                             <div *ngFor="let item of CategoryOrderStatusService.list">
                                                 <div *ngIf="element.CategoryOrderStatusID==item.ID">
                                                     {{item.Display}}
                                                 </div>
                                             </div>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="IsCompleteShop">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="!OrderDeliveryService.isShowIsCompleteShop">Thanh toán shop
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element" [hidden]="!OrderDeliveryService.isShowIsCompleteShop">{{element.IsCompleteShop}}</mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="TotalBeforeTax">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header [hidden]="!OrderDeliveryService.isShowTotalBeforeTax">Thành tiền
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element" [hidden]="!OrderDeliveryService.isShowTotalBeforeTax">
+                                            {{element.TotalBeforeTax | number:
+                                            '1.0-0'}}
                                         </mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="Save">

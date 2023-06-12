@@ -16,5 +16,9 @@ export class OrderDeliveryDetail {
     Quantity?: number; 
     Price?: number; 
     Total?: number;    
+    Weight?: number; 
+    Height?: number; 
+    Width?: number; 
+    Length?: number; 
 }
 
