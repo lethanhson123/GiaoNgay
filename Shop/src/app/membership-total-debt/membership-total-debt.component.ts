@@ -9,6 +9,8 @@ import { OrderDelivery } from 'src/app/shared/OrderDelivery.model';
 import { OrderDeliveryService } from 'src/app/shared/OrderDelivery.service';
 import { MembershipService } from 'src/app/shared/Membership.service';
 import { DownloadService } from 'src/app/shared/Download.service';
+import { CategoryOrderStatus } from 'src/app/shared/CategoryOrderStatus.model';
+import { CategoryOrderStatusService } from 'src/app/shared/CategoryOrderStatus.service';
 
 @Component({
   selector: 'app-membership-total-debt',
@@ -19,7 +21,7 @@ export class MembershipTotalDebtComponent implements OnInit {
 
   URLSub: string = environment.DomainDestination + "OrderDeliveryInfo";
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'DateCreated', 'Barcode', 'CustomerFullName', 'TotalBeforeTax', 'CategoryOrderStatusID', 'IsCompleteShop', 'Save'];
+  displayColumns: string[] = ['DateCreated', 'Barcode', 'CustomerFullName', 'TotalBeforeTax', 'CategoryOrderStatusID', 'IsCompleteShop', 'Save'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
@@ -28,18 +30,29 @@ export class MembershipTotalDebtComponent implements OnInit {
   constructor(
     public router: Router,    
     public OrderDeliveryService: OrderDeliveryService,
+    public CategoryOrderStatusService: CategoryOrderStatusService,
     public MembershipService: MembershipService,
     public DownloadService: DownloadService,
   ) { 
     this.router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         this.queryString = event.url;
+        this.GetCategoryOrderStatusToList();
         this.getByQueryString();
       }
     });
   }
 
   ngOnInit(): void {
+  }
+  GetCategoryOrderStatusToList() {
+    this.CategoryOrderStatusService.GetAllToListAsync().subscribe(
+      res => {
+        this.CategoryOrderStatusService.list = (res as CategoryOrderStatus[]).sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1));
+      },
+      err => {
+      }
+    );
   }
   getByQueryString() {
     this.isShowLoading = true;

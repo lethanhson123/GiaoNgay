@@ -95,17 +95,18 @@
                 <input placeholder="Ghi chú" name="Note" [(ngModel)]="OrderCallService.formData.Note" type="text">
             </div>
         </div>
-    </div>
-    <div class="col s12 m12 l6">
-        <div class="col s12 m12 l12">
-            <div class="input-field col s8 m4 l8">
-                <input type="file" multiple (change)="changeImage($event.target.files)">
-            </div>
-            <div class="input-field col s4 m4 l4">
-                <a *ngIf="OrderCallService.formData.ID>0" class="btn-floating waves-effect waves-light cyan"
-                    (click)="onOrderCallFileAdd()"><i class="material-icons">cloud_upload</i></a>
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="Note">Hình đính kèm</label>
             </div>
         </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input type="file" multiple (change)="changeImage($event.target.files)">
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m12 l6">       
         <div class="col s12 m12 l12">
             <div class="KhungOverflow">
                 <mat-table [dataSource]="dataSource" matSort>
@@ -114,7 +115,7 @@
                         </mat-header-cell>
                         <mat-cell *matCellDef="let element">
                             <a target="_blank" href="{{imageURL}}/{{element.Note}}" *ngIf="element.Note">
-                                <img class="responsive-img" src="{{imageURL}}/{{element.Note}}" />
+                                <img width="70%" class="responsive-img" src="{{imageURL}}/{{element.Note}}" />
                             </a>
                         </mat-cell>
                     </ng-container>

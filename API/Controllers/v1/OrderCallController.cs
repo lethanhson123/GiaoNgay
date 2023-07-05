@@ -1,14 +1,18 @@
-﻿namespace API.Controllers.v1
+﻿using Microsoft.AspNetCore.Hosting;
+
+namespace API.Controllers.v1
 {
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
     public class OrderCallController : BaseController<OrderCall, IOrderCallBusiness>
-    {
-        private readonly IOrderCallBusiness _orderCallBusiness;
-        public OrderCallController(IOrderCallBusiness orderCallBusiness) : base(orderCallBusiness)
-        {
-            _orderCallBusiness = orderCallBusiness;
+    {        
+        private readonly IOrderCallBusiness _orderCallBusiness;             
+        public OrderCallController(IWebHostEnvironment webHostEnvironment
+            , IOrderCallBusiness orderCallBusiness
+            , IOrderCallFileBusiness olrderCallFileBusiness) : base(orderCallBusiness)
+        {            
+            _orderCallBusiness = orderCallBusiness;         
         }
 
         [HttpPost]
@@ -45,14 +49,14 @@
             return result;
         }
         [HttpPost]
-        [Route("GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync")]
-        public virtual async Task<List<OrderCall>> GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync()
+        [Route("GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync")]
+        public virtual async Task<List<OrderCall>> GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync()
         {
             long membershipID = JsonConvert.DeserializeObject<long>(Request.Form["membershipID"]);
             DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
             DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
             string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
-            var result = await _orderCallBusiness.GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync(membershipID, dateTimeBegin, dateTimeEnd, searchString);
+            var result = await _orderCallBusiness.GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(membershipID, dateTimeBegin, dateTimeEnd, searchString);
             return result;
         }
         [HttpPost]
@@ -72,6 +76,6 @@
             long orderReceiveID = JsonConvert.DeserializeObject<long>(Request.Form["orderReceiveID"]);
             var result = await _orderCallBusiness.UpdateByIDAndActiveAndOrderReceiveIDAsync(ID, active, orderReceiveID);
             return result;
-        }
+        }       
     }
 }

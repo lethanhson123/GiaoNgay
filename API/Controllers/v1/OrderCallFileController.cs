@@ -38,7 +38,7 @@ namespace API.Controllers.v1
                             string fileExtension = Path.GetExtension(file.FileName);
                             string fileName = Path.GetFileNameWithoutExtension(file.FileName);
                             fileName = orderCallFile.ParentID + "_" + GlobalHelper.InitializationDateTimeCode + fileExtension;
-                            string folderPath = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Image, GlobalHelper.OrderCall);
+                            string folderPath = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Image, GlobalHelper.OrderDelivery);
                             bool isFolderExists = System.IO.Directory.Exists(folderPath);
                             if (!isFolderExists)
                             {
@@ -50,7 +50,7 @@ namespace API.Controllers.v1
                                 file.CopyTo(stream);
                             }
                             orderCallFile.Note = fileName;
-                            await _orderCallFileBusiness.AddAsync(orderCallFile);
+                            await _orderCallFileBusiness.Save01Async(orderCallFile, _webHostEnvironment.WebRootPath);
                         }
                     }
                 }

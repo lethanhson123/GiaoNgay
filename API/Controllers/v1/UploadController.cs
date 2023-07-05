@@ -295,22 +295,22 @@ namespace API.Controllers.v1
                                             {
                                                 OrderDelivery orderDelivery = new OrderDelivery();
                                                 orderDelivery.ShopID = membershipID;
-                                                if (workSheet.Cells[i, 1].Value != null)
-                                                {
-                                                    orderDelivery.CustomerFullName = workSheet.Cells[i, 1].Value.ToString().Trim();
-                                                }
                                                 if (workSheet.Cells[i, 2].Value != null)
                                                 {
-                                                    orderDelivery.CustomerPhone = workSheet.Cells[i, 2].Value.ToString().Trim();
+                                                    orderDelivery.CustomerFullName = workSheet.Cells[i, 2].Value.ToString().Trim();
                                                 }
                                                 if (workSheet.Cells[i, 3].Value != null)
                                                 {
-                                                    orderDelivery.CustomerAddress = workSheet.Cells[i, 3].Value.ToString().Trim();
+                                                    orderDelivery.CustomerPhone = workSheet.Cells[i, 3].Value.ToString().Trim();
                                                 }
                                                 if (workSheet.Cells[i, 4].Value != null)
                                                 {
+                                                    orderDelivery.CustomerAddress = workSheet.Cells[i, 4].Value.ToString().Trim();
+                                                }
+                                                if (workSheet.Cells[i, 5].Value != null)
+                                                {
                                                     Ward ward = new Ward();
-                                                    ward.Display = workSheet.Cells[i, 4].Value.ToString().Trim();
+                                                    ward.Display = workSheet.Cells[i, 5].Value.ToString().Trim();
                                                     ward = await _wardBusiness.GetByCondition(item => item.Display.Contains(ward.Display)).FirstOrDefaultAsync();
                                                     if (ward != null)
                                                     {
@@ -320,10 +320,10 @@ namespace API.Controllers.v1
                                                         }
                                                     }
                                                 }
-                                                if (workSheet.Cells[i, 5].Value != null)
+                                                if (workSheet.Cells[i, 6].Value != null)
                                                 {
                                                     District district = new District();
-                                                    district.Display = workSheet.Cells[i, 5].Value.ToString().Trim();
+                                                    district.Display = workSheet.Cells[i, 6].Value.ToString().Trim();
                                                     district = await _districtBusiness.GetByCondition(item => item.Display.Contains(district.Display)).FirstOrDefaultAsync();
                                                     if (district != null)
                                                     {
@@ -333,10 +333,10 @@ namespace API.Controllers.v1
                                                         }
                                                     }
                                                 }
-                                                if (workSheet.Cells[i, 6].Value != null)
+                                                if (workSheet.Cells[i, 7].Value != null)
                                                 {
                                                     Province province = new Province();
-                                                    province.Display = workSheet.Cells[i, 6].Value.ToString().Trim();
+                                                    province.Display = workSheet.Cells[i, 7].Value.ToString().Trim();
                                                     province = await _provinceBusiness.GetByCondition(item => item.Display.Contains(province.Display)).FirstOrDefaultAsync();
                                                     if (province != null)
                                                     {
@@ -346,9 +346,9 @@ namespace API.Controllers.v1
                                                         }
                                                     }
                                                 }
-                                                if (workSheet.Cells[i, 7].Value != null)
+                                                if (workSheet.Cells[i, 8].Value != null)
                                                 {
-                                                    orderDelivery.Note = workSheet.Cells[i, 7].Value.ToString().Trim();
+                                                    orderDelivery.Note = workSheet.Cells[i, 8].Value.ToString().Trim();
                                                     if (!string.IsNullOrEmpty(orderDelivery.Note))
                                                     {
                                                         orderDelivery.IsShopPayment = true;
@@ -360,15 +360,15 @@ namespace API.Controllers.v1
                                                 {
                                                     OrderDeliveryDetail orderDeliveryDetail = new OrderDeliveryDetail();
                                                     orderDeliveryDetail.ParentID = orderDelivery.ID;
-                                                    if (workSheet.Cells[i, 8].Value != null)
+                                                    if (workSheet.Cells[i, 9].Value != null)
                                                     {
-                                                        orderDeliveryDetail.Name = workSheet.Cells[i, 8].Value.ToString().Trim();
+                                                        orderDeliveryDetail.Name = workSheet.Cells[i, 9].Value.ToString().Trim();
                                                     }
                                                     try
                                                     {
-                                                        if (workSheet.Cells[i, 9].Value != null)
+                                                        if (workSheet.Cells[i, 10].Value != null)
                                                         {
-                                                            orderDeliveryDetail.Quantity = decimal.Parse(workSheet.Cells[i, 9].Value.ToString().Trim());
+                                                            orderDeliveryDetail.Quantity = decimal.Parse(workSheet.Cells[i, 10].Value.ToString().Trim());
                                                         }
                                                     }
                                                     catch (Exception ex)
@@ -377,9 +377,9 @@ namespace API.Controllers.v1
                                                     }
                                                     try
                                                     {
-                                                        if (workSheet.Cells[i, 10].Value != null)
+                                                        if (workSheet.Cells[i, 11].Value != null)
                                                         {
-                                                            orderDeliveryDetail.Total = decimal.Parse(workSheet.Cells[i, 10].Value.ToString().Trim());
+                                                            orderDeliveryDetail.Total = decimal.Parse(workSheet.Cells[i, 11].Value.ToString().Trim());
                                                             if (orderDeliveryDetail.Quantity > 0)
                                                             {
                                                                 orderDeliveryDetail.Price = orderDeliveryDetail.Total / orderDeliveryDetail.Quantity;
@@ -393,21 +393,9 @@ namespace API.Controllers.v1
 
                                                     try
                                                     {
-                                                        if (workSheet.Cells[i, 11].Value != null)
-                                                        {
-                                                            orderDeliveryDetail.Weight = decimal.Parse(workSheet.Cells[i, 11].Value.ToString().Trim());
-                                                        }
-                                                    }
-                                                    catch (Exception ex)
-                                                    {
-                                                        string mes = ex.Message;
-                                                    }
-
-                                                    try
-                                                    {
                                                         if (workSheet.Cells[i, 12].Value != null)
                                                         {
-                                                            orderDeliveryDetail.Length = decimal.Parse(workSheet.Cells[i, 12].Value.ToString().Trim());
+                                                            orderDeliveryDetail.Weight = decimal.Parse(workSheet.Cells[i, 12].Value.ToString().Trim());
                                                         }
                                                     }
                                                     catch (Exception ex)
@@ -419,7 +407,7 @@ namespace API.Controllers.v1
                                                     {
                                                         if (workSheet.Cells[i, 13].Value != null)
                                                         {
-                                                            orderDeliveryDetail.Width = decimal.Parse(workSheet.Cells[i, 13].Value.ToString().Trim());
+                                                            orderDeliveryDetail.Length = decimal.Parse(workSheet.Cells[i, 13].Value.ToString().Trim());
                                                         }
                                                     }
                                                     catch (Exception ex)
@@ -431,16 +419,28 @@ namespace API.Controllers.v1
                                                     {
                                                         if (workSheet.Cells[i, 14].Value != null)
                                                         {
-                                                            orderDeliveryDetail.Height = decimal.Parse(workSheet.Cells[i, 14].Value.ToString().Trim());
+                                                            orderDeliveryDetail.Width = decimal.Parse(workSheet.Cells[i, 14].Value.ToString().Trim());
                                                         }
                                                     }
                                                     catch (Exception ex)
                                                     {
                                                         string mes = ex.Message;
                                                     }
-                                                    if (workSheet.Cells[i, 15].Value != null)
+
+                                                    try
                                                     {
-                                                        orderDeliveryDetail.Note = workSheet.Cells[i, 15].Value.ToString().Trim();
+                                                        if (workSheet.Cells[i, 15].Value != null)
+                                                        {
+                                                            orderDeliveryDetail.Height = decimal.Parse(workSheet.Cells[i, 15].Value.ToString().Trim());
+                                                        }
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        string mes = ex.Message;
+                                                    }
+                                                    if (workSheet.Cells[i, 16].Value != null)
+                                                    {
+                                                        orderDeliveryDetail.Note = workSheet.Cells[i, 16].Value.ToString().Trim();
                                                     }
                                                     await _orderDeliveryDetailBusiness.AddAsync(orderDeliveryDetail);
                                                     list.Add(orderDelivery);

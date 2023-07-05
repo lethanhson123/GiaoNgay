@@ -20,7 +20,7 @@ import { MembershipService } from 'src/app/shared/Membership.service';
 export class OrderCallComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'DateCreated', 'ShopFullName', 'ShipperFullName', 'Quantity', 'Save'];
+  displayColumns: string[] = ['DateCreated', 'ShopFullName', 'ShipperFullName', 'Quantity', 'Save'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
@@ -38,9 +38,9 @@ export class OrderCallComponent implements OnInit {
 
   ngOnInit(): void {   
     this.onSearch();
-    this.id = setInterval(() => {
-      this.onSearch();
-    }, 60000);
+    // this.id = setInterval(() => {
+    //   this.onSearch();
+    // }, 60000);
   }  
   onChangeDateTimeBegin(value) {
     this.dateTimeBegin = new Date(value);
@@ -50,7 +50,7 @@ export class OrderCallComponent implements OnInit {
   }
   getToList() {
     this.isShowLoading = true;
-    this.OrderCallService.GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync(this.MembershipService.MembershipID, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
+    this.OrderCallService.GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.MembershipService.MembershipID, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
       res => {
         this.OrderCallService.list = res as OrderCall[];
         this.dataSource = new MatTableDataSource(this.OrderCallService.list.sort((a, b) => (a.ShopFullName > b.ShopFullName ? 1 : -1)));

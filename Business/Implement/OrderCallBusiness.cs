@@ -4,11 +4,14 @@
     {
         private readonly IOrderCallRepository _olrderCallRepository;
         private readonly IMembershipRepository _membershipRepository;
+        private readonly IOrderDeliveryBusiness _orderDeliveryBusiness;
         public OrderCallBusiness(IOrderCallRepository orderCallRepository
-            , IMembershipRepository membershipRepository) : base(orderCallRepository)
+            , IMembershipRepository membershipRepository
+            , IOrderDeliveryBusiness orderDeliveryBusiness) : base(orderCallRepository)
         {
             _olrderCallRepository = orderCallRepository;
             _membershipRepository = membershipRepository;
+            _orderDeliveryBusiness = orderDeliveryBusiness;
         }
         public override void Initialization(OrderCall model)
         {
@@ -39,6 +42,27 @@
                     model.ShipperAddress = shipper.Description;
                 }
             }
+        }
+        public override async Task<OrderCall> SaveAsync(OrderCall model)
+        {
+            int result = GlobalHelper.InitializationNumber;
+            Initialization(model);
+            if (model.ID > 0)
+            {
+                result = await _olrderCallRepository.UpdateAsync(model);
+            }
+            else
+            {
+                result = await _olrderCallRepository.AddAsync(model);
+            }
+            if (result > 0)
+            {
+                if (model.ShipperID > 0)
+                {
+                    await _orderDeliveryBusiness.UpdateByParentIDAndReceiveIDAndReceiveFullNameAsync(model.ID, model.ShipperID.Value, model.ShipperFullName);
+                }
+            }
+            return model;
         }
         public async Task<List<OrderCall>> GetBySearchStringToLisAsync(string searchString)
         {
@@ -121,7 +145,7 @@
             }
             return result;
         }
-        public async Task<List<OrderCall>> GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync(long membershipID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString)
+        public async Task<List<OrderCall>> GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long membershipID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString)
         {
             List<OrderCall> result = new List<OrderCall>();
             if (!string.IsNullOrEmpty(searchString))

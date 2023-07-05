@@ -17,6 +17,7 @@
         {
             DateCreated = GlobalHelper.InitializationDateTime;
             Quantity = 1;
+            CategoryOrderStatusID = 1;
         }
     }
 }

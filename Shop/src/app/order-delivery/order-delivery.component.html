@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col s12 m6 l6">
                     <h5 class="breadcrumbs-title mt-0 mb-0" style="color: #ffffff;">Lên đơn<span
-                            *ngIf="OrderDeliveryService.list">({{OrderDeliveryService.list.length}} items)</span>
+                            *ngIf="OrderDeliveryService.list"> ({{OrderDeliveryService.list.length}} items)</span>
                     </h5>
                 </div>
                 <div class="col s12 m6 l6 right-align-md">
@@ -65,13 +65,12 @@
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element"
                                             [hidden]="!OrderDeliveryService.isShowDateCreated">{{element.DateCreated |
-                                            date:'yyyy-MM-dd HH:mm:ss'}}</mat-cell>
+                                            date:'yyyy-MM-dd HH:mm'}}</mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="Barcode">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Đơn hàng
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element"><a target="_blank"
-                                                title="{{element.Barcode}}"
+                                        <mat-cell *matCellDef="let element"><a title="{{element.Barcode}}"
                                                 href="{{URLSub}}/{{element.ID}}"><b>{{element.Barcode}}</b></a></mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="ShopFullName">
@@ -127,18 +126,25 @@
                                             [hidden]="!OrderDeliveryService.isShowIsCompleteShop">Thanh toán shop
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element"
-                                            [hidden]="!OrderDeliveryService.isShowIsCompleteShop">{{element.IsCompleteShop}}</mat-cell>
+                                            [hidden]="!OrderDeliveryService.isShowIsCompleteShop">
+                                            <div *ngIf="element.IsCompleteShop==true">
+                                                OK
+                                            </div>
+                                            <div *ngIf="element.IsCompleteShop==false">
+                                                Chưa thanh toán
+                                            </div>
+                                        </mat-cell>
                                     </ng-container>
-                                    <ng-container matColumnDef="TotalBeforeTax">
+                                    <!-- <ng-container matColumnDef="TotalBeforeTax">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header
                                             [hidden]="!OrderDeliveryService.isShowTotalBeforeTax">Thành tiền
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element"
                                             [hidden]="!OrderDeliveryService.isShowTotalBeforeTax">
-                                            {{element.TotalBeforeTax | number:
-                                            '1.0-0'}}
+                                            <b>{{element.TotalBeforeTax | number:
+                                            '1.0-0'}}</b>
                                         </mat-cell>
-                                    </ng-container>
+                                    </ng-container> -->
                                     <ng-container matColumnDef="Save">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>
                                         </mat-header-cell>

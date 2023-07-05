@@ -12,6 +12,8 @@ import { DownloadService } from 'src/app/shared/Download.service';
 import { MembershipService } from 'src/app/shared/Membership.service';
 import { UploadComponent } from '../upload/upload.component';
 import { OrderDeliveryDisplayColumnsComponent } from './order-delivery-display-columns/order-delivery-display-columns.component';
+import { CategoryOrderStatus } from 'src/app/shared/CategoryOrderStatus.model';
+import { CategoryOrderStatusService } from 'src/app/shared/CategoryOrderStatus.service';
 
 @Component({
   selector: 'app-order-delivery',
@@ -32,6 +34,7 @@ export class OrderDeliveryComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     public OrderDeliveryService: OrderDeliveryService,
+    public CategoryOrderStatusService: CategoryOrderStatusService,
     public DownloadService: DownloadService,
     public MembershipService: MembershipService,
     public NotificationService: NotificationService,
@@ -41,10 +44,20 @@ export class OrderDeliveryComponent implements OnInit {
   }
 
   ngOnInit(): void {   
+    this.GetCategoryOrderStatusToList();
     this.onSearch();
     this.id = setInterval(() => {
       this.onSearch();
     }, 60000);
+  }
+  GetCategoryOrderStatusToList() {
+    this.CategoryOrderStatusService.GetAllToListAsync().subscribe(
+      res => {
+        this.CategoryOrderStatusService.list = (res as CategoryOrderStatus[]).sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1));
+      },
+      err => {
+      }
+    );
   }
   onChangeDateTimeBegin(value) {
     this.dateTimeBegin = new Date(value);
@@ -60,6 +73,7 @@ export class OrderDeliveryComponent implements OnInit {
     this.OrderDeliveryService.GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.MembershipService.MembershipID, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
       res => {
         this.OrderDeliveryService.list = res as OrderDelivery[];
+        console.log(this.OrderDeliveryService.list);
         this.displayColumns = this.OrderDeliveryService.displayColumns;
         this.dataSource = new MatTableDataSource(this.OrderDeliveryService.list.sort((a, b) => (a.DateCreated < b.DateCreated ? 1 : -1)));
         this.dataSource.sort = this.sort;

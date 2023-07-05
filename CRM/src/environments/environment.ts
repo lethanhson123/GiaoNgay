@@ -1,9 +1,9 @@
 export const environment = {
   production: false, 
-  DomainURL: "https://crm.giaongay.com.vn/",  
-  DomainDestination: "https://crm.giaongay.com.vn/#/",  
-  APIURL: "https://api.giaongay.com.vn/api/v1/",    
-  APIRootURL: "https://api.giaongay.com.vn/",    
+  DomainURL: "http://localhost:4200/",  
+  DomainDestination: "http://localhost:4200/#/",  
+  APIURL: "https://localhost:7080/api/v1/",    
+  APIRootURL: "https://localhost:7080/",    
   LoginURL: "https://login.giaongay.com.vn/",
   Website: "https://giaongay.com.vn/",
   Image: "Image",  

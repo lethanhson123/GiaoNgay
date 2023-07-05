@@ -11,6 +11,7 @@
         Task<string> UpdateByIDAndActiveAndOrderShipperIDAsync(long ID, bool active, long orderShipperID);
         Task<List<OrderDelivery>> GetByOrderReceiveIDToListAsync(long orderReceiveID);
         Task<string> UpdateByIDAndActiveAndOrderReceiveIDAsync(long ID, bool active, long orderReceiveID);
+        Task<string> UpdateByParentIDAndReceiveIDAndReceiveFullNameAsync(long parentID, long receiveID, string receiveFullName);
         Task<List<OrderDelivery>> GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync(long membershipID, int year, int month, int day, string searchString);
         Task<List<OrderDelivery>> GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long membershipID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString);
         Task<List<OrderDelivery>> GetByMembershipIDAndProvinceIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long membershipID, long provinceID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString);

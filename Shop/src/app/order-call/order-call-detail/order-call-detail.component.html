@@ -47,34 +47,35 @@
                 <input placeholder="Ghi chú" name="Note" [(ngModel)]="OrderCallService.formData.Note" type="text">
             </div>
         </div>
-    </div>
-    <div class="col s12 m12 l6">
-        <div class="col s12 m12 l12">
-            <div class="input-field col s8 m4 l8">
-                <input type="file" multiple (change)="changeImage($event.target.files)">
-            </div>
-            <div class="input-field col s4 m4 l4">
-                <a *ngIf="OrderCallService.formData.ID>0" class="btn-floating waves-effect waves-light cyan"
-                    (click)="onOrderCallFileAdd()"><i class="material-icons">cloud_upload</i></a>
+        <div class="col s4 m4 l4">
+            <div class="input-field">
+                <label for="Note">Hình đính kèm</label>
             </div>
         </div>
+        <div class="col s8 m8 l8">
+            <div class="input-field">
+                <input type="file" multiple (change)="changeImage($event.target.files)">
+            </div>
+        </div>        
+    </div>
+    <div class="col s12 m12 l6">       
         <div class="col s12 m12 l12">
             <div class="KhungOverflow">
                 <mat-table [dataSource]="dataSource" matSort>
                     <ng-container matColumnDef="Note">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Hình ảnh
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Hình đính kèm
                         </mat-header-cell>
                         <mat-cell *matCellDef="let element">
                             <a target="_blank" href="{{imageURL}}/{{element.Note}}" *ngIf="element.Note">
-                                <img class="responsive-img" src="{{imageURL}}/{{element.Note}}" />
+                                <img class="responsive-img" width="70%" src="{{imageURL}}/{{element.Note}}" />
                             </a>
                         </mat-cell>
                     </ng-container>
-                    <ng-container matColumnDef="actions">
+                    <ng-container matColumnDef="Save">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>
                         </mat-header-cell>
                         <mat-cell *matCellDef="let element">
-                            <a title="Xóa" class="mb-6 btn-floating waves-effect waves-light red"
+                            <a title="Xóa" class="btn-floating waves-effect waves-light red"
                                 (click)="onOrderCallFileDelete(element)"><i
                                     class="material-icons">delete_outline</i></a>
                         </mat-cell>

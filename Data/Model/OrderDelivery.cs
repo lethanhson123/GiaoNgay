@@ -79,6 +79,7 @@ namespace Data.Model
         public OrderDelivery()
         {            
             Active = true;
+            CategoryOrderStatusID = 1;
             IsExpress = false;
             IsShopPayment = false;
             IsPrepayment = false;

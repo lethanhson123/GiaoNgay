@@ -287,6 +287,11 @@ namespace Business.Implement
             var result = await _orderDeliveryRepository.UpdateByIDAndActiveAndOrderReceiveIDAsync(ID, active, orderReceiveID);
             return result;
         }
+        public virtual async Task<string> UpdateByParentIDAndReceiveIDAndReceiveFullNameAsync(long parentID, long receiveID, string receiveFullName)
+        {
+            var result = await _orderDeliveryRepository.UpdateByParentIDAndReceiveIDAndReceiveFullNameAsync(parentID, receiveID, receiveFullName);
+            return result;
+        }
         public async Task<List<OrderDelivery>> GetByMembershipIDAndSearchStringToLisAsync(long membershipID, string searchString)
         {
             List<OrderDelivery> result = new List<OrderDelivery>();

@@ -24,7 +24,7 @@ export class OrderCallDetailComponent implements OnInit {
 
   ID: number = environment.InitializationNumber;
   fileToUpload: any;
-  imageURL: string = environment.APIRootURL + "" + environment.Image + "/" + environment.OrderCall + "/";  
+  imageURL: string = environment.APIRootURL + "" + environment.Image + "/" + environment.OrderDelivery;  
   isShowLoading: boolean = false;
 
   dataSource: MatTableDataSource<any>;
@@ -106,8 +106,8 @@ export class OrderCallDetailComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.OrderCallService.SaveAsync(form.value).subscribe(
       res => {
-        this.notificationService.success(environment.SaveSuccess);
-        this.onClose();
+        this.OrderCallService.formData = res as OrderCall;
+        this.onOrderCallFileAdd();       
       },
       err => {
         this.notificationService.warn(environment.SaveNotSuccess);
@@ -140,15 +140,19 @@ export class OrderCallDetailComponent implements OnInit {
     );
   }
   onOrderCallFileAdd() {
-    this.OrderCallFileService.SaveAndUploadFiles(this.OrderCallService.formData.ID, this.fileToUpload).subscribe(
-      res => {
-        this.notificationService.success(environment.SaveSuccess);
-        this.GetOrderCallFileByParentIDToListAsync();
-      },
-      err => {
-        this.notificationService.warn(environment.SaveNotSuccess);
+    if (this.OrderCallService.formData) {
+      if (this.OrderCallService.formData.ID > 0) {
+        this.OrderCallFileService.SaveAndUploadFiles(this.OrderCallService.formData.ID, this.fileToUpload).subscribe(
+          res => {
+            this.GetOrderCallFileByParentIDToListAsync();
+            this.notificationService.success(environment.SaveSuccess);
+          },
+          err => {
+            this.notificationService.warn(environment.SaveNotSuccess);
+          }
+        );
       }
-    );
+    }
   }
   onOrderCallFileDelete(element: OrderCallFile) {
     if (confirm(environment.DeleteConfirm)) {

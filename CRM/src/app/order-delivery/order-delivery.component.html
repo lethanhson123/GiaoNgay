@@ -59,7 +59,7 @@
                                 <a title="Ẩn hiện cột" (click)="onShowHidden()"
                                     class="btn-floating waves-effect waves-light green darken-1"><i
                                         class="material-icons">all_inclusive</i></a>&nbsp;&nbsp;&nbsp;
-                                <a target="_blank" title="Thêm mới" href="{{URLSub}}/0"
+                                <a title="Thêm mới" href="{{URLSub}}/0"
                                     class="btn-floating waves-effect waves-light green darken-1"><i
                                         class="material-icons">add</i></a>&nbsp;&nbsp;&nbsp;
 
@@ -77,8 +77,7 @@
                                     <ng-container matColumnDef="Barcode">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Đơn hàng
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element"><a target="_blank"
-                                                title="{{element.Barcode}}"
+                                        <mat-cell *matCellDef="let element"><a title="{{element.Barcode}}"
                                                 href="{{URLSub}}/{{element.ID}}"><b>{{element.Barcode}}</b></a></mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="ShopFullName">

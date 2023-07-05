@@ -23,7 +23,7 @@ import { CategoryOrderStatusService } from 'src/app/shared/CategoryOrderStatus.s
 export class OrderCallComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['DateCreated', 'CategoryOrderStatusID', 'ShopFullName', 'ShipperFullName', 'Quantity', 'ShopAddress', 'Note', 'Save'];
+  displayColumns: string[] = ['DateCreated', 'CategoryOrderStatusID', 'ShopFullName', 'ShipperFullName', 'Quantity', 'Note', 'Save'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
