@@ -22,5 +22,7 @@
 
         Task<List<OrderDelivery>> GetCRMByShopAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long shopID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString);
         Task<List<OrderDelivery>> GetCRMByShipperAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long shipperID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString);
+        Task<List<OrderDelivery>> GetByMembershipIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long membershipID, long categoryOrderStatusID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString);
+        Task<List<OrderDelivery>> GetByShipperIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long shipperID, long categoryOrderStatusID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString);
     }
 }

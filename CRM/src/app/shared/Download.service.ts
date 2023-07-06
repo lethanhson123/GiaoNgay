@@ -18,26 +18,32 @@ export class DownloadService {
     initializationFormData() {
         this.formData = {
         }
-    }    
-    GetYear() {        
-        let url = this.aPIURL + this.controller + '/GetYear';     
-        const formUpload: FormData = new FormData();   
+    }
+    GetYear() {
+        let url = this.aPIURL + this.controller + '/GetYear';
+        const formUpload: FormData = new FormData();
         return this.httpClient.post(url, formUpload);
-    }      
-    GetMonth() {        
-        let url = this.aPIURL + this.controller + '/GetMonth';     
-        const formUpload: FormData = new FormData();   
+    }
+    GetMonth() {
+        let url = this.aPIURL + this.controller + '/GetMonth';
+        const formUpload: FormData = new FormData();
         return this.httpClient.post(url, formUpload);
-    }   
-    GetDay() {        
-        let url = this.aPIURL + this.controller + '/GetDay';     
-        const formUpload: FormData = new FormData();   
+    }
+    GetDay() {
+        let url = this.aPIURL + this.controller + '/GetDay';
+        const formUpload: FormData = new FormData();
         return this.httpClient.post(url, formUpload);
-    }   
+    }
     OrderDeliveryByIDToHTML(ID: number) {
         let url = this.aPIURL + this.controller + '/OrderDeliveryByIDToHTML';
         const params = new HttpParams()
             .set('ID', JSON.stringify(ID))
+        return this.httpClient.get(url, { params }).toPromise();
+    }
+    XoayTrai(fileName: string) {
+        let url = this.aPIURL + this.controller + '/XoayTrai';
+        const params = new HttpParams()
+            .set('fileName', fileName)
         return this.httpClient.get(url, { params }).toPromise();
     }
 }

@@ -21,7 +21,7 @@ import { MembershipService } from 'src/app/shared/Membership.service';
 export class OrderCallComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'DateCreated', 'ShopFullName', 'ShipperFullName', 'Quantity'];
+  displayColumns: string[] = ['ShopFullName', 'Quantity'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
@@ -52,7 +52,7 @@ export class OrderCallComponent implements OnInit {
   }
   getToList() {
     this.isShowLoading = true;
-    this.OrderCallService.GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync(this.MembershipService.MembershipID, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
+    this.OrderCallService.GetByMembershipIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.MembershipService.MembershipID, 1, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
       res => {
         this.OrderCallService.list = res as OrderCall[];
         this.dataSource = new MatTableDataSource(this.OrderCallService.list.sort((a, b) => (a.ShopFullName > b.ShopFullName ? 1 : -1)));

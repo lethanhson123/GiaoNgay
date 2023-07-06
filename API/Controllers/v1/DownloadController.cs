@@ -100,5 +100,20 @@
             }
             return Json(result);
         }
+
+
+        [HttpGet]
+        [Route("XoayTrai")]
+        public JsonResult XoayTrai(string fileName)
+        {
+            string result = GlobalHelper.InitializationString;
+            result = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Image, GlobalHelper.OrderDelivery, fileName);
+            using (Aspose.Imaging.Image image = Aspose.Imaging.Image.Load(result))
+            {
+                image.RotateFlip(Aspose.Imaging.RotateFlipType.Rotate90FlipXY);
+                image.Save(result);
+            }
+            return Json(result);
+        }
     }
 }

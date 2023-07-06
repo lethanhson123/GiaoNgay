@@ -31,6 +31,13 @@ export class OrderDeliveryFileService {
         formUpload.append('data', uploadData);        
         return this.httpClient.post(url, formUpload);
     }  
+    XoayAnhSangTraiAsync(formData: OrderDeliveryFile) {        
+        let url = this.aPIURL + this.controller + '/XoayAnhSangTraiAsync';
+        const uploadData = JSON.stringify(formData);
+        const formUpload: FormData = new FormData();
+        formUpload.append('data', uploadData);        
+        return this.httpClient.post(url, formUpload);
+    }  
     Remove(ID: number) {        
         let url = this.aPIURL + this.controller + '/Remove';
         const uploadData = JSON.stringify(ID);

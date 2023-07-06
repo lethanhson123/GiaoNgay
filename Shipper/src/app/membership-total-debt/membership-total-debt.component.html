@@ -37,59 +37,19 @@
                                         class="material-icons">search</i></a>&nbsp;&nbsp;&nbsp;                               
                             </div>
                             <div class="KhungOverflow">
-                                <mat-table [dataSource]="dataSource" matSort>
-                                    <ng-container matColumnDef="ID">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>ID
-                                        </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">{{element.ID}}</mat-cell>
-                                    </ng-container>
+                                <mat-table [dataSource]="dataSource" matSort>                                    
                                     <ng-container matColumnDef="DateCreated">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Ngày tạo
                                         </mat-header-cell>
                                         <mat-cell *matCellDef="let element">{{element.DateCreated |
-                                            date:'yyyy-MM-dd HH:mm:ss'}}</mat-cell>
+                                            date:'yyyy-MM-dd HH:mm'}}</mat-cell>
                                     </ng-container>
                                     <ng-container matColumnDef="Barcode">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Đơn hàng
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element"><a target="_blank"
+                                        <mat-cell *matCellDef="let element"><a
                                                 href="{{URLSub}}/{{element.ID}}"><b>{{element.Barcode}}</b></a></mat-cell>
-                                    </ng-container>
-                                    <ng-container matColumnDef="ShopFullName">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Shop
-                                        </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">{{element.ShopFullName}}</mat-cell>
-                                    </ng-container>                                   
-                                    <ng-container matColumnDef="IsCompleteShipper">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Thanh toán shipper
-                                        </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">{{element.IsCompleteShipper}}</mat-cell>
-                                    </ng-container>
-                                    <ng-container matColumnDef="TotalBeforeTax">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Thành tiền
-                                        </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">
-                                            <p
-                                                style="text-align: right; color: #000000; font-weight: bold; font-size: 20px;">
-                                                {{element.TotalBeforeTax | number:
-                                                '1.0-0'}}
-                                            </p>
-                                        </mat-cell>
-                                    </ng-container>
-                                    <ng-container matColumnDef="CategoryOrderStatusID">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái
-                                        </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">{{element.CategoryOrderStatusID}}</mat-cell>
-                                    </ng-container>
-                                    <ng-container matColumnDef="Save">
-                                        <mat-header-cell *matHeaderCellDef mat-sort-header>
-                                        </mat-header-cell>
-                                        <mat-cell *matCellDef="let element">
-                                            <a title="In đơn hàng"
-                                                class="btn-floating waves-effect waves-light green darken-1"
-                                                (click)="onPrint(element.ID)"><i class="material-icons">print</i></a>
-                                        </mat-cell>
-                                    </ng-container>
+                                    </ng-container>                                                                                                                                                                                                   
                                     <ng-container matColumnDef="loading">
                                         <mat-footer-cell *matFooterCellDef colspan="4">
                                             Đang tải dữ liệu...

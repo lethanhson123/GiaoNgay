@@ -19,7 +19,7 @@ export class MembershipTotalDebtComponent implements OnInit {
 
   URLSub: string = environment.DomainDestination + "OrderDeliveryInfo";
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['ID', 'DateCreated', 'Barcode', 'ShopFullName', 'TotalBeforeTax', 'IsCompleteShipper', 'CategoryOrderStatusID', 'Save'];
+  displayColumns: string[] = ['DateCreated', 'Barcode'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;

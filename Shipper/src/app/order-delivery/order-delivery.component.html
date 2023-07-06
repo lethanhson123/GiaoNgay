@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m6 l6">
-                    <h5 class="breadcrumbs-title mt-0 mb-0" style="color: #ffffff;">Đơn hàng <span
+                    <h5 class="breadcrumbs-title mt-0 mb-0" style="color: #ffffff;">Phát hàng <span
                             *ngIf="OrderDeliveryService.list">({{OrderDeliveryService.list.length}} items)</span>
                     </h5>
                 </div>
@@ -14,7 +14,7 @@
                         </li>
                         <li class="breadcrumb-item"><a href="#" style="color: #ffffff;">Hệ thống</a>
                         </li>
-                        <li class="breadcrumb-item active" style="color: #ffffff;">Đơn hàng
+                        <li class="breadcrumb-item active" style="color: #ffffff;">Phát hàng
                         </li>
                     </ol>
                 </div>
@@ -24,15 +24,19 @@
     <div class="col s12">
         <div class="container">
             <div class="section section-data-tables">
-                <div class="card">                    
+                <div class="card">
                     <div id="1">
                         <div class="card-content">
                             <div class="col s12 m12 l3">
-                                <input matInput [ngModel]="dateTimeBegin | date:'yyyy-MM-dd'" (ngModelChange)="onChangeDateTimeBegin($event)" [ngModelOptions]="{ updateOn: 'blur' }" type="date"
+                                <input matInput [ngModel]="dateTimeBegin | date:'yyyy-MM-dd'"
+                                    (ngModelChange)="onChangeDateTimeBegin($event)"
+                                    [ngModelOptions]="{ updateOn: 'blur' }" type="date"
                                     class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
                             <div class="col s12 m12 l3">
-                                <input matInput [ngModel]="dateTimeEnd | date:'yyyy-MM-dd'" (ngModelChange)="onChangeDateTimeEnd($event)" [ngModelOptions]="{ updateOn: 'blur' }" type="date"
+                                <input matInput [ngModel]="dateTimeEnd | date:'yyyy-MM-dd'"
+                                    (ngModelChange)="onChangeDateTimeEnd($event)"
+                                    [ngModelOptions]="{ updateOn: 'blur' }" type="date"
                                     class="mat-input-element mat-form-field-autofill-control" autocomplete="off">
                             </div>
                             <div class="col s12 m12 l3">
@@ -42,16 +46,16 @@
                             <div class="col s12 m12 l3">
                                 <a title="Tìm" (click)="onSearch()" style="margin-top: 5px;"
                                     class="btn-floating waves-effect waves-light green darken-1"><i
-                                        class="material-icons">search</i></a>&nbsp;&nbsp;&nbsp;                               
+                                        class="material-icons">search</i></a>&nbsp;&nbsp;&nbsp;
                             </div>
                             <div class="KhungOverflow">
                                 <mat-table [dataSource]="dataSource" matSort>
                                     <ng-container matColumnDef="Barcode">
                                         <mat-header-cell *matHeaderCellDef mat-sort-header>Đơn hàng
                                         </mat-header-cell>
-                                        <mat-cell *matCellDef="let element"><a target="_blank"
+                                        <mat-cell *matCellDef="let element"><a
                                                 href="{{URLSub}}/{{element.ID}}"><b>{{element.Barcode}}</b></a></mat-cell>
-                                    </ng-container>                                    
+                                    </ng-container>
                                     <ng-container matColumnDef="loading">
                                         <mat-footer-cell *matFooterCellDef colspan="4">
                                             Đang tải dữ liệu...
@@ -74,7 +78,7 @@
                                     [showFirstLastButtons]></mat-paginator>                            -->
                             </div>
                         </div>
-                    </div>                          
+                    </div>
                 </div>
             </div>
         </div>

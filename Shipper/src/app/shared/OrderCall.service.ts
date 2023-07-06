@@ -31,6 +31,13 @@ export class OrderCallService {
         formUpload.append('data', uploadData);
         return this.httpClient.post(url, formUpload);
     }
+    ShipperSaveAsync(formData: OrderCall) {
+        let url = this.aPIURL + this.controller + '/ShipperSaveAsync';
+        const uploadData = JSON.stringify(formData);
+        const formUpload: FormData = new FormData();
+        formUpload.append('data', uploadData);
+        return this.httpClient.post(url, formUpload);
+    }
     Remove(ID: number) {
         let url = this.aPIURL + this.controller + '/Remove';
         const uploadData = JSON.stringify(ID);
@@ -99,6 +106,16 @@ export class OrderCallService {
         let url = this.aPIURL + this.controller + '/GetByMembershipIDAndDateTimeEndAndSearchStringToLisAsync';
         const formUpload: FormData = new FormData();
         formUpload.append('membershipID', JSON.stringify(membershipID));
+        formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
+        formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));
+        formUpload.append('searchString', searchString);
+        return this.httpClient.post(url, formUpload);
+    }
+    GetByMembershipIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(membershipID: number, categoryOrderStatusID: number, dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetByMembershipIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync';
+        const formUpload: FormData = new FormData();
+        formUpload.append('membershipID', JSON.stringify(membershipID));
+        formUpload.append('categoryOrderStatusID', JSON.stringify(categoryOrderStatusID));
         formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
         formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));
         formUpload.append('searchString', searchString);

@@ -141,7 +141,7 @@ export class OrderDeliveryService {
         formUpload.append('searchString', searchString);
         return this.httpClient.post(url, formUpload);
     }
-    GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync(membershipID:number, year: number, month: number, day: number, searchString: string) {
+    GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync(membershipID: number, year: number, month: number, day: number, searchString: string) {
         let url = this.aPIURL + this.controller + '/GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync';
         const membershipIDData = JSON.stringify(membershipID);
         const yearData = JSON.stringify(year);
@@ -170,7 +170,7 @@ export class OrderDeliveryService {
         const formUpload: FormData = new FormData();
         formUpload.append('ID', IDData);
         formUpload.append('active', activeData);
-        formUpload.append('orderShipperID', orderShipperIDData);        
+        formUpload.append('orderShipperID', orderShipperIDData);
         return this.httpClient.post(url, formUpload);
     }
     GetByOrderReceiveIDToListAsync(orderReceiveID: number) {
@@ -188,7 +188,7 @@ export class OrderDeliveryService {
         const formUpload: FormData = new FormData();
         formUpload.append('ID', IDData);
         formUpload.append('active', activeData);
-        formUpload.append('orderReceiveID', orderReceiveIDData);        
+        formUpload.append('orderReceiveID', orderReceiveIDData);
         return this.httpClient.post(url, formUpload);
     }
     GetByShipperIDAndIsCompleteShipperListAsync(shopID: number) {
@@ -197,10 +197,20 @@ export class OrderDeliveryService {
             .set('shopID', JSON.stringify(shopID))
         return this.httpClient.get(url, { params }).toPromise();
     }
-    GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(membershipID: Number, dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
+    GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(membershipID: number, dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
         let url = this.aPIURL + this.controller + '/GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync';
         const formUpload: FormData = new FormData();
         formUpload.append('membershipID', JSON.stringify(membershipID));
+        formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
+        formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));
+        formUpload.append('searchString', searchString);
+        return this.httpClient.post(url, formUpload);
+    }
+    GetByShipperIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(shipperID: number, categoryOrderStatusID: number, dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetByShipperIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync';
+        const formUpload: FormData = new FormData();
+        formUpload.append('shipperID', JSON.stringify(shipperID));
+        formUpload.append('categoryOrderStatusID', JSON.stringify(categoryOrderStatusID));
         formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
         formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));
         formUpload.append('searchString', searchString);

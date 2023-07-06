@@ -15,6 +15,8 @@ import { CategoryOrderStatusService } from 'src/app/shared/CategoryOrderStatus.s
 import { Province } from 'src/app/shared/Province.model';
 import { ProvinceService } from 'src/app/shared/Province.service';
 import { OrderDeliveryDisplayColumnsComponent } from './order-delivery-display-columns/order-delivery-display-columns.component';
+import { Membership } from 'src/app/shared/Membership.model';
+import { MembershipService } from 'src/app/shared/Membership.service';
 
 @Component({
   selector: 'app-order-delivery',
@@ -48,6 +50,7 @@ export class OrderDeliveryComponent implements OnInit {
   constructor(
     public OrderDeliveryService: OrderDeliveryService,
     public CategoryOrderStatusService: CategoryOrderStatusService,
+    public MembershipService: MembershipService,
     public ProvinceService: ProvinceService,
     public DownloadService: DownloadService,
     public NotificationService: NotificationService,
@@ -57,6 +60,7 @@ export class OrderDeliveryComponent implements OnInit {
   ngOnInit(): void {
     this.GetProvinceToList();
     this.GetCategoryOrderStatusToList();
+    this.GetShipperToList();
     this.onSearch();
     this.id = setInterval(() => {
       this.onSearch();
@@ -116,6 +120,15 @@ export class OrderDeliveryComponent implements OnInit {
       }
     );
   }
+  GetShipperToList() {
+    this.MembershipService.GetByParentIDToListAsync(environment.ShipperID).subscribe(
+      res => {
+        this.MembershipService.listShipper = (res as Membership[]).sort((a, b) => (a.Display > b.Display ? 1 : -1));        
+      },
+      err => {
+      }
+    );
+  }
   GetCategoryOrderStatusToList() {
     this.CategoryOrderStatusService.GetAllToListAsync().subscribe(
       res => {
@@ -146,5 +159,15 @@ export class OrderDeliveryComponent implements OnInit {
     const dialog = this.dialog.open(OrderDeliveryDisplayColumnsComponent, dialogConfig);
     dialog.afterClosed().subscribe(() => {
     });
+  }
+  onSave(element: OrderDelivery) {
+    this.OrderDeliveryService.SaveAsync(element).subscribe(
+      res => {
+        this.NotificationService.success(environment.SaveSuccess);        
+      },
+      err => {
+        this.NotificationService.warn(environment.SaveNotSuccess);        
+      }
+    );
   }
 }

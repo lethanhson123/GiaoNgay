@@ -1,4 +1,6 @@
 ﻿
+using Data.Model;
+
 namespace API.Controllers.v1
 {
     [ApiController]
@@ -13,6 +15,23 @@ namespace API.Controllers.v1
         {
             _webHostEnvironment = webHostEnvironment;
             _orderDeliveryFileBusiness = orderDeliveryFileBusiness;
+        }
+        [HttpPost]
+        [Route("XoayAnhSangTraiAsync")]
+        public async Task<OrderDeliveryFile> XoayAnhSangTraiAsync()
+        {
+            OrderDeliveryFile result = JsonConvert.DeserializeObject<OrderDeliveryFile>(Request.Form["data"]);
+            string filePathIn = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Image, GlobalHelper.OrderDelivery, result.Note);
+            string fileExtension = Path.GetExtension(result.Note);
+            result.Note = result.ParentID + "_" + GlobalHelper.InitializationDateTimeCode + fileExtension;
+            string filePathOut = Path.Combine(_webHostEnvironment.WebRootPath, GlobalHelper.Image, GlobalHelper.OrderDelivery, result.Note);
+            using (Aspose.Imaging.Image image = Aspose.Imaging.Image.Load(filePathIn))
+            {
+                image.RotateFlip(Aspose.Imaging.RotateFlipType.Rotate90FlipXY);
+                image.Save(filePathOut);
+                await _orderDeliveryFileBusiness.UpdateAsync(result);
+            }
+            return result;
         }
         [HttpPost]
         [Route("SaveAndUploadFiles")]

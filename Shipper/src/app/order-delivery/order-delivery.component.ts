@@ -41,22 +41,21 @@ export class OrderDeliveryComponent implements OnInit {
     this.dateTimeEnd = new Date(value);
   }
   ngOnInit(): void {
-   
+
     this.onSearch();
     this.id = setInterval(() => {
       this.onSearch();
     }, 60000);
   }
-  
+
   onSearch() {
     this.getToList();
   }
   getToList() {
-    this.isShowLoading = true;   
-    this.OrderDeliveryService.GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.MembershipService.MembershipID, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
+    this.isShowLoading = true;
+    this.OrderDeliveryService.GetByShipperIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.MembershipService.MembershipID, 2, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
       res => {
         this.OrderDeliveryService.list = res as OrderDelivery[];
-        console.log(this.OrderDeliveryService.list);
         this.dataSource = new MatTableDataSource(this.OrderDeliveryService.list.sort((a, b) => (a.DateCreated < b.DateCreated ? 1 : -1)));
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;

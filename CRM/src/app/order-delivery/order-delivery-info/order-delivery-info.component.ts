@@ -42,7 +42,7 @@ import { OrderDeliveryHistoryDetailComponent } from 'src/app/order-delivery-hist
 })
 export class OrderDeliveryInfoComponent implements OnInit {
 
-  imageURL: string = environment.APIRootURL + "" + environment.Image + "/" + environment.OrderDelivery + "/";
+  imageURL: string = environment.APIRootURL + "" + environment.Image + "/" + environment.OrderDelivery;
   URLSub: string = environment.DomainDestination + "OrderDeliveryInfo";
   isShowLoading: boolean = false;
   queryString: string = environment.InitializationString;
@@ -162,7 +162,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
     );
   }
   getCategoryOrderStatusToList() {
-    this.CategoryOrderStatusService.GetAllToListAsync().subscribe(
+    this.CategoryOrderStatusService.GetByActiveToListAsync(true).subscribe(
       res => {
         this.CategoryOrderStatusService.list = (res as CategoryOrderStatus[]).sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1));
         if (this.CategoryOrderStatusService.list) {
@@ -333,24 +333,31 @@ export class OrderDeliveryInfoComponent implements OnInit {
         this.isShowLoading = false;
       }
     );
+  }  
+  onXoayAnhSangTraiAsync(element: OrderDeliveryFile) {    
+    this.OrderDeliveryFileService.XoayAnhSangTraiAsync(element).subscribe(
+      res => {       
+        this.GetOrderDeliveryFileByParentIDToListAsync(); 
+      },
+      err => {
+        
+      }
+    );
   }
   changeImage(files: FileList) {
     if (files) {
       this.fileToUpload = files;
     }
   }
-  GetOrderDeliveryFileByParentIDToListAsync() {
-    this.isShowLoading = true;
+  GetOrderDeliveryFileByParentIDToListAsync() {    
     this.OrderDeliveryFileService.GetByParentIDToListAsync(this.OrderDeliveryService.formData.ID).subscribe(
       res => {
         this.OrderDeliveryFileService.list = res as OrderDeliveryFile[];
         this.dataSourceFile = new MatTableDataSource(this.OrderDeliveryFileService.list.sort((a, b) => (a.CreatedDate > b.CreatedDate ? 1 : -1)));
         this.dataSourceFile.sort = this.sort;
-        this.dataSourceFile.paginator = this.paginator;
-        this.isShowLoading = false;
+        this.dataSourceFile.paginator = this.paginator;        
       },
-      err => {
-        this.isShowLoading = false;
+      err => {        
       }
     );
   }
@@ -479,7 +486,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
         if (this.MembershipService.formData) {
           this.OrderDeliveryService.formData.CustomerID = this.MembershipService.formData.ID;
           this.OrderDeliveryService.formData.CustomerFullName = this.MembershipService.formData.Display;
-          this.OrderDeliveryService.formData.DeliveryAddress = this.MembershipService.formData.Address;          
+          this.OrderDeliveryService.formData.DeliveryAddress = this.MembershipService.formData.Address;
         }
       },
       err => {

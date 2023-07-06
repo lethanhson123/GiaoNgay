@@ -100,6 +100,7 @@ namespace Business.Implement
                     if (modelExist != null)
                     {
                         modelExist.CategoryOrderStatusID = model.CategoryOrderStatusID;
+                        modelExist.Note = model.Note;
                         model.RowVersion = await _orderDeliveryRepository.UpdateAsync(modelExist);
                         if (model.RowVersion > 0)
                         {
@@ -442,6 +443,50 @@ namespace Business.Implement
                     dateTimeBegin = new DateTime(dateTimeBegin.Year, dateTimeBegin.Month, dateTimeBegin.Day, 0, 0, 0);
                     dateTimeEnd = new DateTime(dateTimeEnd.Year, dateTimeEnd.Month, dateTimeEnd.Day, 23, 59, 59);
                     result = await _orderDeliveryRepository.GetByCondition(item => (item.ShopID == membershipID || item.ReceiveID == membershipID || item.ShipperID == membershipID) && (item.DateCreated >= dateTimeBegin && item.DateCreated <= dateTimeEnd)).ToListAsync();
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                }
+            }
+            return result;
+        }
+        public async Task<List<OrderDelivery>> GetByShipperIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long shipperID, long categoryOrderStatusID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString)
+        {
+            List<OrderDelivery> result = new List<OrderDelivery>();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                result = await GetByMembershipIDAndSearchStringToLisAsync(shipperID, searchString);
+            }
+            else
+            {
+                try
+                {
+                    dateTimeBegin = new DateTime(dateTimeBegin.Year, dateTimeBegin.Month, dateTimeBegin.Day, 0, 0, 0);
+                    dateTimeEnd = new DateTime(dateTimeEnd.Year, dateTimeEnd.Month, dateTimeEnd.Day, 23, 59, 59);
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.Active==true && item.ShipperID == shipperID && item.CategoryOrderStatusID == categoryOrderStatusID && (item.DateCreated >= dateTimeBegin && item.DateCreated <= dateTimeEnd)).ToListAsync();
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                }
+            }
+            return result;
+        }
+        public async Task<List<OrderDelivery>> GetByMembershipIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long membershipID, long categoryOrderStatusID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString)
+        {
+            List<OrderDelivery> result = new List<OrderDelivery>();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                result = await GetByMembershipIDAndSearchStringToLisAsync(membershipID, searchString);
+            }
+            else
+            {
+                try
+                {
+                    dateTimeBegin = new DateTime(dateTimeBegin.Year, dateTimeBegin.Month, dateTimeBegin.Day, 0, 0, 0);
+                    dateTimeEnd = new DateTime(dateTimeEnd.Year, dateTimeEnd.Month, dateTimeEnd.Day, 23, 59, 59);
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.Active == true && item.CategoryOrderStatusID == categoryOrderStatusID && (item.ShopID == membershipID || item.ReceiveID == membershipID || item.ShipperID == membershipID) && (item.DateCreated >= dateTimeBegin && item.DateCreated <= dateTimeEnd)).ToListAsync();
                 }
                 catch (Exception ex)
                 {

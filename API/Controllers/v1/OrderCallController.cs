@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 
 namespace API.Controllers.v1
 {
@@ -13,6 +14,14 @@ namespace API.Controllers.v1
             , IOrderCallFileBusiness olrderCallFileBusiness) : base(orderCallBusiness)
         {            
             _orderCallBusiness = orderCallBusiness;         
+        }
+        [HttpPost]
+        [Route("ShipperSaveAsync")]
+        public virtual async Task<OrderCall> ShipperSaveAsync()
+        {
+            OrderCall result = JsonConvert.DeserializeObject<OrderCall>(Request.Form["data"]);
+            await _orderCallBusiness.ShipperSaveAsync(result);
+            return result;
         }
 
         [HttpPost]
@@ -57,6 +66,18 @@ namespace API.Controllers.v1
             DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
             string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
             var result = await _orderCallBusiness.GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(membershipID, dateTimeBegin, dateTimeEnd, searchString);
+            return result;
+        }
+        [HttpPost]
+        [Route("GetByMembershipIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync")]
+        public virtual async Task<List<OrderCall>> GetByMembershipIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync()
+        {
+            long membershipID = JsonConvert.DeserializeObject<long>(Request.Form["membershipID"]);
+            long categoryOrderStatusID = JsonConvert.DeserializeObject<long>(Request.Form["categoryOrderStatusID"]);
+            DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
+            DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
+            string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
+            var result = await _orderCallBusiness.GetByMembershipIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(membershipID, categoryOrderStatusID, dateTimeBegin, dateTimeEnd, searchString);
             return result;
         }
         [HttpPost]

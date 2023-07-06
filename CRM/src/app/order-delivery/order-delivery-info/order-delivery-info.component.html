@@ -142,7 +142,8 @@
                                         </div>
                                         <div class="col s12 m12 l8">
                                             <div class="input-field">
-                                                <input placeholder="Điện thoại" name="CustomerPhone" (keyup)="onMembershipSearchByPhone()"
+                                                <input placeholder="Điện thoại" name="CustomerPhone"
+                                                    (keyup)="onMembershipSearchByPhone()"
                                                     [(ngModel)]="OrderDeliveryService.formData.CustomerPhone"
                                                     type="text">
                                             </div>
@@ -512,6 +513,10 @@
                                                 <mat-header-cell *matHeaderCellDef mat-sort-header>
                                                 </mat-header-cell>
                                                 <mat-cell *matCellDef="let element">
+                                                    <a style="margin-right: 10px; margin-left: 10px;" title="Xoay trái"
+                                                        class="btn-floating waves-effect waves-light green darken-1"
+                                                        (click)="onXoayAnhSangTraiAsync(element)"><i
+                                                            class="material-icons">rotate_left</i></a>
                                                     <a title="Xóa" class="btn-floating waves-effect waves-light red"
                                                         (click)="onOrderDeliveryFileDelete(element)"><i
                                                             class="material-icons">delete_outline</i></a>

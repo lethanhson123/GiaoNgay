@@ -64,7 +64,7 @@ namespace API.Controllers.v1
         [Route("GetCRMByShopAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync")]
         public virtual async Task<List<OrderDelivery>> GetCRMByShopAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync()
         {
-            long shopID = JsonConvert.DeserializeObject<long>(Request.Form["shopID"]);            
+            long shopID = JsonConvert.DeserializeObject<long>(Request.Form["shopID"]);
             DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
             DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
             string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
@@ -103,6 +103,30 @@ namespace API.Controllers.v1
             DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
             string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
             var result = await _orderDeliveryBusiness.GetByMembershipIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(membershipID, dateTimeBegin, dateTimeEnd, searchString);
+            return result;
+        }
+        [HttpPost]
+        [Route("GetByShipperIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync")]
+        public virtual async Task<List<OrderDelivery>> GetByShipperIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync()
+        {
+            long shipperID = JsonConvert.DeserializeObject<long>(Request.Form["shipperID"]);
+            long categoryOrderStatusID = JsonConvert.DeserializeObject<long>(Request.Form["categoryOrderStatusID"]);
+            DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
+            DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
+            string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
+            var result = await _orderDeliveryBusiness.GetByShipperIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(shipperID, categoryOrderStatusID, dateTimeBegin, dateTimeEnd, searchString);
+            return result;
+        }
+        [HttpPost]
+        [Route("GetByMembershipIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync")]
+        public virtual async Task<List<OrderDelivery>> GetByMembershipIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync()
+        {
+            long membershipID = JsonConvert.DeserializeObject<long>(Request.Form["membershipID"]);
+            long categoryOrderStatusID = JsonConvert.DeserializeObject<long>(Request.Form["categoryOrderStatusID"]);
+            DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
+            DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
+            string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
+            var result = await _orderDeliveryBusiness.GetByMembershipIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(membershipID, categoryOrderStatusID, dateTimeBegin, dateTimeEnd, searchString);
             return result;
         }
         [HttpPost]

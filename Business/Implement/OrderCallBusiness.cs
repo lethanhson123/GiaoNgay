@@ -43,6 +43,25 @@
                 }
             }
         }
+        public virtual async Task<OrderCall> ShipperSaveAsync(OrderCall model)
+        {
+            int result = GlobalHelper.InitializationNumber;
+            if (model.ID > 0)
+            {
+                OrderCall modelExist = await _olrderCallRepository.GetByIDAsync(model.ID);
+                if (modelExist != null)
+                {
+                    modelExist.CategoryOrderStatusID = model.CategoryOrderStatusID;
+                    modelExist.Note = model.Note;
+                    result = await _olrderCallRepository.UpdateAsync(modelExist);
+                    if (result > 0)
+                    {
+                        await _orderDeliveryBusiness.UpdateByParentIDAsync(model.ID);
+                    }
+                }
+            }
+            return model;
+        }
         public override async Task<OrderCall> SaveAsync(OrderCall model)
         {
             int result = GlobalHelper.InitializationNumber;
@@ -156,6 +175,28 @@
                     dateTimeBegin = new DateTime(dateTimeBegin.Year, dateTimeBegin.Month, dateTimeBegin.Day, 0, 0, 0);
                     dateTimeEnd = new DateTime(dateTimeEnd.Year, dateTimeEnd.Month, dateTimeEnd.Day, 23, 59, 59);
                     result = await _olrderCallRepository.GetByCondition(item => (item.ShopID == membershipID || item.ShipperID == membershipID) && (item.DateCreated >= dateTimeBegin && item.DateCreated <= dateTimeEnd)).ToListAsync();
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                }
+            }
+            return result;
+        }
+        public async Task<List<OrderCall>> GetByMembershipIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long membershipID, long categoryOrderStatusID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString)
+        {
+            List<OrderCall> result = new List<OrderCall>();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                result = await GetByMembershipIDAndSearchStringToLisAsync(membershipID, searchString);
+            }
+            else
+            {
+                try
+                {
+                    dateTimeBegin = new DateTime(dateTimeBegin.Year, dateTimeBegin.Month, dateTimeBegin.Day, 0, 0, 0);
+                    dateTimeEnd = new DateTime(dateTimeEnd.Year, dateTimeEnd.Month, dateTimeEnd.Day, 23, 59, 59);
+                    result = await _olrderCallRepository.GetByCondition(item => item.Active == true && item.CategoryOrderStatusID == categoryOrderStatusID && (item.ShopID == membershipID || item.ShipperID == membershipID) && (item.DateCreated >= dateTimeBegin && item.DateCreated <= dateTimeEnd)).ToListAsync();
                 }
                 catch (Exception ex)
                 {
