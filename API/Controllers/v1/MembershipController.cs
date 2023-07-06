@@ -24,5 +24,30 @@
         {
             return await _membershipBusiness.GetByTotalDebtGreaterThanZeroToListAsync();
         }
+        [HttpPost]
+        [Route("GetByPhone")]
+        public virtual Membership GetByPhone()
+        {
+            string phone = JsonConvert.DeserializeObject<string>(Request.Form["data"]);
+            Membership result = _membershipBusiness.GetByPhone(phone);
+            return result;
+        }
+        [HttpPost]
+        [Route("GetByPhoneAsync")]
+        public virtual async Task<Membership> GetByPhoneAsync()
+        {
+            Membership result = new Membership();
+            try
+            {
+                //string phone = JsonConvert.DeserializeObject<string>(Request.Form["data"]);
+                string phone = Request.Form["data"].ToString();
+                result = await _membershipBusiness.GetByPhoneAsync(phone);
+            }
+            catch (Exception e)
+            {
+                string message = e.Message;
+            }
+            return result;
+        }
     }
 }

@@ -84,5 +84,17 @@ export class MembershipService {
         const formUpload: FormData = new FormData();        
         return this.httpClient.post(url, formUpload);
     } 
+    GetByPhone(phone: string) {        
+        let url = this.aPIURL + this.controller + '/GetByPhone';        
+        const formUpload: FormData = new FormData();
+        formUpload.append('data', phone);        
+        return this.httpClient.post(url, formUpload);
+    }  
+    GetByPhoneAsync(phone: string) {        
+        let url = this.aPIURL + this.controller + '/GetByPhoneAsync';        
+        const formUpload: FormData = new FormData();
+        formUpload.append('data', phone);        
+        return this.httpClient.post(url, formUpload);
+    } 
 }
 

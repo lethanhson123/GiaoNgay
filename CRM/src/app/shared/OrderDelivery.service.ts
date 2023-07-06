@@ -16,7 +16,7 @@ export class OrderDeliveryService {
     isShowCategoryOrderStatusID: boolean = true;
     isShowIsCompleteShop: boolean = true;
     isShowTotalBeforeTax: boolean = true;
-    
+
     list: OrderDelivery[] | undefined;
     list01: OrderDelivery[] | undefined;
     list02: OrderDelivery[] | undefined;
@@ -115,6 +115,43 @@ export class OrderDeliveryService {
         let url = this.aPIURL + this.controller + '/GetCRMByProvinceIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync';
         const formUpload: FormData = new FormData();
         formUpload.append('provinceID', JSON.stringify(provinceID));
+        formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
+        formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));
+        formUpload.append('searchString', searchString);
+        return this.httpClient.post(url, formUpload);
+    }
+    GetCRMByProvinceIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(provinceID: number, categoryOrderStatusID: number, dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetCRMByProvinceIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync';
+        const formUpload: FormData = new FormData();
+        formUpload.append('provinceID', JSON.stringify(provinceID));
+        formUpload.append('categoryOrderStatusID', JSON.stringify(categoryOrderStatusID));
+        formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
+        formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));
+        formUpload.append('searchString', searchString);
+        return this.httpClient.post(url, formUpload);
+    }
+    GetCRMByCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(categoryOrderStatusID: number, dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetCRMByCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync';
+        const formUpload: FormData = new FormData();
+        formUpload.append('categoryOrderStatusID', JSON.stringify(categoryOrderStatusID));
+        formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
+        formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));
+        formUpload.append('searchString', searchString);
+        return this.httpClient.post(url, formUpload);
+    }
+    GetCRMByShopAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(shopID: number, dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetCRMByShopAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync';
+        const formUpload: FormData = new FormData();
+        formUpload.append('shopID', JSON.stringify(shopID));
+        formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
+        formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));
+        formUpload.append('searchString', searchString);
+        return this.httpClient.post(url, formUpload);
+    }
+    GetCRMByShipperAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(shipperID: number, dateTimeBegin: Date, dateTimeEnd: Date, searchString: string) {
+        let url = this.aPIURL + this.controller + '/GetCRMByShipperAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync';
+        const formUpload: FormData = new FormData();
+        formUpload.append('shipperID', JSON.stringify(shipperID));
         formUpload.append('dateTimeBegin', JSON.stringify(dateTimeBegin));
         formUpload.append('dateTimeEnd', JSON.stringify(dateTimeEnd));
         formUpload.append('searchString', searchString);

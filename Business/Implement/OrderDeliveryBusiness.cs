@@ -6,15 +6,18 @@ namespace Business.Implement
     {
 
         private readonly IOrderDeliveryRepository _orderDeliveryRepository;
-        private readonly IOrderDeliveryDetailRepository _orderDeliveryDetailRepository;
-        private readonly ICategoryOrderDetailRepository _categoryOrderDetailRepository;
+        private readonly IOrderDeliveryDetailBusiness _orderDeliveryDetailBusiness;
+        private readonly ICategoryOrderDetailBusiness _categoryOrderDetailBusiness;
+        private readonly IMembershipBusiness _membershipBusiness;
         public OrderDeliveryBusiness(IOrderDeliveryRepository orderDeliveryRepository
-            , IOrderDeliveryDetailRepository orderDeliveryDetailRepository
-            , ICategoryOrderDetailRepository categoryOrderDetailRepository) : base(orderDeliveryRepository)
+            , IOrderDeliveryDetailBusiness orderDeliveryDetailBusiness
+            , ICategoryOrderDetailBusiness categoryOrderDetailBusiness
+            , IMembershipBusiness membershipBusiness) : base(orderDeliveryRepository)
         {
             _orderDeliveryRepository = orderDeliveryRepository;
-            _orderDeliveryDetailRepository = orderDeliveryDetailRepository;
-            _categoryOrderDetailRepository = categoryOrderDetailRepository;
+            _orderDeliveryDetailBusiness = orderDeliveryDetailBusiness;
+            _categoryOrderDetailBusiness = categoryOrderDetailBusiness;
+            _membershipBusiness = membershipBusiness;
         }
         public virtual void Initialization01(OrderDelivery model, string webRootPath)
         {
@@ -57,6 +60,22 @@ namespace Business.Implement
             if (model.CategoryOrderStatusID == null)
             {
                 model.CategoryOrderStatusID = 1;
+            }
+            if (model.CustomerID == null)
+            {
+                if (!string.IsNullOrEmpty(model.CustomerPhone))
+                {
+                    Membership customer = _membershipBusiness.GetByCondition(item => item.Phone == model.CustomerPhone).FirstOrDefault();
+                    if (customer == null)
+                    {
+                        customer = new Membership();
+                        customer.Phone = model.CustomerPhone;
+                        customer.FullName = model.CustomerFullName;
+                        customer.Address = model.DeliveryAddress;
+                        _membershipBusiness.Add(customer);
+                    }
+                    model.CustomerID = customer.ID;
+                }
             }
             if (string.IsNullOrEmpty(model.Barcode))
             {
@@ -195,10 +214,10 @@ namespace Business.Implement
             CategoryOrderDetail categoryOrderDetail = new CategoryOrderDetail();
             OrderDeliveryDetail orderDeliveryDetail = new OrderDeliveryDetail();
             orderDeliveryDetail.ParentID = model.ID;
-            categoryOrderDetail = await _categoryOrderDetailRepository.GetByCondition(item => item.ProvinceID == model.DeliveryProvinceID && item.DistrictID == model.DeliveryDistrictID && item.WardID == model.DeliveryWardID).FirstOrDefaultAsync();
+            categoryOrderDetail = await _categoryOrderDetailBusiness.GetByCondition(item => item.ProvinceID == model.DeliveryProvinceID && item.DistrictID == model.DeliveryDistrictID && item.WardID == model.DeliveryWardID).FirstOrDefaultAsync();
             if (categoryOrderDetail == null)
             {
-                categoryOrderDetail = await _categoryOrderDetailRepository.GetByIDAsync(1);
+                categoryOrderDetail = await _categoryOrderDetailBusiness.GetByIDAsync(1);
             }
             if (categoryOrderDetail != null)
             {
@@ -208,7 +227,7 @@ namespace Business.Implement
                     orderDeliveryDetail.CategoryOrderDetailID = categoryOrderDetail.ID;
                     orderDeliveryDetail.Name = categoryOrderDetail.Name;
                     orderDeliveryDetail.Price = categoryOrderDetail.Price;
-                    orderDeliveryDetail.RowVersion = await _orderDeliveryDetailRepository.AddAsync(orderDeliveryDetail);
+                    orderDeliveryDetail.RowVersion = await _orderDeliveryDetailBusiness.AddAsync(orderDeliveryDetail);
                 }
             }
             return orderDeliveryDetail;
@@ -267,6 +286,94 @@ namespace Business.Implement
             }
             return result;
         }
+        public async Task<List<OrderDelivery>> GetCRMByProvinceIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long provinceID, long categoryOrderStatusID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString)
+        {
+            List<OrderDelivery> result = new List<OrderDelivery>();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                result = await GetBySearchStringToLisAsync(searchString);
+            }
+            else
+            {
+                try
+                {
+                    dateTimeBegin = new DateTime(dateTimeBegin.Year, dateTimeBegin.Month, dateTimeBegin.Day, 0, 0, 0);
+                    dateTimeEnd = new DateTime(dateTimeEnd.Year, dateTimeEnd.Month, dateTimeEnd.Day, 23, 59, 59);
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.Active == true && item.DeliveryProvinceID == provinceID && item.CategoryOrderStatusID == categoryOrderStatusID && (item.DateCreated >= dateTimeBegin && item.DateCreated <= dateTimeEnd)).ToListAsync();
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                }
+            }
+            return result;
+        }
+        public async Task<List<OrderDelivery>> GetCRMByShopAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long shopID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString)
+        {
+            List<OrderDelivery> result = new List<OrderDelivery>();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                result = await GetBySearchStringToLisAsync(searchString);
+            }
+            else
+            {
+                try
+                {
+                    dateTimeBegin = new DateTime(dateTimeBegin.Year, dateTimeBegin.Month, dateTimeBegin.Day, 0, 0, 0);
+                    dateTimeEnd = new DateTime(dateTimeEnd.Year, dateTimeEnd.Month, dateTimeEnd.Day, 23, 59, 59);
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.Active == true && item.ShopID == shopID && (item.CategoryOrderStatusID == 30 || item.CategoryOrderStatusID == 40) && (item.DateCreated >= dateTimeBegin && item.DateCreated <= dateTimeEnd)).ToListAsync();
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                }
+            }
+            return result;
+        }
+        public async Task<List<OrderDelivery>> GetCRMByShipperAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long shipperID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString)
+        {
+            List<OrderDelivery> result = new List<OrderDelivery>();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                result = await GetBySearchStringToLisAsync(searchString);
+            }
+            else
+            {
+                try
+                {
+                    dateTimeBegin = new DateTime(dateTimeBegin.Year, dateTimeBegin.Month, dateTimeBegin.Day, 0, 0, 0);
+                    dateTimeEnd = new DateTime(dateTimeEnd.Year, dateTimeEnd.Month, dateTimeEnd.Day, 23, 59, 59);
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.Active == true && (item.ShipperID == shipperID || item.ReceiveID == shipperID) && (item.CategoryOrderStatusID == 30 || item.CategoryOrderStatusID == 40) && (item.DateCreated >= dateTimeBegin && item.DateCreated <= dateTimeEnd)).ToListAsync();
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                }
+            }
+            return result;
+        }
+        public async Task<List<OrderDelivery>> GetCRMByCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long categoryOrderStatusID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString)
+        {
+            List<OrderDelivery> result = new List<OrderDelivery>();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                result = await GetBySearchStringToLisAsync(searchString);
+            }
+            else
+            {
+                try
+                {
+                    dateTimeBegin = new DateTime(dateTimeBegin.Year, dateTimeBegin.Month, dateTimeBegin.Day, 0, 0, 0);
+                    dateTimeEnd = new DateTime(dateTimeEnd.Year, dateTimeEnd.Month, dateTimeEnd.Day, 23, 59, 59);
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.Active == true && item.CategoryOrderStatusID == categoryOrderStatusID && (item.DateCreated >= dateTimeBegin && item.DateCreated <= dateTimeEnd)).ToListAsync();
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                }
+            }
+            return result;
+        }
         public async Task<List<OrderDelivery>> GetByOrderShipperIDToListAsync(long orderShipperID)
         {
             List<OrderDelivery> result = await _orderDeliveryRepository.GetByOrderShipperIDToListAsync(orderShipperID);
@@ -287,9 +394,9 @@ namespace Business.Implement
             var result = await _orderDeliveryRepository.UpdateByIDAndActiveAndOrderReceiveIDAsync(ID, active, orderReceiveID);
             return result;
         }
-        public virtual async Task<string> UpdateByParentIDAndReceiveIDAndReceiveFullNameAsync(long parentID, long receiveID, string receiveFullName)
+        public virtual async Task<string> UpdateByParentIDAsync(long parentID)
         {
-            var result = await _orderDeliveryRepository.UpdateByParentIDAndReceiveIDAndReceiveFullNameAsync(parentID, receiveID, receiveFullName);
+            var result = await _orderDeliveryRepository.UpdateByParentIDAsync(parentID);
             return result;
         }
         public async Task<List<OrderDelivery>> GetByMembershipIDAndSearchStringToLisAsync(long membershipID, string searchString)

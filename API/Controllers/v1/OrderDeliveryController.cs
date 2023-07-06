@@ -38,6 +38,51 @@ namespace API.Controllers.v1
             return result;
         }
         [HttpPost]
+        [Route("GetCRMByProvinceIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync")]
+        public virtual async Task<List<OrderDelivery>> GetCRMByProvinceIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync()
+        {
+            long provinceID = JsonConvert.DeserializeObject<long>(Request.Form["provinceID"]);
+            long categoryOrderStatusID = JsonConvert.DeserializeObject<long>(Request.Form["categoryOrderStatusID"]);
+            DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
+            DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
+            string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
+            var result = await _orderDeliveryBusiness.GetCRMByProvinceIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(provinceID, categoryOrderStatusID, dateTimeBegin, dateTimeEnd, searchString);
+            return result;
+        }
+        [HttpPost]
+        [Route("GetCRMByCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync")]
+        public virtual async Task<List<OrderDelivery>> GetCRMByCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync()
+        {
+            long categoryOrderStatusID = JsonConvert.DeserializeObject<long>(Request.Form["categoryOrderStatusID"]);
+            DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
+            DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
+            string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
+            var result = await _orderDeliveryBusiness.GetCRMByCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(categoryOrderStatusID, dateTimeBegin, dateTimeEnd, searchString);
+            return result;
+        }
+        [HttpPost]
+        [Route("GetCRMByShopAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync")]
+        public virtual async Task<List<OrderDelivery>> GetCRMByShopAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync()
+        {
+            long shopID = JsonConvert.DeserializeObject<long>(Request.Form["shopID"]);            
+            DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
+            DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
+            string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
+            var result = await _orderDeliveryBusiness.GetCRMByShopAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(shopID, dateTimeBegin, dateTimeEnd, searchString);
+            return result;
+        }
+        [HttpPost]
+        [Route("GetCRMByShipperAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync")]
+        public virtual async Task<List<OrderDelivery>> GetCRMByShipperAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync()
+        {
+            long shipperID = JsonConvert.DeserializeObject<long>(Request.Form["shipperID"]);
+            DateTime dateTimeBegin = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeBegin"]);
+            DateTime dateTimeEnd = JsonConvert.DeserializeObject<DateTime>(Request.Form["dateTimeEnd"]);
+            string searchString = JsonConvert.DeserializeObject<string>(Request.Form["searchString"]);
+            var result = await _orderDeliveryBusiness.GetCRMByShipperAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(shipperID, dateTimeBegin, dateTimeEnd, searchString);
+            return result;
+        }
+        [HttpPost]
         [Route("GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync")]
         public virtual async Task<List<OrderDelivery>> GetByMembershipIDYearAndMonthAndDayAndSearchStringToLisAsync()
         {

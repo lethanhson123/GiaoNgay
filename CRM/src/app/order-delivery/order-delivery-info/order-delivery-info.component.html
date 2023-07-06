@@ -76,7 +76,7 @@
                                         </div>
                                         <div class="col s12 m12 l4">
                                             <div class="input-field">
-                                                <label for="ReceiveID">Kho</label>
+                                                <label for="ReceiveID">Lấy hàng</label>
                                             </div>
                                         </div>
                                         <div class="col s12 m12 l8">
@@ -142,7 +142,7 @@
                                         </div>
                                         <div class="col s12 m12 l8">
                                             <div class="input-field">
-                                                <input placeholder="Điện thoại" name="CustomerPhone"
+                                                <input placeholder="Điện thoại" name="CustomerPhone" (keyup)="onMembershipSearchByPhone()"
                                                     [(ngModel)]="OrderDeliveryService.formData.CustomerPhone"
                                                     type="text">
                                             </div>

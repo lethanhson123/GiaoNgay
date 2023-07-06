@@ -49,7 +49,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
   BarcodeURL: string = environment.APIRootURL + environment.Barcode;
   QRcodeURL: string = environment.APIRootURL + environment.QRcode;
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[] = ['Name', 'Quantity', 'Price', 'Note', 'Total','Weight','Length','Width','Height', 'Save'];
+  displayColumns: string[] = ['Name', 'Quantity', 'Price', 'Note', 'Total', 'Weight', 'Length', 'Width', 'Height', 'Save'];
 
   dataSourceFile: MatTableDataSource<any>;
   displayColumnsFile: string[] = ['Note', 'actions'];
@@ -315,7 +315,7 @@ export class OrderDeliveryInfoComponent implements OnInit {
       );
     }
   }
-  onOrderDeliveryDetailSave(element: OrderDeliveryDetail) {    
+  onOrderDeliveryDetailSave(element: OrderDeliveryDetail) {
     this.OrderDeliveryDetailService.SaveAsync(element).subscribe(
       res => {
         this.GetByQueryString001();
@@ -467,6 +467,20 @@ export class OrderDeliveryInfoComponent implements OnInit {
         dialog.afterClosed().subscribe(() => {
           this.GetByQueryString001();
         });
+      },
+      err => {
+      }
+    );
+  }
+  onMembershipSearchByPhone() {
+    this.MembershipService.GetByPhoneAsync(this.OrderDeliveryService.formData.CustomerPhone).subscribe(
+      res => {
+        this.MembershipService.formData = res as OrderDeliveryHistory;
+        if (this.MembershipService.formData) {
+          this.OrderDeliveryService.formData.CustomerID = this.MembershipService.formData.ID;
+          this.OrderDeliveryService.formData.CustomerFullName = this.MembershipService.formData.Display;
+          this.OrderDeliveryService.formData.DeliveryAddress = this.MembershipService.formData.Address;          
+        }
       },
       err => {
       }

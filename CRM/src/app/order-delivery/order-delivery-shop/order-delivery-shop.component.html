@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m6 l6">
-                    <h5 class="breadcrumbs-title mt-0 mb-0" style="color: #ffffff;">Kho <span
+                    <h5 class="breadcrumbs-title mt-0 mb-0" style="color: #ffffff;">Shop <span
                             *ngIf="OrderDeliveryService.list">({{OrderDeliveryService.list.length}} items)</span>
                     </h5>
                 </div>
@@ -14,7 +14,7 @@
                         </li>
                         <li class="breadcrumb-item"><a href="#" style="color: #ffffff;">Lên đơn</a>
                         </li>
-                        <li class="breadcrumb-item active" style="color: #ffffff;">Kho
+                        <li class="breadcrumb-item active" style="color: #ffffff;">Shop
                         </li>
                     </ol>
                 </div>
@@ -42,8 +42,8 @@
                             <div class="col s12 m12 l3">
                                 <mat-select
                                     style="padding-top:14px; padding-bottom:10px; border-bottom-color: #000000; border-bottom-width: 1px; border-bottom-style: solid;"
-                                    name="ProvinceID" class="browser-default" [(ngModel)]="provinceID">
-                                    <mat-option *ngFor="let item of ProvinceService.list" [value]="item.ID">
+                                    name="shopID" class="browser-default" [(ngModel)]="shopID">
+                                    <mat-option *ngFor="let item of MembershipService.listShop" [value]="item.ID">
                                         {{item.Display}}
                                     </mat-option>
                                 </mat-select>

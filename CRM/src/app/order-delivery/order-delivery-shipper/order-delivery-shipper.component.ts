@@ -7,23 +7,25 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { OrderDelivery } from 'src/app/shared/OrderDelivery.model';
 import { OrderDeliveryService } from 'src/app/shared/OrderDelivery.service';
-import { OrderDeliveryDetailComponent } from './order-delivery-detail/order-delivery-detail.component';
+
 import { DateHelper } from 'src/app/shared/DateHelper.model';
 import { DownloadService } from 'src/app/shared/Download.service';
 import { CategoryOrderStatus } from 'src/app/shared/CategoryOrderStatus.model';
 import { CategoryOrderStatusService } from 'src/app/shared/CategoryOrderStatus.service';
 import { Province } from 'src/app/shared/Province.model';
 import { ProvinceService } from 'src/app/shared/Province.service';
-import { OrderDeliveryDisplayColumnsComponent } from './order-delivery-display-columns/order-delivery-display-columns.component';
+import { OrderDeliveryDisplayColumnsComponent } from '../order-delivery-display-columns/order-delivery-display-columns.component';
+import { Membership } from 'src/app/shared/Membership.model';
+import { MembershipService } from 'src/app/shared/Membership.service';
 
 @Component({
-  selector: 'app-order-delivery',
-  templateUrl: './order-delivery.component.html',
-  styleUrls: ['./order-delivery.component.css']
+  selector: 'app-order-delivery-shipper',
+  templateUrl: './order-delivery-shipper.component.html',
+  styleUrls: ['./order-delivery-shipper.component.css']
 })
-export class OrderDeliveryComponent implements OnInit {
+export class OrderDeliveryShipperComponent implements OnInit {
 
-  provinceID: number = environment.InitializationNumber;
+  shipperID: number = environment.InitializationNumber;
   URLSub: string = environment.DomainDestination + "OrderDeliveryInfo";
   dataSource: MatTableDataSource<any>;
   displayColumns: string[];
@@ -47,6 +49,7 @@ export class OrderDeliveryComponent implements OnInit {
   id: any;
   constructor(
     public OrderDeliveryService: OrderDeliveryService,
+    public MembershipService: MembershipService,
     public CategoryOrderStatusService: CategoryOrderStatusService,
     public ProvinceService: ProvinceService,
     public DownloadService: DownloadService,
@@ -55,7 +58,7 @@ export class OrderDeliveryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.GetProvinceToList();
+    this.GetShipperToList();
     this.GetCategoryOrderStatusToList();
     this.onSearch();
     this.id = setInterval(() => {
@@ -67,13 +70,22 @@ export class OrderDeliveryComponent implements OnInit {
       clearInterval(this.id);
     }
   }
-  GetProvinceToList() {
-    this.ProvinceService.GetAllToListAsync().subscribe(
+
+  onChangeDateTimeBegin(value) {
+    this.dateTimeBegin = new Date(value);
+  }
+  onChangeDateTimeEnd(value) {
+    this.dateTimeEnd = new Date(value);
+  }
+  GetShipperToList() {
+    this.MembershipService.GetByParentIDToListAsync(environment.ShipperID).subscribe(
       res => {
-        this.ProvinceService.list = (res as Province[]).sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1));
-        if (this.ProvinceService.list) {
-          if (this.ProvinceService.list.length > 0) {
-            this.provinceID = this.ProvinceService.list[0].ID;
+        this.MembershipService.listShipper = (res as Membership[]).sort((a, b) => (a.Display > b.Display ? 1 : -1));
+        if (this.MembershipService.listShipper) {
+          if (this.MembershipService.listShipper.length > 0) {
+            if (this.shipperID == 0) {
+              this.shipperID = this.MembershipService.listShipper[0].ID;              
+            }
           }
         }
       },
@@ -81,16 +93,9 @@ export class OrderDeliveryComponent implements OnInit {
       }
     );
   }
-  onChangeDateTimeBegin(value) {
-    this.dateTimeBegin = new Date(value);
-  }
-  onChangeDateTimeEnd(value) {
-    this.dateTimeEnd = new Date(value);
-  }
-
   GetToLisAsync() {
     this.isShowLoading = true;
-    this.OrderDeliveryService.GetCRMByProvinceIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.provinceID, 2, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
+    this.OrderDeliveryService.GetCRMByShipperAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.shipperID, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
       res => {
         this.OrderDeliveryService.list = res as OrderDelivery[];
         this.displayColumns = this.OrderDeliveryService.displayColumns;

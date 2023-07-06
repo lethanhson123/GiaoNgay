@@ -69,5 +69,19 @@ export class CategoryOrderStatusService {
         const formUpload: FormData = new FormData();        
         return this.httpClient.post(url, formUpload);
     } 
+    GetByActiveToList(active: boolean) {        
+        let url = this.aPIURL + this.controller + '/GetByActiveToList';
+        const uploadData = JSON.stringify(active);
+        const formUpload: FormData = new FormData();
+        formUpload.append('data', uploadData);        
+        return this.httpClient.post(url, formUpload);
+    }  
+    GetByActiveToListAsync(active: boolean) {        
+        let url = this.aPIURL + this.controller + '/GetByActiveToListAsync';
+        const uploadData = JSON.stringify(active);
+        const formUpload: FormData = new FormData();
+        formUpload.append('data', uploadData);        
+        return this.httpClient.post(url, formUpload);
+    } 
 }
 

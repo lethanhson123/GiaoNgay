@@ -7,26 +7,26 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { OrderDelivery } from 'src/app/shared/OrderDelivery.model';
 import { OrderDeliveryService } from 'src/app/shared/OrderDelivery.service';
-import { OrderDeliveryDetailComponent } from './order-delivery-detail/order-delivery-detail.component';
 import { DateHelper } from 'src/app/shared/DateHelper.model';
 import { DownloadService } from 'src/app/shared/Download.service';
 import { CategoryOrderStatus } from 'src/app/shared/CategoryOrderStatus.model';
 import { CategoryOrderStatusService } from 'src/app/shared/CategoryOrderStatus.service';
 import { Province } from 'src/app/shared/Province.model';
 import { ProvinceService } from 'src/app/shared/Province.service';
-import { OrderDeliveryDisplayColumnsComponent } from './order-delivery-display-columns/order-delivery-display-columns.component';
+import { OrderDeliveryDisplayColumnsComponent } from '../order-delivery-display-columns/order-delivery-display-columns.component';
+import { Membership } from 'src/app/shared/Membership.model';
+import { MembershipService } from 'src/app/shared/Membership.service';
 
 @Component({
-  selector: 'app-order-delivery',
-  templateUrl: './order-delivery.component.html',
-  styleUrls: ['./order-delivery.component.css']
+  selector: 'app-order-delivery1',
+  templateUrl: './order-delivery1.component.html',
+  styleUrls: ['./order-delivery1.component.css']
 })
-export class OrderDeliveryComponent implements OnInit {
-
-  provinceID: number = environment.InitializationNumber;
+export class OrderDelivery1Component implements OnInit {
+  
   URLSub: string = environment.DomainDestination + "OrderDeliveryInfo";
   dataSource: MatTableDataSource<any>;
-  displayColumns: string[];
+  displayColumns: string[]=['DateCreated', 'Barcode', 'CategoryOrderStatusID', 'ShopFullName', 'ReceiveID', 'Note', 'Save'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   isShowLoading: boolean = false;
@@ -47,6 +47,7 @@ export class OrderDeliveryComponent implements OnInit {
   id: any;
   constructor(
     public OrderDeliveryService: OrderDeliveryService,
+    public MembershipService: MembershipService,
     public CategoryOrderStatusService: CategoryOrderStatusService,
     public ProvinceService: ProvinceService,
     public DownloadService: DownloadService,
@@ -54,9 +55,9 @@ export class OrderDeliveryComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
-  ngOnInit(): void {
-    this.GetProvinceToList();
+  ngOnInit(): void {    
     this.GetCategoryOrderStatusToList();
+    this.GetShipperToList();
     this.onSearch();
     this.id = setInterval(() => {
       this.onSearch();
@@ -66,34 +67,27 @@ export class OrderDeliveryComponent implements OnInit {
     if (this.id) {
       clearInterval(this.id);
     }
-  }
-  GetProvinceToList() {
-    this.ProvinceService.GetAllToListAsync().subscribe(
-      res => {
-        this.ProvinceService.list = (res as Province[]).sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1));
-        if (this.ProvinceService.list) {
-          if (this.ProvinceService.list.length > 0) {
-            this.provinceID = this.ProvinceService.list[0].ID;
-          }
-        }
-      },
-      err => {
-      }
-    );
-  }
+  }  
   onChangeDateTimeBegin(value) {
     this.dateTimeBegin = new Date(value);
   }
   onChangeDateTimeEnd(value) {
     this.dateTimeEnd = new Date(value);
   }
-
+  GetShipperToList() {
+    this.MembershipService.GetByParentIDToListAsync(environment.ShipperID).subscribe(
+      res => {
+        this.MembershipService.listShipper = (res as Membership[]).sort((a, b) => (a.Display > b.Display ? 1 : -1));        
+      },
+      err => {
+      }
+    );
+  }
   GetToLisAsync() {
     this.isShowLoading = true;
-    this.OrderDeliveryService.GetCRMByProvinceIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(this.provinceID, 2, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
+    this.OrderDeliveryService.GetCRMByCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(1, this.dateTimeBegin, this.dateTimeEnd, this.searchString).subscribe(
       res => {
-        this.OrderDeliveryService.list = res as OrderDelivery[];
-        this.displayColumns = this.OrderDeliveryService.displayColumns;
+        this.OrderDeliveryService.list = res as OrderDelivery[];        
         this.dataSource = new MatTableDataSource(this.OrderDeliveryService.list.sort((a, b) => (a.DateCreated < b.DateCreated ? 1 : -1)));
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -137,14 +131,15 @@ export class OrderDeliveryComponent implements OnInit {
         }
       );
     }
-  }
-  onShowHidden() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = environment.DialogConfigWidth;
-    const dialog = this.dialog.open(OrderDeliveryDisplayColumnsComponent, dialogConfig);
-    dialog.afterClosed().subscribe(() => {
-    });
+  }  
+  onSave(element: OrderDelivery) {
+    this.OrderDeliveryService.SaveAsync(element).subscribe(
+      res => {
+        this.NotificationService.success(environment.SaveSuccess);        
+      },
+      err => {
+        this.NotificationService.warn(environment.SaveNotSuccess);        
+      }
+    );
   }
 }

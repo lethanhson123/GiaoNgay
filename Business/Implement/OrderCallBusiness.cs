@@ -57,10 +57,7 @@
             }
             if (result > 0)
             {
-                if (model.ShipperID > 0)
-                {
-                    await _orderDeliveryBusiness.UpdateByParentIDAndReceiveIDAndReceiveFullNameAsync(model.ID, model.ShipperID.Value, model.ShipperFullName);
-                }
+                await _orderDeliveryBusiness.UpdateByParentIDAsync(model.ID);
             }
             return model;
         }

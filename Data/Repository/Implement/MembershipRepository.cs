@@ -14,6 +14,6 @@
             DataTable dt = await SQLHelper.FillDataTableAsync(GlobalHelper.SQLServerConectionString, "sp_MembershipGetByTotalDebtGreaterThanZero");
             list = SQLHelper.ToList<Membership>(dt);
             return list;
-        }
+        }       
     }
 }

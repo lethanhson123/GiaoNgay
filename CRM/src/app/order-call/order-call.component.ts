@@ -58,7 +58,7 @@ export class OrderCallComponent implements OnInit {
     );
   }
   GetCategoryOrderStatusToList() {
-    this.CategoryOrderStatusService.GetAllToListAsync().subscribe(
+    this.CategoryOrderStatusService.GetByActiveToListAsync(true).subscribe(
       res => {
         this.CategoryOrderStatusService.list = (res as CategoryOrderStatus[]).sort((a, b) => (a.SortOrder > b.SortOrder ? 1 : -1));
       },

@@ -63,18 +63,16 @@ namespace Data.Repository.Implement
             }
             return result;
         }
-        public async Task<string> UpdateByParentIDAndReceiveIDAndReceiveFullNameAsync(long parentID, long receiveID, string receiveFullName)
+        public async Task<string> UpdateByParentIDAsync(long parentID)
         {
             string result = GlobalHelper.InitializationString;
             if (parentID > 0)
             {
                 SqlParameter[] parameters =
                  {
-                    new SqlParameter("@ParentID",parentID),
-                    new SqlParameter("@ReceiveID",receiveID),
-                    new SqlParameter("@ReceiveFullName",receiveFullName),
+                    new SqlParameter("@ParentID",parentID),                    
                 };
-                result = await SQLHelper.ExecuteNonQueryAsync(GlobalHelper.SQLServerConectionString, "sp_OrderDeliveryUpdateByParentIDAndReceiveIDAndReceiveFullName", parameters);
+                result = await SQLHelper.ExecuteNonQueryAsync(GlobalHelper.SQLServerConectionString, "sp_OrderDeliveryUpdateByParentID", parameters);
             }
             return result;
         }

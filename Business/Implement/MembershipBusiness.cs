@@ -153,6 +153,16 @@ namespace Business.Implement
             List<Membership> result = await _membershipRepository.GetByTotalDebtGreaterThanZeroToListAsync();
             return result;
         }
+        public Membership GetByPhone(string phone)
+        {
+            Membership result = _membershipRepository.GetByCondition(item => item.Phone == phone).FirstOrDefault();
+            return result;
+        }
+        public async Task<Membership> GetByPhoneAsync(string phone)
+        {
+            Membership result = await _membershipRepository.GetByCondition(item => item.Phone == phone).FirstOrDefaultAsync();
+            return result;
+        }
     }
-   
+
 }

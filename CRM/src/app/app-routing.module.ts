@@ -25,6 +25,9 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { QuickAccessComponent } from './quick-access/quick-access.component';
 import { MembershipTotalDebtInfoComponent } from './membership-total-debt/membership-total-debt-info/membership-total-debt-info.component';
 import { MembershipTotalDebtComponent } from './membership-total-debt/membership-total-debt.component';
+import { OrderDelivery1Component } from './order-delivery/order-delivery1/order-delivery1.component';
+import { OrderDeliveryShopComponent } from './order-delivery/order-delivery-shop/order-delivery-shop.component';
+import { OrderDeliveryShipperComponent } from './order-delivery/order-delivery-shipper/order-delivery-shipper.component';
 
 const routes: Routes = [  
   { path: '', redirectTo: '/Homepage', pathMatch: 'full' },
@@ -60,6 +63,15 @@ const routes: Routes = [
   },
   {
     path: 'OrderDelivery', component: OrderDeliveryComponent,
+  },
+  {
+    path: 'OrderDelivery1', component: OrderDelivery1Component,
+  },
+  {
+    path: 'OrderDeliveryShop', component: OrderDeliveryShopComponent,
+  },
+  {
+    path: 'OrderDeliveryShipper', component: OrderDeliveryShipperComponent,
   },
   {
     path: 'OrderDeliveryInfo/:ID', component: OrderDeliveryInfoComponent,
