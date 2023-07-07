@@ -1,4 +1,6 @@
-﻿namespace API.Controllers.v1
+﻿using Microsoft.AspNetCore.Hosting;
+
+namespace API.Controllers.v1
 {
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
@@ -48,6 +50,12 @@
                 string message = e.Message;
             }
             return result;
+        }
+        [HttpGet]
+        [Route("XoayTrai")]
+        public async Task<List<Membership>> XoayTrai(long parentID)
+        {          
+            return await _membershipBusiness.GetByParentIDToListAsync(parentID);
         }
     }
 }
