@@ -2,6 +2,7 @@
 {
 	public interface IOrderDeliveryBusiness : IBaseBusiness<OrderDelivery>
 	{
+        string CreateQRCodeCCCD(string webRootPath, string QRCode);
         Task<List<OrderDelivery>> GetCRMByDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString);
         Task<List<OrderDelivery>> GetCRMByProvinceIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long provinceID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString);
         Task<List<OrderDelivery>> GetCRMByProvinceIDAndCategoryOrderStatusIDAndDateTimeBeginAndDateTimeEndAndSearchStringToLisAsync(long provinceID, long categoryOrderStatusID, DateTime dateTimeBegin, DateTime dateTimeEnd, string searchString);

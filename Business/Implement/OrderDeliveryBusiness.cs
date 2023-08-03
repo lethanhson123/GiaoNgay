@@ -90,6 +90,12 @@ namespace Business.Implement
                 model.QRcodeFile = qRCode.FileName;
             }
         }
+        public virtual string CreateQRCodeCCCD(string webRootPath, string QRCode)
+        {
+            string pathQRcode = Path.Combine(webRootPath, GlobalHelper.QRcode);
+            Helper.Model.QRCodeModel qRCode = QRCodeHelper.CreateQRCodeCCCD(pathQRcode, QRCode);
+            return pathQRcode + @"\" + qRCode.FileName;
+        }
         public virtual async Task<OrderDelivery> SaveMembershipAsync(OrderDelivery model)
         {
             try
@@ -464,7 +470,7 @@ namespace Business.Implement
                 {
                     dateTimeBegin = new DateTime(dateTimeBegin.Year, dateTimeBegin.Month, dateTimeBegin.Day, 0, 0, 0);
                     dateTimeEnd = new DateTime(dateTimeEnd.Year, dateTimeEnd.Month, dateTimeEnd.Day, 23, 59, 59);
-                    result = await _orderDeliveryRepository.GetByCondition(item => item.Active==true && item.ShipperID == shipperID && item.CategoryOrderStatusID == categoryOrderStatusID && (item.DateCreated >= dateTimeBegin && item.DateCreated <= dateTimeEnd)).ToListAsync();
+                    result = await _orderDeliveryRepository.GetByCondition(item => item.Active == true && item.ShipperID == shipperID && item.CategoryOrderStatusID == categoryOrderStatusID && (item.DateCreated >= dateTimeBegin && item.DateCreated <= dateTimeEnd)).ToListAsync();
                 }
                 catch (Exception ex)
                 {

@@ -267,5 +267,12 @@ namespace API.Controllers.v1
             }
             return result;
         }
+        [HttpGet]
+        [Route("CreateQRCodeCCCD")]
+        public virtual string CreateQRCodeCCCD(string QRCode)
+        {
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            return _orderDeliveryBusiness.CreateQRCodeCCCD(webRootPath, QRCode);
+        }
     }
 }
